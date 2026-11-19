@@ -1,0 +1,667 @@
+Write a Python script that reads a large CSV in chunks with pandas and writes each chunk to a partitioned Parquet dataset by date.
+Why is my pandas merge producing duplicate rows? Left df has 10k rows, right has 8k, result has 45k.
+Convert this pandas groupby/apply pipeline to Polars lazy API for better performance.
+Add retry with exponential backoff to my requests-based API ingestion function. It should handle 429 and 5xx responses.
+Set up an Airflow DAG that runs daily, pulls from a Postgres table, and loads to S3 as Parquet.
+I'm getting `pyarrow.lib.ArrowInvalid: Could not convert 'N/A' with type str: tried to convert to int64`. How do I fix my schema handling?
+Refactor etl.py into separate extract, transform, and load modules with type hints.
+write pytest tests for my clean_customer_data() function, use fixtures for sample dataframes
+How do I dedupe rows in PySpark keeping only the latest record per user_id based on updated_at?
+Explain why my Spark job has one straggler task taking 40 minutes and suggest salting fixes.
+Create a Pydantic model to validate incoming JSON events and route invalid ones to a dead letter file.
+Profile this script and tell me where memory is being used. It OOMs on a 6GB JSON lines file.
+Replace the nested for loops in transform.py with vectorized numpy operations.
+Add logging with structured JSON output to the pipeline instead of print statements.
+Write a SQLAlchemy upsert for Postgres using ON CONFLICT DO UPDATE for a batch of dicts.
+What's the difference between dbt incremental models with merge vs delete+insert strategies?
+Build a small CLI with Typer that takes --start-date and --end-date and backfills the pipeline.
+TypeError: Object of type Decimal is not JSON serializable — fix my serializer in export.py
+Convert all timestamps in this dataframe from naive local time to UTC, handling DST ambiguity.
+Migrate setup.py and requirements.txt to a pyproject.toml using uv.
+Look through the repo and find where we're opening DB connections without closing them.
+Write a Dagster asset that materializes a daily aggregate table from raw events.
+Make this function async with aiohttp so we can fetch 500 URLs concurrently with a semaphore limit of 20.
+Add Great Expectations checks for null rates and uniqueness on the orders table.
+How can I read only specific columns and row groups from a Parquet file on S3 without downloading it all?
+Rewrite this SQL query as a pandas pipeline using method chaining.
+Why does df.to_sql with method='multi' run slower than the default for me?
+Set up a Dockerfile for this Python ETL job, slim image, non-root user, pinned dependencies.
+Write a generator that streams rows from a Postgres server-side cursor in batches of 5000.
+Check this DAG for idempotency problems. Rerunning a day creates duplicate rows.
+Implement a simple Kafka consumer in Python using confluent-kafka that commits offsets after successful batch writes.
+Convert this script from pandas to DuckDB queries over the Parquet files directly.
+pandas SettingWithCopyWarning keeps showing up in clean.py, fix it properly rather than suppressing.
+Write a function that flattens deeply nested JSON into a dataframe with dotted column names.
+Add type hints and run mypy over the data_utils package, fix whatever it complains about.
+How do I schedule a Python job with cron-style expressions in Prefect 3 and pass parameters?
+Generate a synthetic dataset of 1M e-commerce orders with Faker and write it to Parquet.
+Our Parquet files are tiny, thousands of 2MB files. Write a compaction script.
+What's the best way to handle schema evolution when new columns appear in the source JSON?
+Replace my hand-rolled config parsing with pydantic-settings reading from env vars and .env.
+Write a Python script to diff two CSVs by primary key and output added, removed, and changed rows.
+Why is my Polars join returning a schema mismatch error between Int32 and Int64 keys?
+Set up pre-commit with ruff, black, and mypy for this repo.
+Explain the output of EXPLAIN ANALYZE I pasted and suggest an index for the slow query.
+Implement a context manager that logs row counts and elapsed time for each pipeline step.
+Add incremental loading using a watermark stored in a state table instead of full reloads.
+Convert this long string-processing loop to use pandas .str methods and regex.
+I get `snowflake.connector.errors.ProgrammingError: 100038 Numeric value is not recognized`. Help me find which column is causing it.
+Write a script that validates every Parquet file in a directory against an expected schema and prints mismatches.
+Parallelize this CPU-bound transform with concurrent.futures ProcessPoolExecutor, keeping output order.
+Show me how to use pandas rolling windows to compute a 7-day moving average per customer.
+Write unit tests mocking boto3 S3 calls with moto for the upload_to_s3 helper.
+What does this traceback mean? KeyError: 'user_id' in merge_events at line 88
+Add a data lineage comment header and docstrings to every function in transform/.
+Convert my Jupyter notebook analysis.ipynb into a clean, reusable Python module.
+Create a BigQuery loader that streams a dataframe in and handles schema autodetect off with explicit types.
+Optimize this pandas code: it uses iterrows to compute a column and takes 20 minutes.
+Write a Python function to parse Apache access logs with regex into a typed dataframe.
+How do I write a PySpark UDF that's actually fast? Should I use pandas_udf instead?
+Add a --dry-run flag to the loader so it prints the SQL it would run without executing.
+Implement checkpointing so if the pipeline fails halfway it resumes from the last completed file.
+Review my Airflow DAG for anti-patterns: top-level imports, heavy code at parse time, etc.
+Use the Python csv module to write a robust parser for this messy file with inconsistent quoting.
+Write a hash-based row fingerprint function for change detection across 30 columns, handling nulls consistently.
+Set up GitHub Actions to run tests and lint on every PR for this Python project.
+Memory usage balloons when I concat 200 dataframes in a loop. What's the right pattern?
+Create a SQLite-backed cache for API responses with TTL expiry.
+Convert categorical string columns to pandas category dtype and report memory savings.
+Write an Alembic migration adding a nullable `source_system` column and backfilling it.
+How would you structure a medallion architecture (bronze, silver, gold) in a plain Python repo?
+Find all places where we use datetime.now() without timezone and fix them to use UTC-aware datetimes.
+Write a function to detect and quarantine outliers using IQR per group in a Polars dataframe.
+ModuleNotFoundError: No module named 'src' when running pytest from the repo root. Fix the packaging or config.
+Create a reusable decorator that times a function and pushes the metric to StatsD.
+Implement a simple data quality report that outputs an HTML summary of null counts and distinct values.
+Read this Avro schema file and generate matching Pydantic models.
+Rewrite the S3 listing code to use paginators and filter keys by LastModified.
+What's wrong with this window function in Spark SQL? It returns null for the first row of each partition.
+Benchmark pandas vs Polars vs DuckDB on the group-by in bench.py and summarize the results.
+Add support for gzip and zstd compressed inputs to my file reader, detected by extension.
+Write a script that uploads a local folder to GCS in parallel and skips files whose checksums match.
+Help me design a idempotent merge into a Delta Lake table from Python using delta-rs.
+Turn these hardcoded SQL strings into parameterized queries to avoid injection.
+Why does my Go program deadlock when I send on an unbuffered channel inside the same goroutine that's supposed to receive? Here's the snippet.
+Convert this Rust function that takes &Vec<String> to accept a generic slice of anything that implements AsRef<str>.
+error[E0382]: borrow of moved value: `config` — help me fix this without cloning the whole struct
+Write a Go worker pool that processes jobs from a channel with graceful shutdown via context cancellation.
+Explain the difference between Box<dyn Trait> and impl Trait in return position, with examples.
+Add table-driven tests for the ParseDuration function in utils/time.go, including edge cases like empty string and negative values.
+How do I profile a Go service with pprof and find which goroutine is leaking memory?
+Refactor this C-style Rust code that uses raw pointers into safe Rust using slices and iterators.
+fatal error: all goroutines are asleep - deadlock! goroutine 1 [semaphore]: sync.runtime_Semacquire
+Implement a lock-free single-producer single-consumer ring buffer in Rust using atomics. Explain the memory orderings you choose.
+Is it safe to share a *sql.DB across goroutines in Go? How should I configure max open connections?
+Write a minimal TCP echo server in Rust using tokio that handles 10k concurrent connections.
+Why is my Rust binary 8MB for hello world? Show me how to shrink it with release profile settings.
+Replace all uses of ioutil.ReadAll with io.ReadAll across the repo and run go vet afterward.
+Walk me through how Go's garbage collector decides when to run and how GOGC affects it.
+Add a custom error type with thiserror for this module and implement From conversions for io::Error and serde_json::Error.
+cargo build fails with 'linking with `cc` failed: exit status 1' on macOS, undefined symbols for architecture arm64. What do I check?
+Write a Go benchmark comparing strings.Builder, bytes.Buffer, and += concatenation for 10k appends.
+Explain lifetimes in this struct definition and why the compiler demands 'a on the iterator field.
+Implement a simple memory allocator in Rust with a bump allocator and implement the GlobalAlloc trait.
+Can you review this Go HTTP handler for race conditions? It mutates a shared map without a mutex.
+Convert this synchronous Rust file parser to async using tokio::fs and make sure errors propagate with ?.
+How do I use cgo to call a C library from Go, and what are the performance costs of crossing the boundary?
+Find all places where we call unwrap() in src/ and replace them with proper error handling.
+What's the idiomatic way to implement the functional options pattern in Go? Show an example with a Server struct.
+Write a Rust macro_rules! macro that generates getters for each field in a struct.
+go test -race reports a data race on line 82 of cache.go. Help me figure out the fix.
+Explain how epoll works and write a tiny event loop in Rust using the mio crate.
+Set up a Cargo workspace with three crates: core, cli, and server, sharing dependencies via workspace.dependencies.
+Why does my Go slice append sometimes modify the original array and sometimes not? Explain capacity semantics.
+Implement a thread-safe LRU cache in Go with generics and TTL expiration.
+Help me understand Pin and Unpin in Rust. When would I actually need them?
+Write a Go CLI using cobra with subcommands 'serve' and 'migrate' and config loading via viper.
+Run cargo clippy and fix all warnings in the project, but don't change public APIs.
+What's the difference between mmap and read() for large file I/O, and how do I use memmap2 in Rust?
+Rewrite this Go function to avoid allocations on the hot path. Show escape analysis output with -gcflags=-m.
+thread 'main' panicked at 'called `Option::unwrap()` on a `None` value', src/main.rs:42:18
+Implement a basic Unix shell in Rust that supports pipes and redirection using std::process and nix.
+Add structured logging with slog to this Go service, replacing the log.Printf calls.
+Explain why Rust's Rc<RefCell<T>> isn't Send and what to use instead in multithreaded code.
+Write a Go program that reads /proc/self/status and prints the resident memory in MB.
+How can I cross-compile this Rust project for aarch64-unknown-linux-musl from my Mac?
+Generate a Dockerfile with a multi-stage build for a Go binary that ends up in a distroless image.
+Write unit tests for the Rust tokenizer module covering unicode input and unterminated strings.
+What does 'cannot infer type for type parameter T' mean here, and how do I annotate the collect() call?
+Implement a rate limiter in Go using the token bucket algorithm without external dependencies.
+Show me how to write a custom serde Deserialize implementation for an enum that accepts either a string or an integer.
+Why does context.WithTimeout not stop my goroutine? How should I check ctx.Done() in a long loop?
+Port this Python script that parses binary packet headers into Rust using the nom crate.
+Audit this unsafe block in src/ffi.rs and tell me if there is any undefined behavior.
+Add graceful shutdown to this Go HTTP server handling SIGINT and SIGTERM with a 10 second timeout.
+Explain the Rust borrow checker's two-phase borrows with a simple example of vec.push(vec.len()).
+Implement a trie in Rust with insert, search, and prefix iteration, without using unsafe.
+How do I embed static files into a Go binary using go:embed and serve them with http.FileServer?
+Write a Rust function that memory-maps a file and counts newlines using SIMD via the memchr crate.
+Go modules: 'go: github.com/foo/bar@v1.2.3: reading go.mod: verifying module: checksum mismatch'. How do I resolve this safely?
+Compare crossbeam channels vs std::sync::mpsc vs tokio::sync::mpsc and when to use each.
+Write a Go function using sync.Pool to reuse byte buffers in a JSON encoding hot path.
+Design a plugin system in Rust using dynamic libraries with libloading. What are the ABI pitfalls?
+Use strace output to help me diagnose why my Go program hangs on startup. I'll paste the trace.
+Generate a Rust build.rs script that compiles a C file with the cc crate and links it statically.
+Why does my Rust async fn complain 'future cannot be sent between threads safely' when holding a MutexGuard across await?
+Implement a Go generic Map, Filter, and Reduce for slices, and write tests for each.
+Write a simple key-value store in Rust with a write-ahead log and crash recovery.
+What are the tradeoffs of using errors.Is vs errors.As vs type switches in Go error handling?
+Convert this Go struct with JSON tags to a Rust struct with serde attributes, preserving the field names and omitempty behavior.
+Explain how Rust's Drop order works for struct fields and local variables, with a runnable example.
+Add pprof endpoints behind a flag to the main.go server and show me how to capture a 30 second CPU profile.
+Write a tiny ELF parser in Rust that prints section headers without using external crates.
+Help me reduce lock contention in this Go code using sharded maps instead of a single RWMutex.
+What's the best way to write a zero-copy parser in Rust with lifetimes tied to the input buffer?
+Implement a simple HTTP/1.1 request parser in Go from raw net.Conn bytes, no net/http.
+Fix: the trait bound `T: std::fmt::Display` is not satisfied when I call println! inside this generic function.
+How do I do signal handling with the signal-hook crate to reload config on SIGHUP in Rust?
+Write a Go fuzz test for the URL normalizer function and explain how to run it and read the corpus.
+Set up cargo-fuzz for the parser crate and write a first fuzz target.
+Is it better to use io_uring or epoll for a high throughput file server? Show a basic io_uring example in Rust.
+Review my Go struct layout and reorder fields to minimize padding. Print unsafe.Sizeof before and after.
+Explain what happens in the kernel when a Rust program calls std::thread::spawn on Linux.
+Implement a Rust iterator adapter that yields overlapping windows of size N from any iterator, without allocating.
+Add OpenTelemetry tracing to this Go gRPC service, propagating context across client calls.
+Write a bash-free Makefile alternative: a Go program using os/exec that builds, tests, and lints in parallel.
+Convert this class component to a function component with hooks, keeping the same lifecycle behavior for componentDidUpdate.
+Why does my useEffect run twice in development with React 18 StrictMode?
+TypeError: Cannot read properties of undefined (reading 'map') at ProductList.tsx:24 — fix it
+Write a custom hook useDebouncedValue<T>(value: T, delay: number) with proper TypeScript generics.
+How do I center a div both vertically and horizontally using CSS grid?
+Refactor this reducer to use Redux Toolkit createSlice.
+Add strict null checks to tsconfig and fix all the resulting errors in src/.
+What's the difference between interface and type in TypeScript, and when should I use each?
+My flexbox children overflow the container on mobile. Here's the CSS, can you spot why?
+Type 'string | undefined' is not assignable to type 'string'. Fix this in UserCard.tsx.
+Create a reusable Modal component in React with focus trapping and Escape-to-close.
+Replace all the moment.js usage in this repo with date-fns.
+Explain why this closure inside a for loop with var logs 5 five times, then fix it.
+Write a Jest test for the useFetch hook using renderHook and mocked fetch.
+Convert these CSS files to CSS modules and update the imports in each component.
+How can I memoize an expensive selector so the component doesn't re-render on every store update?
+Add dark mode support using CSS custom properties and a prefers-color-scheme media query.
+Warning: Each child in a list should have a unique "key" prop. Find where this is happening.
+Turn this promise chain into async/await with proper try/catch error handling.
+Write a TypeScript utility type that makes only specified keys of an object optional.
+Why is my sticky header not sticking? Parent has overflow hidden.
+Migrate this project from Create React App to Vite.
+Implement infinite scroll with IntersectionObserver in a React list component.
+Is it better to use Context or Zustand for global state in a mid-size app?
+Add generics to this fetchJson helper so the return type is inferred from the caller.
+Build a responsive card grid with auto-fit and minmax, no media queries.
+Find unnecessary re-renders in the Dashboard component and suggest fixes.
+Rewrite this Promise.all usage so one failure doesn't reject everything.
+Set up ESLint flat config with typescript-eslint and react-hooks rules.
+Cannot find module '@/components/Button' or its corresponding type declarations. How do I configure path aliases?
+Write a discriminated union for API response states: loading, success, error.
+Implement a form with react-hook-form and zod validation for email and password fields.
+What does the 'z-index not working' problem usually come down to? Check my stacking contexts.
+Optimize this useMemo/useCallback mess; I think half of them are unnecessary.
+Add keyboard navigation and ARIA attributes to this dropdown menu component.
+Convert this JS file to TypeScript and infer sensible types for everything.
+Explain how event delegation works and refactor these 50 click listeners to use it.
+Create a CSS-only animated skeleton loader for the card component.
+Uncaught Error: Hydration failed because the initial UI does not match what was rendered on the server. Help me debug.
+Write a debounce function in TypeScript that preserves the argument types of the wrapped function.
+How do I properly type useRef for a DOM input element and a mutable timer id?
+Split this 600-line App.tsx into smaller components and keep behavior identical.
+Replace these px values with rem and make the typography scale fluidly using clamp().
+Why does setState not update immediately after calling it? Show me the right pattern for using the new value.
+Add React.lazy and Suspense route-level code splitting to the router config.
+Write a Playwright test that logs in and checks the dashboard renders three widgets.
+Review this useEffect cleanup, I think I'm leaking a WebSocket connection.
+Make this table responsive: collapse into stacked cards under 600px using only CSS.
+What's the difference between Promise.race, any, all, and allSettled? Give short examples.
+Use TanStack Query to replace the manual fetch + loading state logic in OrdersPage.
+Narrow this union type properly without using type assertions.
+Fix the layout shift caused by images loading; add aspect-ratio handling.
+Add a global error boundary component and show a fallback UI with a retry button.
+Write a type-safe event emitter class in TypeScript.
+Why is `this` undefined inside my event handler? Convert to arrow function or bind properly.
+Set up Tailwind in this existing React project and migrate the Navbar styles.
+Implement optimistic updates for the todo toggle mutation.
+Check my tsconfig, why is 'noUncheckedIndexedAccess' causing so many errors and is it worth keeping?
+Create a CSS tooltip using only pseudo-elements and the data-tooltip attribute.
+Generate TypeScript types from this JSON sample response.
+Explain the difference between useLayoutEffect and useEffect and whether I need it for measuring this element.
+Add unit tests for the formatCurrency util covering negative numbers and rounding edge cases.
+Convert this callback-based fs code to use fs/promises.
+Refactor props drilling through four levels using composition instead of context.
+Find and remove all unused exports in the src directory.
+The input loses focus after every keystroke. I think my component is defined inside render. Confirm?
+Use CSS container queries so the sidebar widget adapts to its own width.
+Write a React hook that syncs state with localStorage and handles JSON parse errors.
+How do I type a polymorphic 'as' prop on a Button component in TypeScript?
+Bundle size jumped 200kb after the last PR. Help me figure out which import caused it.
+Add a smooth scroll-to-top button that appears after scrolling 300px.
+Rewrite this nested ternary mess in JSX into readable early returns or helper components.
+What's the best way to handle race conditions in a search-as-you-type useEffect?
+Add AbortController support to this fetch wrapper so requests cancel on unmount.
+Make the grid gap consistent: audit the CSS for margin hacks and replace them with gap.
+Migrate these enzyme tests to React Testing Library.
+Write a generic Result<T, E> type and helper functions ok() and err().
+Why does my CSS transition not animate when toggling display none to block?
+Implement drag-and-drop reordering for a list without a library.
+Upgrade this project to React 19 and fix any deprecated API usage.
+Add `satisfies` to the config object so keys are checked but literal types stay narrow.
+Walk me through why this async function returns Promise<undefined> instead of the data.
+Undo my last commit but keep the changes staged
+git rebase -i HEAD~5 says 'cannot rebase: You have unstaged changes'. What do I do?
+Write a GitHub Actions workflow that runs pytest on Python 3.11 and 3.12 and caches pip dependencies
+Why is my Docker image 1.8GB? Look at the Dockerfile and shrink it with a multi-stage build.
+Create a Kubernetes Deployment and Service for a Node app listening on port 3000, with 3 replicas and resource limits
+error: failed to push some refs to 'origin'. hint: Updates were rejected because the tip of your current branch is behind
+Explain the difference between git merge --squash and git rebase, and when I should use each
+Add a health check to the docker-compose.yml so the api service waits for postgres to be ready
+My pod is stuck in CrashLoopBackOff. Walk me through debugging it with kubectl.
+Write a Terraform module for an S3 bucket with versioning, encryption, and a block on public access
+How do I remove a secret I accidentally committed from the entire git history?
+Set up a GitLab CI pipeline with build, test, and deploy stages that only deploys from main
+Convert this Dockerfile to run as a non-root user and pin the base image by digest
+kubectl get pods shows ImagePullBackOff. Registry is ECR. What's likely wrong?
+Write a pre-commit hook that runs eslint and blocks the commit if there are errors
+Find which commit introduced the bug using git bisect. Tests are run with `npm test`.
+Create a Helm chart skeleton for this service and parameterize image tag, replicas, and env vars
+Our GitHub Actions build takes 14 minutes. Review .github/workflows and suggest ways to speed it up.
+Write a bash script to prune dangling Docker images and stopped containers older than 7 days
+How do I configure a Kubernetes HorizontalPodAutoscaler to scale on CPU at 70%?
+Set up OIDC auth from GitHub Actions to AWS so we don't need long-lived access keys
+terraform plan shows it wants to destroy and recreate my RDS instance. Why, and how do I avoid that?
+Cherry-pick commits a1b2c3d and e4f5g6h onto the release branch and resolve conflicts
+Add a readiness and liveness probe to the deployment YAML in k8s/
+Write a .dockerignore appropriate for a Next.js project
+Explain what this error means: 'exec format error' when running my container on an M-series Mac
+Set up a CI job that builds a Docker image, tags it with the git SHA, and pushes it to GHCR
+What's the difference between a Kubernetes StatefulSet and a Deployment? Do I need one for Redis?
+Rewrite my git history so the last 4 commits are squashed into one with a clean message
+Create an IAM policy that gives a Lambda function read-only access to a single DynamoDB table
+Review my Dockerfile for layer caching problems — npm install runs on every build.
+Write a Kubernetes CronJob that runs a database backup script every night at 2am
+git stash pop gave me merge conflicts. How do I resolve them and drop the stash?
+Add a Terraform remote backend using S3 with DynamoDB state locking
+Why does my container exit immediately with code 0 when I run docker run?
+Generate a GitHub Actions workflow that deploys to Cloud Run on every push to main
+Set up Kubernetes Ingress with nginx and TLS via cert-manager for api.example.com
+How can I make git ignore changes to a tracked file locally without modifying .gitignore?
+Add a matrix build to our CI for Node 18, 20, and 22 on ubuntu and macos
+Write a docker-compose file for local dev with a Go API, Postgres, Redis, and hot reload
+kubectl apply -f deployment.yaml: error validating data: ValidationError(Deployment.spec): missing required field 'selector'
+Explain how to do a blue-green deployment on Kubernetes using only Services and labels
+Configure Dependabot to open weekly PRs for npm and Docker base image updates
+Set up a git worktree so I can work on a hotfix without leaving my feature branch
+Add a step to CI that fails the build if Trivy finds critical vulnerabilities in the image
+Write a Terraform config for a VPC with two public and two private subnets across AZs
+How do I tail logs from all pods matching label app=checkout across namespaces?
+Create a release workflow that triggers on tags like v*.*.* and publishes a GitHub Release with changelog
+Why is my git repo so big? Find the largest files in history and suggest how to clean up.
+Set resource requests and limits for this deployment based on the metrics I pasted below
+Make this Dockerfile build reproducibly: pin apt package versions and use a lockfile install
+Write a Kubernetes NetworkPolicy that only allows the frontend pods to talk to the backend on port 8080
+Our deploy job fails with 'Error: Process completed with exit code 137'. Is that an OOM kill?
+Convert my docker-compose.yml into Kubernetes manifests, and tell me what doesn't translate cleanly
+Add a concurrency group to the workflow so older runs on the same branch get cancelled
+How do I use git reflog to recover a branch I deleted by mistake?
+Write an AWS CDK stack in TypeScript for an ECS Fargate service behind an ALB
+Set up Skaffold for local Kubernetes development with automatic rebuild on file change
+Create a .gitattributes file that normalizes line endings and marks lockfiles as generated
+Explain the difference between ConfigMap and Secret, and move the DB password out of my deployment YAML
+Rollback the last Kubernetes deployment of the payments service and confirm the rollout status
+Write a shell script that checks whether all required env vars are set before CI deploys
+How do I authenticate to a private npm registry inside a Docker build without leaking the token in the image layers?
+Set up ArgoCD to sync the manifests in deploy/ to my staging cluster automatically
+Fix this GitHub Actions error: 'Resource not accessible by integration' when posting a PR comment
+Split this monorepo CI so only the services with changed files are built and tested
+Set up a Kubernetes PodDisruptionBudget so at least 2 replicas stay up during node drains
+Write a git alias that shows a compact graph log of all branches with author and relative date
+Why does terraform say 'Error acquiring the state lock' and is it safe to force-unlock?
+Add BuildKit cache mounts to the Dockerfile to speed up pip install
+Write a Kubernetes Job manifest that runs database migrations before the app deployment rolls out
+Which GCP IAM roles does my service account need to push images to Artifact Registry and deploy to GKE?
+Set up branch protection rules via the gh CLI requiring one review and passing status checks on main
+Look at my Kubernetes manifests in k8s/ and flag security issues like privileged containers or missing securityContext
+Create a Makefile with targets for docker build, push, and kubectl rollout restart
+How do I sign my git commits with SSH keys and make GitHub show them as verified?
+Our nodes keep getting evicted with DiskPressure. How do I find what's filling up the disk?
+Write a Packer template that builds an AMI with Docker and the CloudWatch agent preinstalled
+Merge conflict in package-lock.json again. What's the safest way to resolve it?
+Add canary deployment support using Argo Rollouts with 10%, 50%, then 100% traffic steps
+Write a Terraform output and variable validation that rejects non-private CIDR ranges
+How do I run a one-off debug container in a running pod with kubectl debug?
+Set up GitHub Actions to run Terraform plan on PRs and post the output as a comment
+Explain why my multi-arch Docker build with buildx is failing on arm64 and fix it
+Configure CloudWatch alarms in Terraform for high CPU and 5xx errors on my ALB
+Generate a sparse-checkout command so I only clone the services/auth directory of this big repo
+Review this Kubernetes Service YAML — traffic isn't reaching my pods and the endpoints list is empty.
+Why is this Postgres query doing a seq scan on orders even though I have an index on customer_id? Here's the EXPLAIN ANALYZE output.
+Write a migration to add a nullable `deleted_at` timestamp column to the users table and backfill it without locking the table.
+ERROR: deadlock detected. Process 4821 waits for ShareLock on transaction 99213; blocked by process 4830. How do I find which queries cause this?
+Add Redis caching to the getProductById function with a 5 minute TTL and invalidate on update.
+Convert this raw SQL join into a SQLAlchemy query using the ORM.
+How should I design a retry policy with exponential backoff and jitter for a RabbitMQ consumer that calls a flaky third party API?
+Review my REST API routes in src/routes and tell me which ones violate RESTful conventions.
+Write a SQL query to find the top 5 customers by total spend in each month of 2025.
+Our Celery workers keep running out of memory after a few hours. Help me figure out what's leaking.
+Add pagination to the /api/posts endpoint using cursor-based pagination instead of offset.
+What's the difference between a LEFT JOIN and a LATERAL JOIN in Postgres? Show an example using our schema.
+Implement idempotency keys for the POST /payments endpoint so duplicate requests don't double charge.
+redis.exceptions.ConnectionError: Error 61 connecting to localhost:6379. Connection refused. Fix?
+Generate an OpenAPI 3.1 spec from the Express routes in this project.
+Set up a dead letter queue for failed SQS messages and write a small script to replay them.
+Find N+1 queries in the Django views under apps/billing and fix them with select_related or prefetch_related.
+Write a Prisma schema for a multi-tenant SaaS with organizations, users, and memberships.
+Should I use Redis streams or Kafka for this event pipeline that handles about 2k messages per second?
+Add rate limiting middleware to our Fastify API, 100 requests per minute per API key, backed by Redis.
+Why does my SELECT COUNT(*) take 8 seconds on a 50 million row table? Suggest alternatives.
+Write a bash script that dumps our Postgres database nightly, gzips it, and uploads it to S3.
+Explain this query plan to me line by line.
+Add an index to speed up this query but tell me the tradeoffs first: SELECT * FROM events WHERE user_id = ? AND created_at > ? ORDER BY created_at DESC LIMIT 50;
+Refactor the database connection code to use a connection pool with sensible max and idle timeout settings.
+Write integration tests for the /orders API using a real Postgres container via testcontainers.
+Implement a cache-aside pattern with stampede protection for the homepage feed query.
+Our GraphQL resolver for `user.posts` is firing a query per user. Add DataLoader batching.
+Convert these MySQL CREATE TABLE statements to Postgres syntax.
+sqlite3.OperationalError: database is locked. Happens when two threads write at once. What are my options?
+Design a schema for storing audit logs that will grow by about 10M rows a day.
+Add a webhook endpoint that verifies the HMAC signature from Stripe and enqueues the event for processing.
+What's the safest way to rename a column in production with zero downtime? We use Rails.
+Write a Go worker that consumes jobs from a Redis list and processes them with a configurable concurrency limit.
+Check whether any of our SQL queries are vulnerable to injection and fix them with parameterized queries.
+Implement optimistic locking on the inventory table using a version column.
+Why is my API returning 504s only under load? Look at the middleware and DB call paths.
+Write a window function query that computes a 7-day rolling average of daily signups.
+Add ETag and If-None-Match support to the GET /articles/:id handler.
+Migrate our job queue from Bull to BullMQ and update the producers and consumers.
+How do I do an upsert in Postgres with ON CONFLICT and only update fields that actually changed?
+Add structured logging with request IDs to every API handler and propagate the ID to queue messages.
+Create a seed script that populates 100k realistic fake users and orders for load testing.
+Partition the events table by month in Postgres and write the migration plus a job to create future partitions.
+I'm getting stale data from Redis after updates. Walk through the cache invalidation logic in services/cache.ts and find the bug.
+Write a TypeScript client for this REST API with typed responses and error handling.
+Compare using JSONB columns versus a normalized table for storing user preferences in our app.
+Add a health check endpoint that verifies DB and Redis connectivity and returns 503 if either fails.
+Rewrite this correlated subquery as a JOIN and compare the performance.
+Implement the transactional outbox pattern so we publish to Kafka only after the DB commit succeeds.
+Make the bulk insert in importer.py faster; it currently inserts one row at a time for 2M rows.
+What does 'too many connections' in MySQL mean and how do I diagnose which service is holding them?
+Add API versioning to the Flask app so /v1 and /v2 can coexist.
+Write a SQL query to detect duplicate emails in the users table ignoring case and whitespace, then a safe dedupe script.
+Set up read replicas routing in Django so reads go to the replica and writes go to primary.
+Write a Python consumer for a Kafka topic that commits offsets only after successful processing.
+Add a unique constraint on (tenant_id, slug) and handle the violation gracefully in the API response.
+Implement a Redis-based distributed lock for the nightly report job and explain the failure modes.
+Our API returns 500 when the JSON body is malformed. Add validation with zod and return proper 400 errors.
+Explain the difference between READ COMMITTED and REPEATABLE READ in Postgres with a concrete example from our payments table.
+Profile the slowest 10 queries in pg_stat_statements output I pasted and suggest fixes.
+Write a TTL-based in-memory LRU cache in Python with thread safety and unit tests.
+Convert this callback-based MongoDB code to async/await with the latest driver.
+Add a /metrics endpoint exposing Prometheus counters for request latency and queue depth.
+How do I handle poison messages in a Sidekiq queue without blocking the rest of the jobs?
+Write a recursive CTE to walk the category tree and return the full path for each category.
+Implement soft deletes across all models and make sure default queries exclude deleted rows.
+Design the API for a bulk update endpoint that supports partial success and returns per-item errors.
+Why are my Postgres autovacuum runs taking so long on the sessions table? Suggest tuning.
+Add gzip compression and cache-control headers to our static API responses.
+Write a script to compare row counts and checksums between the old and new database after migration.
+Set up Alembic migrations for this project and autogenerate the initial revision from the existing models.
+Implement a simple job scheduler on top of Postgres using SELECT ... FOR UPDATE SKIP LOCKED.
+How would you shard a users table by user_id? Lay out the options before writing any code.
+Throw together a quick Express mock server that serves fixtures for the endpoints listed in api-spec.yaml.
+Add timeouts and circuit breaker around the outbound calls to the payments provider.
+MongoServerError: E11000 duplicate key error collection: app.users index: email_1. Where in my signup flow could this race?
+Write a SQL migration that adds a foreign key with ON DELETE CASCADE, but first check for orphaned rows.
+Replace the polling loop in worker.js with a proper pub/sub subscription using Redis.
+Implement server-sent events for streaming job progress from the queue to the browser.
+Audit our API endpoints for missing authorization checks and list the ones that need fixing.
+Write a materialized view for the dashboard stats and a cron job to refresh it concurrently.
+Why does my ORM generate a SELECT before every UPDATE? Turn that off if it's safe.
+Why is this returning undefined? `const user = users.find(u => u.id === req.params.id)` — ids in the DB are numbers but params are strings, right?
+Write unit tests for the parseDuration function in src/utils/time.ts covering edge cases like empty string, negative values, and overflow.
+Review the changes in my latest commit for any race conditions or missing error handling.
+Refactor this 300-line handleSubmit function into smaller pure functions without changing behavior.
+Add JSDoc comments to all exported functions in lib/api/client.js.
+TypeError: Cannot read properties of null (reading 'map') at ProductList.jsx:42 — help me track down where null is coming from
+My pytest fixture keeps leaking state between tests. How do I make the database reset after each test function?
+Generate a README for this project including install steps, usage examples, and environment variable descriptions.
+Find dead code in src/ and tell me what can be safely deleted.
+Why does this test pass locally but fail in CI? Only difference I can see is Node 18 vs 20.
+Convert these callback-based fs functions to async/await.
+Can you review auth/middleware.ts for security issues? Particularly JWT validation.
+Add integration tests for the POST /orders endpoint using supertest.
+Segfault in my C program when freeing the linked list. Here's the delete_node function, what am I doing wrong?
+Rename the `usr` variable to `currentUser` everywhere in this module and make sure nothing breaks.
+Document the architecture of this repo in a docs/ARCHITECTURE.md file.
+Use git bisect logic to help me figure out which change introduced the memory leak. Start by looking at the recent diffs in the worker module.
+Mock the Stripe client in these tests so they don't hit the network.
+Extract the duplicated validation logic in signup.py and profile.py into a shared helper.
+Is there a cleaner way to write this nested ternary? It's hard to read.
+Run the test suite and fix whatever is failing.
+I'm getting 'ECONNREFUSED 127.0.0.1:5432' when running tests but Postgres is up. What could be wrong?
+Add type hints to every function in utils/ and make sure mypy passes.
+Write a CHANGELOG entry for the changes since the last tag.
+What's the test coverage gap here? Identify untested branches in cart.service.ts.
+This React component re-renders constantly. Find out why and fix it.
+Review this PR diff for naming consistency and leaky abstractions.
+Replace all uses of moment.js with date-fns across the codebase.
+Add a docstring to this function explaining params, return value, and raised exceptions.
+Why is my async test timing out after 5000ms? I'm using jest with fake timers.
+Split this giant utils.js into logical modules and update all imports.
+Write property-based tests for my sort function using hypothesis.
+Add logging to this function so I can see what's happening when it fails intermittently.
+Explain what this regex does and rewrite it to be more readable: /^(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/
+Please convert this class component to a functional component with hooks.
+Check my Dockerfile for mistakes. The build works but the container exits immediately.
+Can you add snapshot tests for the Button component variants?
+Look at this stack trace and tell me the root cause: java.lang.NullPointerException at OrderService.java:118
+Simplify this SQL query; it's got three nested subqueries and runs slowly.
+Write a CONTRIBUTING.md that explains how to run tests and lint before opening a PR.
+Find any N+1 query problems in the Django views.
+Why do I get 'maximum call stack size exceeded' in my recursive flatten function?
+Make this function pure — it's mutating the input array right now.
+Generate OpenAPI docs from these Express routes.
+Add edge-case tests for the date formatting helper: leap years, DST, and timezone offsets.
+Tell me if there are any unused dependencies in package.json.
+My useEffect fires twice in dev. Is that a bug in my code or React strict mode?
+Review error handling in the Go service — I think I'm swallowing errors in a few places.
+Break up this switch statement into a strategy pattern.
+Add inline comments explaining the tricky bit-manipulation logic in hash.rs.
+Tests are flaky on the websocket reconnect case. Help me stabilize them.
+Fix the off-by-one error in pagination — page 2 repeats the last item from page 1.
+Move all magic numbers in this file to named constants.
+Write a test that reproduces issue where empty cart checkout throws 500.
+Can you spot anything wrong with this Rust borrow? `let a = &mut v; let b = &mut v;`
+Audit this module for places where we should use early returns to reduce nesting.
+Create a troubleshooting section in the docs for common setup errors.
+Why does `git diff` show whole-file changes? I think line endings got messed up.
+Add a unit test for each branch in the discount calculation logic.
+Review my SQL migration for backwards compatibility problems.
+Migrate these tests from Mocha/Chai to Vitest.
+App crashes on startup with 'Module not found: Can't resolve ./config'. Path looks right to me.
+Reduce the cyclomatic complexity of validateOrder; it's too branchy.
+Write a docstring-based usage example for the RetryPolicy class.
+Is this memoization correct? I suspect the cache key ignores one of the arguments.
+Look over the test files and tell me which ones have no assertions or are skipped.
+Debug why my CORS preflight request returns 403 from the Express API.
+Replace this hand-rolled debounce with lodash's and update the tests accordingly.
+Document every environment variable the app reads, with defaults and whether it's required.
+Why does `npm test` hang after all tests pass? Probably an open handle somewhere.
+Review this function for floating point errors — totals are off by a cent sometimes.
+Pull the database access code out of the controller into a repository layer.
+Write end-to-end Playwright tests for the login and logout flow.
+Why is `this` undefined inside my event handler?
+Check the codebase for inconsistent error message formats and unify them.
+Add a test confirming that the retry logic backs off exponentially and stops after 5 attempts.
+Explain this confusing legacy function line by line, then suggest a clearer rewrite.
+Python script throws UnicodeDecodeError reading a CSV. How do I find the offending byte?
+Update outdated comments in the auth module that no longer match the code.
+Find any places where we compare floats with == and flag them.
+Profile this function and tell me why it's slow before changing anything.
+Write a short docs page on how to add a new API endpoint in this project.
+Tests fail with 'jest did not exit one second after the test run has completed.' How do I find the leak?
+Write a zsh function that fuzzy-finds a git branch with fzf and checks it out
+Why does `brew update` hang forever on macOS Sonoma? How do I debug it?
+Write a bash script that renames all .jpeg files in a directory to .jpg, handling spaces in filenames
+zsh: command not found: nvm — I installed it with brew, what do I add to .zshrc?
+How do I make vim use system clipboard on macOS for yank and paste?
+Create a launchd plist that runs a backup script every day at 2am
+Explain the difference between `.zshrc`, `.zprofile`, and `.zshenv` and where PATH should be set
+Convert this for loop into a one-liner using xargs -P to run 4 jobs in parallel
+find all files larger than 500MB under ~ and sort by size, excluding Library
+tmux: how do I keep my session alive after ssh disconnects and reattach later?
+Write a script that watches a directory with fswatch and runs `make test` on changes
+sed: RE error: illegal byte sequence on macOS — how to fix?
+Why does `sed -i` work on Linux but fail on macOS? Make my script portable.
+Set up my neovim config in lua with lazy.nvim, telescope, and treesitter
+Give me an awk one-liner to sum the third column of a CSV, skipping the header
+Audit my ~/.zshrc and tell me what's slowing shell startup; profile with zprof
+Write a bash script with proper `set -euo pipefail` and a trap to clean up temp files
+How can I list which process is listening on port 3000 and kill it?
+Add a git alias that shows a compact graph log with colors
+Write a Makefile target that lints all shell scripts in ./scripts with shellcheck
+Help me understand this: `ls: cannot access 'foo': Permission denied` even though I own the directory
+Write a script to batch convert all .heic files in a folder to .jpg using sips
+What's the best way to manage dotfiles across Mac and Linux? Set up a bare git repo approach
+Replace my slow `grep -r` usage with ripgrep aliases and sensible default ignores
+How do I configure VS Code to open from the terminal with `code .` on macOS?
+Create a cron job that rotates logs older than 7 days in /var/log/myapp
+Write a function in bash that prompts yes/no and returns 0 or 1
+Why is my script showing `bad interpreter: /bin/bash^M`? Fix it for all files in this folder.
+Write a one-liner to show the 10 largest directories in the current folder
+Configure iTerm2 or Ghostty so option-left/right jumps words in zsh
+Explain what `exec 3>&1 1>&2 2>&3` does in bash
+Convert my bash script to POSIX sh so it works on Alpine
+Write a script that tails multiple log files with colored prefixes per file
+How do I use `jq` to extract all unique `name` fields from nested JSON?
+Set up a pre-commit hook that runs shfmt and shellcheck on staged shell files
+Write a zsh completion for my CLI tool `deploy` with subcommands up, down, status
+What does `ulimit -n` do and how do I raise the open files limit permanently on macOS?
+Emacs: how do I set up org-mode capture templates for quick todo notes?
+Write a bash loop that retries a curl command up to 5 times with exponential backoff
+Check my script for quoting bugs: `for f in $(ls *.txt); do cat $f >> all.txt; done`
+Speed up my zsh startup; it takes 1.8 seconds to open a new terminal
+How can I diff two directories recursively and show only filenames that differ?
+Write a script that creates a timestamped tar.gz backup of ~/Documents excluding node_modules
+How do I use `lsof` to find which app is using a mounted volume that won't eject?
+Set up a Helix editor config with LSP for Rust and TypeScript
+Write a bash function `mkcd` that makes a directory and cd's into it
+rsync keeps copying files that haven't changed between my Mac and Linux server; why?
+Show me how to parse command-line flags with getopts including long options fallback
+Write a Python script that wraps `pbcopy` to copy the contents of a file given as argument
+Explain `defaults write` commands to show hidden files in Finder and disable the press-and-hold popup
+How do I check which shell is running and change my default shell to the Homebrew zsh?
+Write a systemd unit and timer for a script that syncs a folder every 15 minutes
+Using entr, auto-rerun my Python tests whenever any .py file changes
+Convert a folder of .mov files to .mp4 with ffmpeg in a loop, keeping original timestamps
+Why does `export PATH=$PATH:~/bin` not work in my script when run via cron?
+Write a vim macro or substitute command to wrap every line in double quotes and add a trailing comma
+Give me a bash script that prints disk usage, memory, and CPU load in a neat summary
+I get `Operation not permitted` when running `rm` on macOS inside a folder; is it SIP or ACLs?
+Write a zsh prompt that shows git branch, dirty status, and exit code of the last command
+Show how to use `xargs -0` with `find -print0` to safely delete files with weird names
+Set up ssh config so `ssh prod` uses a jump host and a specific key
+What's the cleanest way to read a file line by line in bash without losing whitespace?
+Write a script that finds duplicate files by checksum in a directory tree
+Configure git to use delta for diffs and set it up in my gitconfig
+How do I script a macOS notification from the command line when a long job finishes?
+Write a here-doc that generates a config file with variable substitution but keeps some $ literals
+Rebind my tmux prefix to Ctrl-a and add vim-style pane navigation
+Explain `trap '' SIGINT` vs `trap - SIGINT` in bash
+Write a script to uninstall all Homebrew casks not used in the last 90 days
+Find and replace across all .md files using perl -pi -e with a regex that handles multiline
+Create a function that extracts any archive type (zip, tar.gz, bz2, 7z) based on extension
+Why does `echo $?` always print 0 after my pipeline? Show how to use PIPESTATUS or pipefail
+Set up direnv so each project loads its own env vars and Python virtualenv
+How do I get a macOS app's bundle identifier from the terminal?
+Write a script to mount an SMB share on macOS and unmount it when finished
+Write a bash script to check if a list of URLs return 200 and report the failures
+Configure VS Code settings.json for format-on-save with shfmt for shell scripts
+Explain how process substitution `<(cmd)` works and give three practical examples
+Write a Neovim keymap in Lua to toggle a floating terminal
+Compare `fd` and `find` and rewrite my common find commands using fd
+Write a script that cleans up Docker images and prunes ~/Library/Caches older than 30 days safely
+Pasting error: `zsh: permission denied: ./deploy.sh` — what exact chmod do I need and why?
+Create a bash script that interactively picks a file with fzf and opens it in $EDITOR at a given line from ripgrep results
+Explain the difference between a mutex and a semaphore in plain English.
+What's the time complexity of building a heap from an unsorted array, and why isn't it O(n log n)?
+Write a concise README intro paragraph for a CLI tool that deduplicates files by hash.
+Explain Big O notation to a junior dev who just started.
+What does 'idempotent' mean and why do API designers care?
+Rewrite this commit message to be clearer: 'fixed stuff with the thing in auth'
+Why is 0.1 + 0.2 not equal to 0.3 in floating point? Give a short explanation.
+Help me write a polite but firm email to a teammate who keeps merging without review.
+What's the difference between concurrency and parallelism?
+Derive the closed-form for the sum of 1 to n and explain it simply.
+Explain CAP theorem with a real-world example.
+How many bytes are in a gibibyte vs a gigabyte? Why the confusion?
+Summarize the history of UTF-8 in a few sentences.
+What is the birthday paradox and how does it relate to hash collisions?
+Write a short docstring style guide for a team using Python.
+Explain what a monad is without using category theory.
+Give me a mental model for understanding recursion vs iteration.
+Why do we use base64 encoding? Is it encryption?
+Explain the difference between TCP and UDP like I'm new to networking.
+What's the probability of getting at least one collision with 1 million random 64-bit IDs?
+Proofread this: 'Their are three reason why the build fails on CI but not locally.'
+Explain Bayes' theorem with a bug-triage example.
+What's the difference between a process and a thread?
+Write a one-paragraph explanation of how HTTPS works for a non-technical stakeholder.
+How does binary search work and why does mid = (lo+hi)/2 cause overflow bugs?
+Explain eventual consistency using a coffee shop analogy.
+Is it 'data are' or 'data is' in technical writing?
+Give me 5 tips for writing better technical blog posts.
+What does the modulo operator do with negative numbers in different languages?
+Explain what a Bloom filter is and when to use one.
+Convert 1.5 million milliseconds into hours, minutes, and seconds.
+Why is quicksort worst-case O(n²) and how do pivots help avoid it?
+Write a brief, friendly explanation of what Docker is for my product manager.
+What's the difference between authentication and authorization?
+Explain the Pythagorean theorem and give a use case in game dev.
+Help me phrase a code review comment that suggests a refactor without sounding harsh.
+What is the halting problem, in simple terms?
+How do I compute the dot product of two vectors and what does it mean geometrically?
+Explain the difference between a compiler and an interpreter.
+Write a changelog entry for a release that fixes a memory leak and adds dark mode.
+What's the origin of the term 'bug' in software?
+Explain how public key cryptography works using a padlock analogy.
+What is amortized analysis? Use dynamic array append as the example.
+Explain the difference between stack and heap memory.
+Give me a clear definition of technical debt I can paste into a wiki.
+How does a hash map handle collisions? Describe chaining vs open addressing.
+What's the difference between 'affect' and 'effect' for my documentation?
+Explain what logarithms are and why they show up so often in CS.
+Write a tagline for an open-source linting tool.
+Why does 1/3 in binary repeat forever?
+Explain the difference between REST and GraphQL in a short paragraph.
+What are the SOLID principles? Quick one-liner for each.
+Walk me through calculating the number of possible 8-character passwords with lowercase letters and digits.
+What does 'premature optimization is the root of all evil' actually mean?
+Explain matrix multiplication and why it's not commutative.
+Write an apology message for a production outage, to be sent to customers.
+What's the difference between a library and a framework?
+Explain the two generals problem.
+How do I explain pull requests to someone who has only used Google Docs?
+What is the difference between median and mean and when would I log latency using percentiles?
+Explain what Big-endian and little-endian mean with an example.
+Summarize the main ideas of the book 'The Pragmatic Programmer'.
+Is a tomato a fruit? Settle a debate on our team.
+Explain gradient descent intuitively, no heavy math.
+What's the difference between 'fewer' and 'less' and when should I use each in UI text?
+Explain how DNS resolution works step by step.
+Give me an analogy for explaining pointers.
+What is the Fibonacci sequence closed-form formula (Binet) and how accurate is it for large n?
+Rewrite this to sound more professional: 'yeah this is broken, pls fix asap'
+What's the difference between symmetric and asymmetric encryption?
+Explain Conway's Law and give an example.
+How many distinct ways can I arrange 6 tasks in a sprint if order matters?
+Explain what a race condition is using a bank account example.
+What does 'shift left' mean in software testing?
+Write a short, motivating message for a team starting a big migration.
+Explain how a linked list differs from an array in memory.
+What's the standard deviation and how would I use it to interpret benchmark results?
+Explain the difference between git merge and git rebase conceptually.
+Why is the Y2K38 problem a thing? Explain it simply.
+Describe the Dunning-Kruger effect and how it shows up in engineering teams.
+Help me outline a 10-minute talk on why testing matters.
+Explain what a deadlock is and the four conditions required for it.
+What's a good way to explain the difference between latency and throughput?
+What is the difference between an abstract class and an interface, in general terms?
+Explain modular arithmetic and how it's used in hashing.

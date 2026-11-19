@@ -1,0 +1,99 @@
+{
+ "n_items": 20,
+ "conditions": {
+  "full": {
+   "n": 20,
+   "hits": 19,
+   "rate": 0.95,
+   "ci": [
+    0.7638641064874331,
+    0.9911187805671268
+   ],
+   "by_kind": {
+    "implicit": 0.95
+   },
+   "mean_input_tokens": 19847.15
+  },
+  "hook": {
+   "n": 20,
+   "hits": 19,
+   "rate": 0.95,
+   "ci": [
+    0.7638641064874331,
+    0.9911187805671268
+   ],
+   "by_kind": {
+    "implicit": 0.95
+   },
+   "mean_input_tokens": 25070.05
+  },
+  "index": {
+   "n": 20,
+   "hits": 17,
+   "rate": 0.85,
+   "ci": [
+    0.6395767041130426,
+    0.9476322080405041
+   ],
+   "by_kind": {
+    "implicit": 0.85
+   },
+   "mean_input_tokens": 18002.6
+  },
+  "none": {
+   "n": 20,
+   "hits": 2,
+   "rate": 0.1,
+   "ci": [
+    0.027865893984153206,
+    0.30103820641179335
+   ],
+   "by_kind": {
+    "implicit": 0.1
+   },
+   "mean_input_tokens": 6980.7
+  },
+  "standing": {
+   "n": 20,
+   "hits": 19,
+   "rate": 0.95,
+   "ci": [
+    0.7638641064874331,
+    0.9911187805671268
+   ],
+   "by_kind": {
+    "implicit": 0.95
+   },
+   "mean_input_tokens": 25725.3
+  }
+ },
+ "vs_ref": {
+  "full": {
+   "n": 20,
+   "diff": 0.0,
+   "lo": -0.15,
+   "hi": 0.15
+  },
+  "index": {
+   "n": 20,
+   "diff": -0.1,
+   "lo": -0.3,
+   "hi": 0.1
+  },
+  "none": {
+   "n": 20,
+   "diff": -0.85,
+   "lo": -1.0,
+   "hi": -0.7
+  },
+  "standing": {
+   "n": 20,
+   "diff": 0.0,
+   "lo": -0.15,
+   "hi": 0.15
+  }
+ },
+ "ref": "hook",
+ "model": "sonnet",
+ "judge": "claude-haiku-5-5"
+}

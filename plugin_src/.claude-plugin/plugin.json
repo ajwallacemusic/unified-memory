@@ -1,0 +1,8 @@
+{
+  "name": "unified-memory",
+  "displayName": "Unified Memory",
+  "version": "0.1.0",
+  "description": "One checked profile of you across Claude Code, chat and scheduled tasks: compile with cited, code-checked changes; a write-time guard on memory; receipts, undo and erase.",
+  "author": {"name": "AJ Wallace"},
+  "license": "MIT"
+}

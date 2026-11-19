@@ -1,0 +1,51 @@
+{
+ "invocations": [
+  {
+   "argv": [
+    "--bench",
+    "mab",
+    "--n",
+    "10",
+    "--out",
+    "results/public-bench/2026-11-19-pilot/mab",
+    "--api-cap",
+    "30.2",
+    "--workers",
+    "4"
+   ],
+   "started": "2026-11-19T16:52:30Z",
+   "finished": "2026-11-19T16:52:49Z",
+   "items": [
+    "factconsolidation_sh_6k_no2",
+    "factconsolidation_sh_6k_no27",
+    "factconsolidation_sh_6k_no32",
+    "factconsolidation_sh_6k_no61",
+    "factconsolidation_sh_6k_no66",
+    "factconsolidation_sh_6k_no72",
+    "factconsolidation_sh_6k_no78",
+    "factconsolidation_sh_6k_no90",
+    "factconsolidation_sh_6k_no91",
+    "factconsolidation_sh_6k_no98"
+   ],
+   "conditions": [
+    "none",
+    "full-history",
+    "raw-retrieval",
+    "profile-full",
+    "profile-hook",
+    "last-write"
+   ],
+   "answer_model": "claude-haiku-5-5",
+   "judge_model": "claude-haiku-5-5",
+   "compile_model": "claude-sonnet-5-5",
+   "cap_floor": 100000,
+   "api_usd_ledger_before": 28.256610819999942,
+   "api_usd_ledger_after": 28.273361319999932,
+   "usage_after": {
+    "fh": 51.0,
+    "sd": 26.0,
+    "age_s": 144.90845894813538
+   }
+  }
+ ]
+}

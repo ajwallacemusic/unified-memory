@@ -1,0 +1,90 @@
+{"id": "q001", "split": "dev", "kind": "direct", "question": "Which neighborhood of Minneapolis do I live in?", "answer_terms": ["Longfellow"], "file": "profile.md"}
+{"id": "q002", "split": "test", "kind": "direct", "question": "What's my team's ticket prefix in Linear?", "answer_terms": ["DSP"], "file": "areas/work-quillhaven.md"}
+{"id": "q003", "split": "dev", "kind": "direct", "question": "When was I promoted to staff engineer?", "answer_terms": ["January 2025"], "file": "areas/work-quillhaven.md"}
+{"id": "q004", "split": "test", "kind": "direct", "question": "What's the name of the feature flag for the Kestrel cutover?", "answer_terms": ["quote_router_v2"], "file": "areas/kestrel-migration.md"}
+{"id": "q005", "split": "dev", "kind": "direct", "question": "What's the current release of pgdrift?", "answer_terms": ["0.9.4"], "file": "areas/pgdrift.md"}
+{"id": "q006", "split": "test", "kind": "direct", "question": "What's the dark green on the kitchen cabinets called?", "answer_terms": ["Juniper"], "file": "areas/kitchen-remodel.md"}
+{"id": "q007", "split": "dev", "kind": "direct", "question": "Where in Lisbon is the apartment for our first five nights?", "answer_terms": ["Alfama"], "file": "areas/portugal-trip.md"}
+{"id": "q008", "split": "test", "kind": "direct", "question": "What was our entry point for the Boundary Waters canoe trip?", "answer_terms": ["Sawbill"], "file": "areas/boundary-waters-trip.md"}
+{"id": "q009", "split": "dev", "kind": "direct", "question": "What name do I sell my hand-bound notebooks under?", "answer_terms": ["Ninth Signature"], "file": "areas/notebook-business.md"}
+{"id": "q010", "split": "test", "kind": "direct", "question": "What's our monthly grocery budget?", "answer_terms": ["$950", "950"], "file": "areas/household-budget.md"}
+{"id": "q011", "split": "dev", "kind": "direct", "question": "What's the title of my meetup talk?", "answer_terms": ["Without Tears", "Dual Writes"], "file": "areas/meetup-talk.md"}
+{"id": "q012", "split": "test", "kind": "direct", "question": "Which editor do I use?", "answer_terms": ["Neovim"], "file": "topics/dev-environment.md"}
+{"id": "q013", "split": "dev", "kind": "direct", "question": "How many changed lines do I want pull requests kept under?", "answer_terms": ["350"], "file": "topics/coding-preferences.md"}
+{"id": "q014", "split": "test", "kind": "direct", "question": "What's my half marathon best time?", "answer_terms": ["1:58:40", "1:58"], "file": "topics/running.md"}
+{"id": "q015", "split": "dev", "kind": "direct", "question": "What coffee grinder do I have?", "answer_terms": ["Baratza", "Encore"], "file": "topics/coffee.md"}
+{"id": "q016", "split": "test", "kind": "direct", "question": "What's my sourdough starter named?", "answer_terms": ["Gerald"], "file": "topics/food-and-cooking.md"}
+{"id": "q017", "split": "dev", "kind": "direct", "question": "Who do I take cello lessons with?", "answer_terms": ["Henrike"], "file": "topics/cello.md"}
+{"id": "q018", "split": "test", "kind": "direct", "question": "Who's my favorite author?", "answer_terms": ["Le Guin"], "file": "topics/reading.md"}
+{"id": "q019", "split": "dev", "kind": "direct", "question": "What's my favorite board game?", "answer_terms": ["Brass"], "file": "topics/board-games.md"}
+{"id": "q020", "split": "test", "kind": "direct", "question": "What car do we own?", "answer_terms": ["Subaru", "Outback"], "file": "topics/vehicles.md"}
+{"id": "q021", "split": "dev", "kind": "direct", "question": "What kind of mature tree is in the front yard?", "answer_terms": ["silver maple"], "file": "topics/gardening.md"}
+{"id": "q022", "split": "test", "kind": "direct", "question": "What's the hostname of my NAS?", "answer_terms": ["barnacle"], "file": "topics/home-network.md"}
+{"id": "q023", "split": "dev", "kind": "direct", "question": "What's my dog's name?", "answer_terms": ["Pretzel"], "file": "topics/dog.md"}
+{"id": "q024", "split": "test", "kind": "direct", "question": "What year did Idris and I get married?", "answer_terms": ["2016"], "file": "people/partner.md"}
+{"id": "q025", "split": "dev", "kind": "direct", "question": "Who is Linnea's teacher?", "answer_terms": ["Abernathy"], "file": "people/daughter.md"}
+{"id": "q026", "split": "test", "kind": "direct", "question": "What's the name of Greta's cat?", "answer_terms": ["Sprocket"], "file": "people/sister.md"}
+{"id": "q027", "split": "dev", "kind": "direct", "question": "What's Callum and Yuki's son called?", "answer_terms": ["Emeka"], "file": "people/friends.md"}
+{"id": "q028", "split": "test", "kind": "paraphrase", "question": "Which city were we based in until this past summer?", "answer_terms": ["Madison"], "file": "profile.md"}
+{"id": "q029", "split": "dev", "kind": "paraphrase", "question": "Remind me which CI/CD system our rollouts at work run on.", "answer_terms": ["Buildkite"], "file": "areas/work-quillhaven.md"}
+{"id": "q030", "split": "test", "kind": "paraphrase", "question": "Which database engine is Kestrel getting us off of?", "answer_terms": ["MySQL"], "file": "areas/kestrel-migration.md"}
+{"id": "q031", "split": "dev", "kind": "paraphrase", "question": "When we replayed real requests against the rewritten quote service, why did a few results disagree with the legacy ones?", "answer_terms": ["rounding", "banker"], "file": "areas/kestrel-migration.md"}
+{"id": "q032", "split": "test", "kind": "paraphrase", "question": "What features are holding up the first major version of pgdrift?", "answer_terms": ["partitioned", "JSON"], "file": "areas/pgdrift.md"}
+{"id": "q033", "split": "dev", "kind": "paraphrase", "question": "What rate are we paying on the home loan?", "answer_terms": ["6.1"], "file": "areas/house.md"}
+{"id": "q034", "split": "test", "kind": "paraphrase", "question": "What stone did we choose for the worktops in the kitchen?", "answer_terms": ["soapstone"], "file": "areas/kitchen-remodel.md"}
+{"id": "q035", "split": "dev", "kind": "paraphrase", "question": "Where do we change planes on the way to Portugal?", "answer_terms": ["Amsterdam"], "file": "areas/portugal-trip.md"}
+{"id": "q036", "split": "test", "kind": "paraphrase", "question": "Which district are we sleeping in for the final leg of the Portugal vacation?", "answer_terms": ["Cedofeita"], "file": "areas/portugal-trip.md"}
+{"id": "q037", "split": "dev", "kind": "paraphrase", "question": "After last summer's canoe outing, what piece of gear did I say we should double up on?", "answer_terms": ["tarp"], "file": "areas/boundary-waters-trip.md"}
+{"id": "q038", "split": "test", "kind": "paraphrase", "question": "Which national park did I say I'd like to hike after the Boundary Waters?", "answer_terms": ["Isle Royale"], "file": "areas/boundary-waters-trip.md"}
+{"id": "q039", "split": "dev", "kind": "paraphrase", "question": "What kind of sewing holds my most popular Ninth Signature product together?", "answer_terms": ["Coptic"], "file": "areas/notebook-business.md"}
+{"id": "q040", "split": "test", "kind": "paraphrase", "question": "Who files our returns with the IRS?", "answer_terms": ["Folasade"], "file": "areas/household-budget.md"}
+{"id": "q041", "split": "dev", "kind": "paraphrase", "question": "When do my husband and I sit down to go over our finances?", "answer_terms": ["first Sunday"], "file": "areas/household-budget.md"}
+{"id": "q042", "split": "test", "kind": "paraphrase", "question": "What am I using to turn my presentation outline into a deck?", "answer_terms": ["Marp"], "file": "areas/meetup-talk.md"}
+{"id": "q043", "split": "dev", "kind": "paraphrase", "question": "Which key arrangement do I type on?", "answer_terms": ["Colemak"], "file": "topics/dev-environment.md"}
+{"id": "q044", "split": "test", "kind": "paraphrase", "question": "A teammate wants to add an object mapper for the database layer. What do I use instead?", "answer_terms": ["sqlc"], "file": "topics/coding-preferences.md"}
+{"id": "q045", "split": "dev", "kind": "paraphrase", "question": "If you start a new line of work in git for me, what goes before the slash?", "answer_terms": ["initials"], "file": "topics/coding-preferences.md"}
+{"id": "q046", "split": "test", "kind": "paraphrase", "question": "What trainers should I reorder when my current pair wears out?", "answer_terms": ["Saucony", "Endorphin"], "file": "topics/running.md"}
+{"id": "q047", "split": "dev", "kind": "paraphrase", "question": "What's the usual route for my weekend miles with friends?", "answer_terms": ["Nokomis"], "file": "topics/running.md"}
+{"id": "q048", "split": "test", "kind": "paraphrase", "question": "Which country's coffee do I usually buy?", "answer_terms": ["Kenya"], "file": "topics/coffee.md"}
+{"id": "q049", "split": "dev", "kind": "paraphrase", "question": "I'm filling in dietary notes for a team dinner. Besides no meat, what should I ask them to leave off my plate?", "answer_terms": ["cilantro", "raw onion"], "file": "topics/food-and-cooking.md"}
+{"id": "q050", "split": "test", "kind": "paraphrase", "question": "A friend wants to take me somewhere I'd love for dinner. What sort of place should they book?", "answer_terms": ["Ethiopian", "misir"], "file": "topics/food-and-cooking.md"}
+{"id": "q051", "split": "dev", "kind": "paraphrase", "question": "What time am I supposed to be turning in on a normal night?", "answer_terms": ["10:15"], "file": "topics/health-habits.md"}
+{"id": "q052", "split": "test", "kind": "paraphrase", "question": "Roughly how strong is my prescription for seeing far away?", "answer_terms": ["2.25"], "file": "topics/health-habits.md"}
+{"id": "q053", "split": "dev", "kind": "paraphrase", "question": "Which composer's piece is my orchestra playing at its next show?", "answer_terms": ["Holst", "St Paul"], "file": "topics/cello.md"}
+{"id": "q054", "split": "test", "kind": "paraphrase", "question": "What title is up for discussion at my reading group next?", "answer_terms": ["Piranesi"], "file": "topics/reading.md"}
+{"id": "q055", "split": "dev", "kind": "paraphrase", "question": "What do my husband and I pull out when it's just the two of us at the table?", "answer_terms": ["Patchwork"], "file": "topics/board-games.md"}
+{"id": "q056", "split": "test", "kind": "paraphrase", "question": "Which party game will I flat-out refuse to join?", "answer_terms": ["Werewolf"], "file": "topics/board-games.md"}
+{"id": "q057", "split": "dev", "kind": "paraphrase", "question": "What do I ride when I'm getting around town on my own?", "answer_terms": ["Surly", "Cross-Check"], "file": "topics/vehicles.md"}
+{"id": "q058", "split": "test", "kind": "paraphrase", "question": "Which flowers did I promise my daughter space for in the garden?", "answer_terms": ["zinnia"], "file": "topics/gardening.md"}
+{"id": "q059", "split": "dev", "kind": "paraphrase", "question": "What do I want growing in the strip between the sidewalk and the street?", "answer_terms": ["dropseed", "coneflower"], "file": "topics/gardening.md"}
+{"id": "q060", "split": "test", "kind": "paraphrase", "question": "Where do I keep my non-work schedule?", "answer_terms": ["Fastmail"], "file": "topics/calendar-rules.md"}
+{"id": "q061", "split": "dev", "kind": "paraphrase", "question": "What handles the overnight offsite copy of our files at home?", "answer_terms": ["restic", "Backblaze"], "file": "topics/home-network.md"}
+{"id": "q062", "split": "test", "kind": "paraphrase", "question": "Which word do I keep getting wrong in my Portuguese lessons?", "answer_terms": ["ficar"], "file": "topics/portuguese.md"}
+{"id": "q063", "split": "dev", "kind": "paraphrase", "question": "How would I describe my dog's coloring to someone who hasn't met her?", "answer_terms": ["brindle"], "file": "topics/dog.md"}
+{"id": "q064", "split": "test", "kind": "paraphrase", "question": "What flavor of dry food should I buy for the dog?", "answer_terms": ["salmon"], "file": "topics/dog.md"}
+{"id": "q065", "split": "dev", "kind": "paraphrase", "question": "I need a present idea for my husband. Anything I know he's been wanting?", "answer_terms": ["Custom 823", "Pilot"], "file": "people/partner.md"}
+{"id": "q066", "split": "test", "kind": "paraphrase", "question": "Which creature is my kid fixated on these days?", "answer_terms": ["axolotl"], "file": "people/daughter.md"}
+{"id": "q067", "split": "dev", "kind": "paraphrase", "question": "I'm booking dinner for my sister, anything I should avoid?", "answer_terms": ["shellfish"], "file": "people/sister.md"}
+{"id": "q068", "split": "test", "kind": "paraphrase", "question": "What's the most reliable way to get hold of my mother?", "answer_terms": ["landline"], "file": "people/parents.md"}
+{"id": "q069", "split": "dev", "kind": "paraphrase", "question": "Who's my boss's boss?", "answer_terms": ["Leopold"], "file": "people/manager.md"}
+{"id": "q070", "split": "test", "kind": "paraphrase", "question": "Who leads our postmortems after an outage?", "answer_terms": ["Mei-Ling"], "file": "people/teammates.md"}
+{"id": "q071", "split": "dev", "kind": "paraphrase", "question": "Which old workmate do I turn to when I'm weighing a job move?", "answer_terms": ["Dorothea"], "file": "people/friends.md"}
+{"id": "q072", "split": "test", "kind": "paraphrase", "question": "Who takes our pet in when we go away?", "answer_terms": ["Ottoline"], "file": "people/neighbors-and-sitters.md"}
+{"id": "q073", "split": "dev", "kind": "multi", "question": "Who is carrying the pager for me while we're in Portugal?", "answer_terms": ["Devika"], "file": ["areas/portugal-trip.md", "areas/work-quillhaven.md"]}
+{"id": "q074", "split": "test", "kind": "multi", "question": "Who will be acting as my manager on the day of the Kestrel cutover?", "answer_terms": ["Rashid"], "file": ["areas/kestrel-migration.md", "people/manager.md"]}
+{"id": "q075", "split": "dev", "kind": "multi", "question": "Where is the person who reviewed the Kestrel design doc based?", "answer_terms": ["Warsaw"], "file": ["areas/kestrel-migration.md", "people/teammates.md"]}
+{"id": "q076", "split": "test", "kind": "multi", "question": "Which city does my pgdrift co-maintainer live in?", "answer_terms": ["Vienna"], "file": ["areas/pgdrift.md", "people/friends.md"]}
+{"id": "q077", "split": "dev", "kind": "multi", "question": "Which relatives of mine, by name, live in the city where my June half marathon is?", "answer_terms": ["Karin", "Lowell"], "file": ["topics/running.md", "people/parents.md"]}
+{"id": "q078", "split": "test", "kind": "multi", "question": "How much are we putting aside each month for the job Marguerite's crew is doing?", "answer_terms": ["$800"], "file": ["areas/kitchen-remodel.md", "areas/household-budget.md"]}
+{"id": "q079", "split": "dev", "kind": "multi", "question": "What's the name of my daughter's best friend's mom?", "answer_terms": ["Renata"], "file": ["people/daughter.md", "people/neighbors-and-sitters.md"]}
+{"id": "q080", "split": "test", "kind": "multi", "question": "What's the name of the relative who grew up in the city where our May trip ends?", "answer_terms": ["Fernanda"], "file": ["areas/portugal-trip.md", "people/partner.md"]}
+{"id": "q081", "split": "dev", "kind": "multi", "question": "If I change the topic that Kestrel replays from on rollback, which data engineer do I need to warn?", "answer_terms": ["Thabo"], "file": ["areas/kestrel-migration.md", "people/teammates.md"]}
+{"id": "q082", "split": "test", "kind": "multi", "question": "Which friend's birthday falls while we're away in Portugal?", "answer_terms": ["Priyanka"], "file": ["areas/portugal-trip.md", "people/friends.md"]}
+{"id": "q083", "split": "dev", "kind": "multi", "question": "Which weekly lesson of mine lands inside my blocked lunch, and who is it with?", "answer_terms": ["Beatriz"], "file": ["topics/calendar-rules.md", "topics/portuguese.md"]}
+{"id": "q084", "split": "test", "kind": "multi", "question": "Who put us onto our plumber?", "answer_terms": ["Gunnar"], "file": ["areas/house.md", "people/neighbors-and-sitters.md"]}
+{"id": "q085", "split": "dev", "kind": "multi", "question": "What work is scheduled at the house the week my best friend from Wisconsin arrives in January?", "answer_terms": ["electrician", "rewiring", "attic"], "file": ["areas/house.md", "people/friends.md"]}
+{"id": "q086", "split": "test", "kind": "multi", "question": "What city is the person who signed off on my meetup talk based in?", "answer_terms": ["Toronto"], "file": ["areas/meetup-talk.md", "people/manager.md"]}
+{"id": "q087", "split": "dev", "kind": "multi", "question": "What board game did I ask for, for the occasion on 3 February?", "answer_terms": ["Ark Nova"], "file": ["profile.md", "topics/board-games.md"]}
+{"id": "q088", "split": "test", "kind": "multi", "question": "What keeps Idris and Linnea each busy after school on Tuesdays?", "answer_terms": ["Science Olympiad", "chess"], "file": ["people/partner.md", "people/daughter.md"]}
+{"id": "q089", "split": "dev", "kind": "multi", "question": "What will boarding the dog cost per night, and for how many nights, during the Portugal trip?", "answer_terms": ["$55"], "file": ["areas/portugal-trip.md", "people/neighbors-and-sitters.md"]}
+{"id": "q090", "split": "test", "kind": "multi", "question": "Which monthly commitment of mine falls on the same evening as my meetup talk?", "answer_terms": ["book club"], "file": ["areas/meetup-talk.md", "topics/reading.md"]}

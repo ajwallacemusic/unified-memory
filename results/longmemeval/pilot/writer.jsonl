@@ -1,0 +1,5 @@
+{"qid": "29f2956b_abs", "outcomes": ["ok", "ok", "ok", "ok", "ok", "ok", "ok"], "input_tokens": 848586, "output_tokens": 31051, "usd": 0.10038410000000002}
+{"qid": "gpt4_78cf46a3", "outcomes": ["ok", "ok", "ok", "ok", "ok", "ok", "ok"], "input_tokens": 833251, "output_tokens": 30457, "usd": 0.09855359999999999}
+{"qid": "gpt4_8279ba03", "outcomes": ["ok", "ok", "ok", "ok", "ok", "ok", "ok"], "input_tokens": 934054, "output_tokens": 35513, "usd": 0.11116190000000001}
+{"qid": "4b24c848", "outcomes": ["ok", "ok", "ok", "ok", "ok", "ok", "ok"], "input_tokens": 877920, "output_tokens": 42975, "usd": 0.1092795}
+{"qid": "cf22b7bf", "outcomes": ["ok", "ok", "ok", "max_tokens", "ok", "ok", "ok"], "input_tokens": 827154, "output_tokens": 48024, "usd": 0.10672740000000001}

@@ -1,0 +1,202 @@
+{
+ "pairs": [
+  {
+   "a": "x-m01",
+   "b": "x-t08",
+   "label": "duplicate",
+   "transition": null,
+   "current": null,
+   "confidence": 0.98,
+   "why": "Both say the API is on Fly.io in Chicago."
+  },
+  {
+   "a": "x-m02",
+   "b": "x-s04",
+   "label": "duplicate",
+   "transition": null,
+   "current": null,
+   "confidence": 0.97,
+   "why": "Both say primary DB is Postgres 15."
+  },
+  {
+   "a": "x-m04",
+   "b": "x-c03",
+   "label": "duplicate",
+   "transition": null,
+   "current": null,
+   "confidence": 0.97,
+   "why": "Both say payments go through Stripe Checkout."
+  },
+  {
+   "a": "x-m08",
+   "b": "x-t02",
+   "label": "duplicate",
+   "transition": null,
+   "current": null,
+   "confidence": 0.93,
+   "why": "Both say the newsletter is sent with Buttondown."
+  },
+  {
+   "a": "x-m09",
+   "b": "x-a02",
+   "label": "duplicate",
+   "transition": null,
+   "current": null,
+   "confidence": 0.93,
+   "why": "Both say Sam's race is the Chicago Marathon, October 2026."
+  },
+  {
+   "a": "x-m12",
+   "b": "x-t06",
+   "label": "duplicate",
+   "transition": null,
+   "current": null,
+   "confidence": 0.96,
+   "why": "Both say home lab backups go nightly to the Synology NAS."
+  },
+  {
+   "a": "x-m16",
+   "b": "x-s05",
+   "label": "duplicate",
+   "transition": null,
+   "current": null,
+   "confidence": 0.95,
+   "why": "Both say the Kilnbook backend is written in Go."
+  },
+  {
+   "a": "x-m17",
+   "b": "x-a04",
+   "label": "duplicate",
+   "transition": null,
+   "current": null,
+   "confidence": 0.96,
+   "why": "Both say tempo runs are on Wednesdays."
+  },
+  {
+   "a": "x-s01",
+   "b": "x-m01",
+   "label": "conflict",
+   "transition": "change",
+   "current": "x-m01",
+   "confidence": 0.9,
+   "why": "Heroku (Feb) vs Fly.io (May) as API host; skill deploy command is stale."
+  },
+  {
+   "a": "x-s01",
+   "b": "x-t08",
+   "label": "conflict",
+   "transition": "change",
+   "current": "x-t08",
+   "confidence": 0.9,
+   "why": "Heroku (Feb) vs Fly.io (Aug) as API host."
+  },
+  {
+   "a": "x-m02",
+   "b": "x-c01",
+   "label": "conflict",
+   "transition": "change",
+   "current": "x-c01",
+   "confidence": 0.88,
+   "why": "Postgres 15 (May) vs Postgres 16 from live connector (Nov)."
+  },
+  {
+   "a": "x-s04",
+   "b": "x-c01",
+   "label": "conflict",
+   "transition": "change",
+   "current": "x-c01",
+   "confidence": 0.88,
+   "why": "Postgres 15 (Feb) vs Postgres 16 from live connector (Nov)."
+  },
+  {
+   "a": "x-m03",
+   "b": "x-c02",
+   "label": "conflict",
+   "transition": "change",
+   "current": "x-c02",
+   "confidence": 0.9,
+   "why": "'No mobile app, web only' vs iOS app live on the App Store."
+  },
+  {
+   "a": "x-s03",
+   "b": "x-m06",
+   "label": "conflict",
+   "transition": "change",
+   "current": "x-m06",
+   "confidence": 0.85,
+   "why": "Skill auto-deploys staging on merge; later memory rule forbids automatic staging deploys."
+  },
+  {
+   "a": "x-s07",
+   "b": "x-m08",
+   "label": "conflict",
+   "transition": "unknown",
+   "current": "x-m08",
+   "confidence": 0.7,
+   "why": "Mailchimp vs Buttondown as newsletter sender; dates 5 days apart, Buttondown reaffirmed in Sept task."
+  },
+  {
+   "a": "x-s07",
+   "b": "x-t02",
+   "label": "conflict",
+   "transition": "change",
+   "current": "x-t02",
+   "confidence": 0.8,
+   "why": "Mailchimp (Mar skill) vs Buttondown (Sept task) as newsletter sender."
+  },
+  {
+   "a": "x-s09",
+   "b": "x-t03",
+   "label": "conflict",
+   "transition": "change",
+   "current": "x-t03",
+   "confidence": 0.75,
+   "why": "Newsletter word limit 500 (Mar) vs 400 (Sept)."
+  },
+  {
+   "a": "x-m15",
+   "b": "x-t04",
+   "label": "conflict",
+   "transition": "change",
+   "current": "x-t04",
+   "confidence": 0.8,
+   "why": "Pricing $29 (Mar) vs $35 (Sept) per studio per month."
+  },
+  {
+   "a": "x-m11",
+   "b": "x-t07",
+   "label": "conflict",
+   "transition": "change",
+   "current": "x-t07",
+   "confidence": 0.8,
+   "why": "Two NUCs (Feb) vs three NUCs (Aug)."
+  },
+  {
+   "a": "x-m10",
+   "b": "x-a01",
+   "label": "conflict",
+   "transition": "change",
+   "current": "x-a01",
+   "confidence": 0.8,
+   "why": "Long runs on Sundays (Apr) vs Saturdays (Sept plan)."
+  },
+  {
+   "a": "x-m14",
+   "b": "x-m19",
+   "label": "conflict",
+   "transition": "change",
+   "current": "x-m19",
+   "confidence": 0.9,
+   "why": "'Nobody else works on Kilnbook' vs a part-time contractor now handling support."
+  },
+  {
+   "a": "x-s08",
+   "b": "x-t05",
+   "label": "conflict",
+   "transition": "exception",
+   "current": null,
+   "confidence": 0.55,
+   "why": "Every issue has three sections incl. member spotlight vs skip spotlight when nobody opted in; both hold, the latter is a carve-out."
+  }
+ ]
+}

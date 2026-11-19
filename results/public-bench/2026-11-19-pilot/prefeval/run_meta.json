@@ -1,0 +1,60 @@
+{
+ "invocations": [
+  {
+   "argv": [
+    "--bench",
+    "prefeval",
+    "--n",
+    "20",
+    "--out",
+    "results/public-bench/2026-11-19-pilot/prefeval",
+    "--api-cap",
+    "30.2",
+    "--workers",
+    "4"
+   ],
+   "started": "2026-11-19T16:48:10Z",
+   "finished": "2026-11-19T16:52:29Z",
+   "items": [
+    "education_learning_styles:25",
+    "education_resources:30",
+    "entertain_games:45",
+    "entertain_music_book:33",
+    "entertain_shows:45",
+    "entertain_sports:49",
+    "lifestyle_beauty:39",
+    "lifestyle_dietary:13",
+    "lifestyle_fit:1",
+    "lifestyle_health:16",
+    "pet_ownership:36",
+    "professional_work_location_style:28",
+    "shop_fashion:23",
+    "shop_home:55",
+    "shop_motors:3",
+    "shop_technology:17",
+    "travel_activities:38",
+    "travel_hotel:3",
+    "travel_restaurant:43",
+    "travel_transportation:42"
+   ],
+   "conditions": [
+    "none",
+    "full-history",
+    "raw-retrieval",
+    "profile-full",
+    "profile-hook"
+   ],
+   "answer_model": "claude-haiku-5-5",
+   "judge_model": "claude-haiku-5-5",
+   "compile_model": "claude-sonnet-5-5",
+   "cap_floor": 100000,
+   "api_usd_ledger_before": 27.532318519999915,
+   "api_usd_ledger_after": 28.256610819999942,
+   "usage_after": {
+    "fh": 51.0,
+    "sd": 26.0,
+    "age_s": 124.88263988494873
+   }
+  }
+ ]
+}

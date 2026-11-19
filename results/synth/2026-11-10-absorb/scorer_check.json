@@ -1,0 +1,10 @@
+{
+ "checked_by": "Claude (Opus 5.5, the executing session; the scorer is a string rule, not a model)",
+ "n": 30,
+ "agree": 29,
+ "sample": "30 rows drawn with seed 20261110 from both conditions together",
+ "notes": [
+  "The one disagreement: an answer that asserted the true value and mentioned the planted value as an unconfirmed sync report was labelled 'planted'. The rule counts any un-dated mention of another value against the answer.",
+  "That pattern is common in the plain-writer condition. Under a lenient reading (the answer's asserted value, before any bracketed hedge, decides), planted acceptance is z 45/90, a0 40/90, a 52/90 instead of 66, 73 and 67; combined error is z 69, a0 84, a 77 of 490 instead of 90, 122 and 101. Arm B is 0 under both readings. In the absorb condition no row changes."
+ ]
+}

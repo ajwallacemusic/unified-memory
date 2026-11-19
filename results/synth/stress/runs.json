@@ -1,0 +1,132 @@
+{
+ "s1-plain": {
+  "dir": "results/synth/2026-11-10-plain",
+  "seed": 1,
+  "writer": "plain",
+  "oracle": "always",
+  "arms": [
+   "z",
+   "a",
+   "b"
+  ]
+ },
+ "s1-plain-nohook": {
+  "dir": "results/synth/stress/s1-plain-nohook",
+  "seed": 1,
+  "writer": "plain",
+  "oracle": "always",
+  "arms": [
+   "b-nohook"
+  ]
+ },
+ "s1-plain-oracle-never": {
+  "dir": "results/synth/stress/s1-plain-oracle-never",
+  "seed": 1,
+  "writer": "plain",
+  "oracle": "never",
+  "arms": [
+   "b"
+  ]
+ },
+ "s1-plain-oracle-late": {
+  "dir": "results/synth/stress/s1-plain-oracle-late",
+  "seed": 1,
+  "writer": "plain",
+  "oracle": "late",
+  "arms": [
+   "b"
+  ]
+ },
+ "s1-plain-oracle-flaky": {
+  "dir": "results/synth/stress/s1-plain-oracle-flaky",
+  "seed": 1,
+  "writer": "plain",
+  "oracle": "flaky",
+  "arms": [
+   "b"
+  ]
+ },
+ "s2-plain": {
+  "dir": "results/synth/stress/s2-plain",
+  "seed": 2,
+  "writer": "plain",
+  "oracle": "always",
+  "arms": [
+   "z",
+   "a",
+   "b",
+   "b-nohook"
+  ]
+ },
+ "s1-absorb": {
+  "dir": "results/synth/2026-11-10-absorb",
+  "seed": 1,
+  "writer": "absorb",
+  "oracle": "always",
+  "arms": [
+   "z",
+   "a",
+   "b"
+  ]
+ },
+ "s1-absorb-nohook": {
+  "dir": "results/synth/stress/s1-absorb-nohook",
+  "seed": 1,
+  "writer": "absorb",
+  "oracle": "always",
+  "arms": [
+   "b-nohook"
+  ]
+ },
+ "s1-absorb-oracle-never": {
+  "dir": "results/synth/stress/s1-absorb-oracle-never",
+  "seed": 1,
+  "writer": "absorb",
+  "oracle": "never",
+  "arms": [
+   "b"
+  ]
+ },
+ "s1-absorb-oracle-late": {
+  "dir": "results/synth/stress/s1-absorb-oracle-late",
+  "seed": 1,
+  "writer": "absorb",
+  "oracle": "late",
+  "arms": [
+   "b"
+  ]
+ },
+ "s1-absorb-oracle-flaky": {
+  "dir": "results/synth/stress/s1-absorb-oracle-flaky",
+  "seed": 1,
+  "writer": "absorb",
+  "oracle": "flaky",
+  "arms": [
+   "b"
+  ]
+ },
+ "s2-absorb": {
+  "dir": "results/synth/stress/s2-absorb",
+  "seed": 2,
+  "writer": "absorb",
+  "oracle": "always",
+  "arms": [
+   "z",
+   "a",
+   "b",
+   "b-nohook"
+  ]
+ },
+ "s1-plain-erase": {
+  "dir": "results/synth/stress/s1-plain-erase",
+  "seed": 1,
+  "writer": "plain",
+  "oracle": "always",
+  "arms": [
+   "z",
+   "a",
+   "b"
+  ],
+  "erase_week": 3
+ }
+}

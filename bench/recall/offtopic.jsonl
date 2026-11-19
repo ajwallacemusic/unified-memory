@@ -1,0 +1,40 @@
+{"id": "o01", "prompt": "Push the release branch and open a pull request against main.", "split": "dev"}
+{"id": "o02", "prompt": "Write a test for the budget calculator's rounding function.", "split": "test"}
+{"id": "o03", "prompt": "Why does the trip planner endpoint time out when the cache is cold?", "split": "dev"}
+{"id": "o04", "prompt": "Add a migration that renames the kitchen_orders table to orders.", "split": "test"}
+{"id": "o05", "prompt": "Review this diff for race conditions in the worker pool.", "split": "dev"}
+{"id": "o06", "prompt": "Set up a nightly backup job for the Postgres container.", "split": "test"}
+{"id": "o07", "prompt": "Rename the feature flag helper and update the rollback section of the docs.", "split": "dev"}
+{"id": "o08", "prompt": "The deploy froze on Friday afternoon; find the last green build.", "split": "test"}
+{"id": "o09", "prompt": "Write a fish completion script for this CLI.", "split": "dev"}
+{"id": "o10", "prompt": "Refactor the meeting scheduler so the lunch break length is configurable.", "split": "test"}
+{"id": "o11", "prompt": "The long-running job keeps missing its Saturday cron slot. Why?", "split": "dev"}
+{"id": "o12", "prompt": "Make the notebook kernel restart whenever the config file changes.", "split": "test"}
+{"id": "o13", "prompt": "Sort the school records fixture by birthday and write it out as CSV.", "split": "dev"}
+{"id": "o14", "prompt": "Add Passport.js login to the Express app.", "split": "test"}
+{"id": "o15", "prompt": "What's the difference between a squash merge and a rebase merge?", "split": "dev"}
+{"id": "o16", "prompt": "Add a budget alert that fires when monthly cloud spend passes a threshold.", "split": "test"}
+{"id": "o17", "prompt": "Generate a weekly on-call rotation from this list of engineers.", "split": "dev"}
+{"id": "o18", "prompt": "Draft release notes from the commits since the last tag.", "split": "test"}
+{"id": "o19", "prompt": "The garden-path sentence test in the parser suite is flaky; fix it.", "split": "dev"}
+{"id": "o20", "prompt": "Plan the database migration so the trip-up with duplicate keys doesn't happen again.", "split": "test"}
+{"id": "o21", "prompt": "Write a script that walks the directory tree and prints the ten largest files.", "split": "dev"}
+{"id": "o22", "prompt": "Why is the dog-pile effect hitting our cache, and how do I stop it?", "split": "test"}
+{"id": "o23", "prompt": "Update the house style in the linter config to allow 100-character lines.", "split": "dev"}
+{"id": "o24", "prompt": "Explain how a Kafka consumer group rebalances.", "split": "test"}
+{"id": "o25", "prompt": "What does set -euo pipefail do in a bash script?", "split": "dev"}
+{"id": "o26", "prompt": "How do I undo my last commit but keep the changes staged?", "split": "test"}
+{"id": "o27", "prompt": "Explain the CAP theorem in three sentences.", "split": "dev"}
+{"id": "o28", "prompt": "Write a regex that matches ISO 8601 timestamps.", "split": "test"}
+{"id": "o29", "prompt": "Convert this for loop to use xargs with four parallel workers.", "split": "dev"}
+{"id": "o30", "prompt": "What is the time complexity of heapsort?", "split": "test"}
+{"id": "o31", "prompt": "Find every TODO under src/ and group them by file.", "split": "dev"}
+{"id": "o32", "prompt": "Why is my Docker image 2 GB, and how do I shrink it?", "split": "test"}
+{"id": "o33", "prompt": "Show me how to read a file line by line in Rust.", "split": "dev"}
+{"id": "o34", "prompt": "What's the difference between a mutex and a semaphore?", "split": "test"}
+{"id": "o35", "prompt": "List the processes listening on port 8080.", "split": "dev"}
+{"id": "o36", "prompt": "Add type hints to utils.py and run the type checker.", "split": "test"}
+{"id": "o37", "prompt": "How does HTTP/2 multiplexing differ from HTTP/1.1 pipelining?", "split": "dev"}
+{"id": "o38", "prompt": "Bump the dependencies in package.json to their latest minor versions.", "split": "test"}
+{"id": "o39", "prompt": "Write a Makefile target that lints and then builds.", "split": "dev"}
+{"id": "o40", "prompt": "What year was the first version of Python released?", "split": "test"}

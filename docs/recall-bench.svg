@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 586" width="760" height="586" role="img" aria-labelledby="t d">
+<title id="t">Claude Code recall bench, by setup</title>
+<desc id="d">Questions about the user: No profile 0/45, Index 45/45, Index + standing list 44/45, Index + standing list + hook 44/45, Whole profile in CLAUDE.md 45/45; Tasks that never ask about the user: No profile 2/20, Index 17/20, Index + standing list 19/20, Index + standing list + hook 19/20, Whole profile in CLAUDE.md 19/20</desc>
+<style>
+  .surface { fill: #fcfcfb; stroke: #e1e0d9; }
+  .ink { fill: #0b0b0b; }
+  .ink2 { fill: #52514e; }
+  .muted { fill: #898781; }
+  .grid { stroke: #e1e0d9; stroke-width: 1; }
+  .axis { stroke: #c3c2b7; stroke-width: 1; }
+  .lead { stroke: #898781; stroke-width: 1; }
+  .ours { fill: #2a78d6; stroke: #fcfcfb; stroke-width: 2; }
+  .base { fill: #eb6834; stroke: #fcfcfb; stroke-width: 2; }
+  .ours-ci { stroke: #2a78d6; stroke-width: 2; stroke-linecap: round; }
+  .base-ci { stroke: #eb6834; stroke-width: 2; stroke-linecap: round; }
+  text { font-family: system-ui, -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; }
+  .t { font-size: 16px; font-weight: 600; }
+  .s { font-size: 12.5px; }
+  .l { font-size: 13px; }
+  .k { font-size: 12px; }
+  .h { font-size: 13px; font-weight: 600; }
+  @media (prefers-color-scheme: dark) {
+    .surface { fill: #1a1a19; stroke: #2c2c2a; }
+    .ink { fill: #f0efec; }
+    .ink2 { fill: #c3c2b7; }
+    .grid { stroke: #2c2c2a; }
+    .axis { stroke: #383835; }
+    .ours { fill: #3987e5; stroke: #1a1a19; }
+    .base { fill: #d95926; stroke: #1a1a19; }
+    .ours-ci { stroke: #3987e5; }
+    .base-ci { stroke: #d95926; }
+  }
+</style>
+<rect class="surface" x="0.5" y="0.5" width="759" height="585" rx="8"/>
+<text x="24.0" y="34.0" class="t ink">Claude Code recall bench, by setup</text>
+<text x="24.0" y="54.0" class="s ink2">Fictional user, 34 profile files. Isolated claude -p sessions, Claude Sonnet answers.</text>
+<text x="24.0" y="71.0" class="s ink2">Dots are hit rates; lines are 95% Wilson intervals.</text>
+<text x="24.0" y="110.0" class="h ink">Questions about the user</text>
+<text x="24.0" y="128.0" class="k ink2">45 held-out questions, one session each; a hit is an answer term in the reply</text>
+<line class="axis" x1="268.0" x2="268.0" y1="144" y2="294"/>
+<text x="268.0" y="310.0" class="k muted" text-anchor="middle">0%</text>
+<line class="grid" x1="358.0" x2="358.0" y1="144" y2="294"/>
+<text x="358.0" y="310.0" class="k muted" text-anchor="middle">25%</text>
+<line class="grid" x1="448.0" x2="448.0" y1="144" y2="294"/>
+<text x="448.0" y="310.0" class="k muted" text-anchor="middle">50%</text>
+<line class="grid" x1="538.0" x2="538.0" y1="144" y2="294"/>
+<text x="538.0" y="310.0" class="k muted" text-anchor="middle">75%</text>
+<line class="grid" x1="628.0" x2="628.0" y1="144" y2="294"/>
+<text x="628.0" y="310.0" class="k muted" text-anchor="middle">100%</text>
+<text x="24.0" y="163.5" class="l ink">No profile</text>
+<line class="base-ci" x1="268.0" x2="296.3" y1="159.0" y2="159.0"/>
+<rect class="base" x="262.5" y="153.5" width="11" height="11" rx="2"/>
+<text x="736.0" y="163.5" class="h ink" text-anchor="end">0/45</text>
+<text x="24.0" y="193.5" class="l ink">Index</text>
+<line class="ours-ci" x1="599.7" x2="628.0" y1="189.0" y2="189.0"/>
+<circle class="ours" cx="628.0" cy="189.0" r="6"/>
+<text x="736.0" y="193.5" class="h ink" text-anchor="end">45/45</text>
+<text x="24.0" y="223.5" class="l ink">Index + standing list</text>
+<line class="ours-ci" x1="586.4" x2="626.6" y1="219.0" y2="219.0"/>
+<circle class="ours" cx="620.0" cy="219.0" r="6"/>
+<text x="736.0" y="223.5" class="h ink" text-anchor="end">44/45</text>
+<text x="24.0" y="253.5" class="l ink">Index + standing list + hook</text>
+<line class="ours-ci" x1="586.4" x2="626.6" y1="249.0" y2="249.0"/>
+<circle class="ours" cx="620.0" cy="249.0" r="6"/>
+<text x="736.0" y="253.5" class="h ink" text-anchor="end">44/45</text>
+<text x="24.0" y="283.5" class="l ink">Whole profile in CLAUDE.md</text>
+<line class="ours-ci" x1="599.7" x2="628.0" y1="279.0" y2="279.0"/>
+<circle class="ours" cx="628.0" cy="279.0" r="6"/>
+<text x="736.0" y="283.5" class="h ink" text-anchor="end">45/45</text>
+<text x="24.0" y="358.0" class="h ink">Tasks that never ask about the user</text>
+<text x="24.0" y="376.0" class="k ink2">20 held-out tasks; Claude Haiku 5.5 judges whether the reply respected the stored fact</text>
+<line class="axis" x1="268.0" x2="268.0" y1="392" y2="542"/>
+<text x="268.0" y="558.0" class="k muted" text-anchor="middle">0%</text>
+<line class="grid" x1="358.0" x2="358.0" y1="392" y2="542"/>
+<text x="358.0" y="558.0" class="k muted" text-anchor="middle">25%</text>
+<line class="grid" x1="448.0" x2="448.0" y1="392" y2="542"/>
+<text x="448.0" y="558.0" class="k muted" text-anchor="middle">50%</text>
+<line class="grid" x1="538.0" x2="538.0" y1="392" y2="542"/>
+<text x="538.0" y="558.0" class="k muted" text-anchor="middle">75%</text>
+<line class="grid" x1="628.0" x2="628.0" y1="392" y2="542"/>
+<text x="628.0" y="558.0" class="k muted" text-anchor="middle">100%</text>
+<text x="24.0" y="411.5" class="l ink">No profile</text>
+<line class="base-ci" x1="278.0" x2="376.4" y1="407.0" y2="407.0"/>
+<rect class="base" x="298.5" y="401.5" width="11" height="11" rx="2"/>
+<text x="736.0" y="411.5" class="h ink" text-anchor="end">2/20</text>
+<text x="24.0" y="441.5" class="l ink">Index</text>
+<line class="ours-ci" x1="498.2" x2="609.1" y1="437.0" y2="437.0"/>
+<circle class="ours" cx="574.0" cy="437.0" r="6"/>
+<text x="736.0" y="441.5" class="h ink" text-anchor="end">17/20</text>
+<text x="24.0" y="471.5" class="l ink">Index + standing list</text>
+<line class="ours-ci" x1="543.0" x2="624.8" y1="467.0" y2="467.0"/>
+<circle class="ours" cx="610.0" cy="467.0" r="6"/>
+<text x="736.0" y="471.5" class="h ink" text-anchor="end">19/20</text>
+<text x="24.0" y="501.5" class="l ink">Index + standing list + hook</text>
+<line class="ours-ci" x1="543.0" x2="624.8" y1="497.0" y2="497.0"/>
+<circle class="ours" cx="610.0" cy="497.0" r="6"/>
+<text x="736.0" y="501.5" class="h ink" text-anchor="end">19/20</text>
+<text x="24.0" y="531.5" class="l ink">Whole profile in CLAUDE.md</text>
+<line class="ours-ci" x1="543.0" x2="624.8" y1="527.0" y2="527.0"/>
+<circle class="ours" cx="610.0" cy="527.0" r="6"/>
+<text x="736.0" y="531.5" class="h ink" text-anchor="end">19/20</text>
+</svg>

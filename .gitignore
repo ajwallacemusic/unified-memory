@@ -1,0 +1,13 @@
+# Personal data never leaves this machine (see CLAUDE.md)
+data/private/
+*.zip
+.env
+__pycache__/
+.venv/
+node_modules/
+data/public/
+*.egg-info/
+.superpowers/
+.pytest_cache/
+results/**/stores/
+results/synth/**/week-*/

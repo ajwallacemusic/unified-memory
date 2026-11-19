@@ -1,0 +1,34 @@
+{
+ "data": "data/public/longmemeval/longmemeval_s_cleaned.json",
+ "n_sampled": 100,
+ "seed": 20261110,
+ "model": "claude-haiku-5-5",
+ "judge_model": "claude-haiku-5-5",
+ "invocations": [
+  {
+   "arms": [
+    "full"
+   ],
+   "n_requested": 100,
+   "limit": 20,
+   "started": "2026-11-11T00:22:46Z",
+   "cap_usd": 10.6,
+   "sub_ceiling_pct": 0.0,
+   "usage_before": {
+    "fh": 53.0,
+    "sd": 28.0,
+    "age_s": 5.433909177780151
+   },
+   "gate_open_at_start": false,
+   "effort": "medium",
+   "usage_after": {
+    "fh": 53.0,
+    "sd": 28.0,
+    "age_s": 22.268439054489136
+   },
+   "api_usd_ledger_before": 8.530029660000013,
+   "api_usd_ledger_after": 10.219510660000013,
+   "finished": "2026-11-11T00:23:08Z"
+  }
+ ]
+}

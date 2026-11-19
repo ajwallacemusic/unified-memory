@@ -1,0 +1,50 @@
+{
+ "invocations": [
+  {
+   "argv": [
+    "--bench",
+    "longmemeval",
+    "--n",
+    "10",
+    "--out",
+    "results/public-bench/2026-11-19-pilot/longmemeval",
+    "--api-cap",
+    "30.2",
+    "--workers",
+    "3"
+   ],
+   "started": "2026-11-19T16:46:40Z",
+   "finished": "2026-11-19T16:50:04Z",
+   "items": [
+    "06db6396",
+    "1c0ddc50",
+    "21436231",
+    "5a4f22c0",
+    "75832dbd",
+    "a89d7624",
+    "b320f3f8",
+    "d52b4f67",
+    "d7c942c3",
+    "e61a7584"
+   ],
+   "conditions": [
+    "none",
+    "full-history",
+    "raw-retrieval",
+    "profile-full",
+    "profile-hook"
+   ],
+   "answer_model": "claude-haiku-5-5",
+   "judge_model": "claude-haiku-5-5",
+   "compile_model": "claude-sonnet-5-5",
+   "cap_floor": 100000,
+   "api_usd_ledger_before": 27.238135019999916,
+   "api_usd_ledger_after": 28.191405219999933,
+   "usage_after": {
+    "fh": 51.0,
+    "sd": 26.0,
+    "age_s": 2.366180896759033
+   }
+  }
+ ]
+}

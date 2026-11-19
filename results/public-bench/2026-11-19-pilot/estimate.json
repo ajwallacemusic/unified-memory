@@ -1,0 +1,340 @@
+{
+ "prefeval": {
+  "unit": {
+   "items": 20,
+   "profiles": 20,
+   "answer_tokens_per_item": {
+    "none": {
+     "input": 53.9,
+     "output": 712.6
+    },
+    "full-history": {
+     "input": 5836.6,
+     "output": 885.4
+    },
+    "raw-retrieval": {
+     "input": 628.5,
+     "output": 857.4
+    },
+    "profile-full": {
+     "input": 113.55,
+     "output": 843.85
+    },
+    "profile-hook": {
+     "input": 53.9,
+     "output": 683.45
+    }
+   },
+   "answer_usd_per_item": {
+    "none": 0.00036169,
+    "full-history": 0.00102636,
+    "raw-retrieval": 0.00049155,
+    "profile-full": 0.00043327999999999997,
+    "profile-hook": 0.00034711500000000005
+   },
+   "judge_tokens_per_answer": {
+    "input": 3909.2,
+    "output": 647.75
+   },
+   "judge_usd_per_answer": 0.0007147950000000003,
+   "compile_tokens_per_profile": {
+    "input": 7695.1,
+    "output": 309.45
+   },
+   "compile_usd_per_profile": 0.0184847,
+   "setup_tokens_per_item": {
+    "input": 41.25,
+    "output": 269.35
+   },
+   "setup_usd_per_item": 0.00013879999999999999
+  },
+  "n100": {
+   "items": 100,
+   "profiles": 100,
+   "answer_tokens": {
+    "input": 668645,
+    "output": 398270
+   },
+   "judge_tokens": {
+    "input": 1954600,
+    "output": 323875
+   },
+   "setup_tokens": {
+    "input": 4125,
+    "output": 26935
+   },
+   "compile_tokens": {
+    "input": 769510,
+    "output": 30945
+   },
+   "usd_api_as_piloted": 0.6372770000000002,
+   "usd_compile_on_api": 1.84847,
+   "usd_api_if_compile_on_api": 2.4857470000000004,
+   "tokens_if_all_subscription": 4176905
+  },
+  "n1000": {
+   "items": 1000,
+   "profiles": 1000,
+   "answer_tokens": {
+    "input": 6686450,
+    "output": 3982700
+   },
+   "judge_tokens": {
+    "input": 19546000,
+    "output": 3238750
+   },
+   "setup_tokens": {
+    "input": 41250,
+    "output": 269350
+   },
+   "compile_tokens": {
+    "input": 7695100,
+    "output": 309450
+   },
+   "usd_api_as_piloted": 6.372770000000002,
+   "usd_compile_on_api": 18.4847,
+   "usd_api_if_compile_on_api": 24.857470000000003,
+   "tokens_if_all_subscription": 41769050
+  },
+  "n1000_300_inter_turns": {
+   "items": 1000,
+   "profiles": 1000,
+   "answer_tokens": {
+    "input": 158786450,
+    "output": 3982700
+   },
+   "judge_tokens": {
+    "input": 19546000,
+    "output": 3238750
+   },
+   "setup_tokens": {
+    "input": 41250,
+    "output": 269350
+   },
+   "compile_tokens": {
+    "input": 230483566,
+    "output": 7689008
+   },
+   "usd_api_as_piloted": 86.52690999999999,
+   "usd_compile_on_api": 537.856,
+   "usd_api_if_compile_on_api": 624.38291,
+   "tokens_if_all_subscription": 424037074
+  }
+ },
+ "longmemeval": {
+  "unit": {
+   "items": 10,
+   "profiles": 10,
+   "answer_tokens_per_item": {
+    "none": {
+     "input": 213.8,
+     "output": 139.2
+    },
+    "full-history": {
+     "input": 167758.2,
+     "output": 225.5
+    },
+    "raw-retrieval": {
+     "input": 1618.6,
+     "output": 172.4
+    },
+    "profile-full": {
+     "input": 971.0,
+     "output": 145.9
+    },
+    "profile-hook": {
+     "input": 252.9,
+     "output": 160.9
+    }
+   },
+   "answer_usd_per_item": {
+    "none": 9.097999999999999e-05,
+    "full-history": 0.08444284999999999,
+    "raw-retrieval": 0.00024806000000000003,
+    "profile-full": 0.00017005,
+    "profile-hook": 0.00010574
+   },
+   "judge_tokens_per_answer": {
+    "input": 260.26,
+    "output": 93.76
+   },
+   "judge_usd_per_answer": 7.290600000000002e-05,
+   "compile_tokens_per_profile": {
+    "input": 179290.8,
+    "output": 5981.2
+   },
+   "compile_usd_per_profile": 0.41839360000000003,
+   "setup_tokens_per_item": {
+    "input": 0.0,
+    "output": 0.0
+   },
+   "setup_usd_per_item": 0.0
+  },
+  "n100": {
+   "items": 100,
+   "profiles": 100,
+   "answer_tokens": {
+    "input": 17081450,
+    "output": 84390
+   },
+   "judge_tokens": {
+    "input": 130130,
+    "output": 46880
+   },
+   "setup_tokens": {
+    "input": 0,
+    "output": 0
+   },
+   "compile_tokens": {
+    "input": 17929080,
+    "output": 598120
+   },
+   "usd_api_as_piloted": 8.542221,
+   "usd_compile_on_api": 41.839360000000006,
+   "usd_api_if_compile_on_api": 50.381581000000004,
+   "tokens_if_all_subscription": 35870050
+  },
+  "n166": {
+   "items": 166,
+   "profiles": 166,
+   "answer_tokens": {
+    "input": 28355207,
+    "output": 140087
+   },
+   "judge_tokens": {
+    "input": 216016,
+    "output": 77821
+   },
+   "setup_tokens": {
+    "input": 0,
+    "output": 0
+   },
+   "compile_tokens": {
+    "input": 29762273,
+    "output": 992879
+   },
+   "usd_api_as_piloted": 14.18008686,
+   "usd_compile_on_api": 69.45333760000001,
+   "usd_api_if_compile_on_api": 83.63342446000001,
+   "tokens_if_all_subscription": 59544283
+  }
+ },
+ "mab": {
+  "unit": {
+   "items": 10,
+   "profiles": 1,
+   "answer_tokens_per_item": {
+    "none": {
+     "input": 295.4,
+     "output": 215.3
+    },
+    "full-history": {
+     "input": 10311.4,
+     "output": 60.0
+    },
+    "raw-retrieval": {
+     "input": 1306.9,
+     "output": 85.9
+    },
+    "profile-full": {
+     "input": 295.4,
+     "output": 200.7
+    },
+    "profile-hook": {
+     "input": 295.4,
+     "output": 200.9
+    },
+    "last-write": {
+     "input": 317.0,
+     "output": 23.0
+    }
+   },
+   "answer_usd_per_item": {
+    "none": 0.00013719,
+    "full-history": 0.00106114,
+    "raw-retrieval": 0.00017364000000000002,
+    "profile-full": 0.00012989,
+    "profile-hook": 0.00012999000000000002,
+    "last-write": 4.319999999999999e-05
+   },
+   "judge_tokens_per_answer": {
+    "input": 0.0,
+    "output": 0.0
+   },
+   "judge_usd_per_answer": 0.0,
+   "compile_tokens_per_profile": {
+    "input": 29952.0,
+    "output": 303.0
+   },
+   "compile_usd_per_profile": 0.062934,
+   "setup_tokens_per_item": {
+    "input": 0.0,
+    "output": 0.0
+   },
+   "setup_usd_per_item": 0.0
+  },
+  "n100_sh6k": {
+   "items": 100,
+   "profiles": 1,
+   "answer_tokens": {
+    "input": 1282150,
+    "output": 78580
+   },
+   "judge_tokens": {
+    "input": 0,
+    "output": 0
+   },
+   "setup_tokens": {
+    "input": 0,
+    "output": 0
+   },
+   "compile_tokens": {
+    "input": 29952,
+    "output": 303
+   },
+   "usd_api_as_piloted": 0.167505,
+   "usd_compile_on_api": 0.062934,
+   "usd_api_if_compile_on_api": 0.230439,
+   "tokens_if_all_subscription": 1390985
+  },
+  "chains": {
+   "factconsolidation_sh_6k": {
+    "input": 29952.000000000004,
+    "output": 303.0,
+    "max_request": 2995.2,
+    "a": 2995.2,
+    "b": 0.0,
+    "passes": 10,
+    "usd_on_api": 0.062934
+   },
+   "factconsolidation_sh_32k": {
+    "input": 140774.39999999997,
+    "output": 1424.1000000000001,
+    "max_request": 2995.2,
+    "a": 2995.2,
+    "b": 0.0,
+    "passes": 47,
+    "usd_on_api": 0.295788
+   },
+   "factconsolidation_sh_64k": {
+    "input": 275558.4000000005,
+    "output": 2787.6,
+    "max_request": 2995.2,
+    "a": 2995.2,
+    "b": 0.0,
+    "passes": 92,
+    "usd_on_api": 0.578986
+   },
+   "factconsolidation_sh_262k": {
+    "input": 1099238.3999999927,
+    "output": 11120.1,
+    "max_request": 2995.2,
+    "a": 2995.2,
+    "b": 0.0,
+    "passes": 367,
+    "usd_on_api": 2.309676
+   }
+  },
+  "lines_per_pass": 0.0
+ }
+}

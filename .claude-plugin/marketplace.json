@@ -1,0 +1,14 @@
+{
+  "name": "unified-memory",
+  "description": "Unified Memory: one checked profile of you across Claude Code, chat and scheduled tasks",
+  "owner": {
+    "name": "AJ Wallace"
+  },
+  "plugins": [
+    {
+      "name": "unified-memory",
+      "source": "./plugin",
+      "description": "One profile of you, compiled from your Claude Code sessions with code-checked, cited changes and read by every session through a generated index; receipts, undo, erase, a write-time guard on memory, and an optional bridge to Claude's account memory."
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+ "checked_by": "Claude (the session model, not the judge model; same model family)",
+ "n": 20,
+ "agree": 18,
+ "sample": "20 judged rows drawn with seed 20261110; ids in judge_check_sample.json",
+ "notes": [
+  "Both disagreements were answers containing the right value that the judge marked wrong (one stated '6 women out of 10' for a gold answer of 6; one gave the right count with a caveat). Both were on arm z.",
+  "So the judge leans strict by roughly one in ten on this sample; no case was found where it accepted a wrong answer. Twenty rows is too few to correct the table."
+ ]
+}

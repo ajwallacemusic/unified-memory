@@ -1,0 +1,121 @@
+[
+ {
+  "question_id": "ku01",
+  "question_type": "knowledge-update",
+  "question": "Where do I work now?",
+  "question_date": "2023/06/01 (Thu) 09:00",
+  "answer": "Brightline",
+  "answer_session_ids": [
+   "s_b"
+  ],
+  "haystack_dates": [
+   "2023/05/20 (Sat) 10:00",
+   "2023/03/02 (Thu) 08:30",
+   "2023/04/11 (Tue) 19:15"
+  ],
+  "haystack_session_ids": [
+   "s_b",
+   "s_a",
+   "s_c"
+  ],
+  "haystack_sessions": [
+   [
+    {
+     "role": "user",
+     "content": "I just started at Brightline."
+    },
+    {
+     "role": "assistant",
+     "content": "Congratulations."
+    }
+   ],
+   [
+    {
+     "role": "user",
+     "content": "I work at Oakfield."
+    },
+    {
+     "role": "assistant",
+     "content": "Noted."
+    }
+   ],
+   [
+    {
+     "role": "user",
+     "content": "Any pasta ideas?"
+    },
+    {
+     "role": "assistant",
+     "content": "Try cacio e pepe."
+    }
+   ]
+  ]
+ },
+ {
+  "question_id": "tr01",
+  "question_type": "temporal-reasoning",
+  "question": "How many days between my two trips?",
+  "question_date": "2023/06/02 (Fri) 12:00",
+  "answer": 14,
+  "answer_session_ids": [
+   "t_a",
+   "t_b"
+  ],
+  "haystack_dates": [
+   "2023/05/01 (Mon) 08:00",
+   "2023/05/15 (Mon) 08:00"
+  ],
+  "haystack_session_ids": [
+   "t_a",
+   "t_b"
+  ],
+  "haystack_sessions": [
+   [
+    {
+     "role": "user",
+     "content": "Leaving for Denver today."
+    },
+    {
+     "role": "assistant",
+     "content": "Safe travels."
+    }
+   ],
+   [
+    {
+     "role": "user",
+     "content": "Leaving for Austin today."
+    },
+    {
+     "role": "assistant",
+     "content": "Enjoy."
+    }
+   ]
+  ]
+ },
+ {
+  "question_id": "ms01_abs",
+  "question_type": "multi-session",
+  "question": "What is my cat's name?",
+  "question_date": "2023/06/03 (Sat) 12:00",
+  "answer": "The information is not available.",
+  "answer_session_ids": [],
+  "haystack_dates": [
+   "2023/05/05 (Fri) 08:00"
+  ],
+  "haystack_session_ids": [
+   "m_a"
+  ],
+  "haystack_sessions": [
+   [
+    {
+     "role": "user",
+     "content": "I like hiking."
+    },
+    {
+     "role": "assistant",
+     "content": "Great hobby."
+    }
+   ]
+  ]
+ }
+]

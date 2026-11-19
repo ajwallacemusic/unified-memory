@@ -1,0 +1,41 @@
+{
+  "description": "Memory guard (a turn that read tool output may not write memory directly) and profile context (profile lines that match each prompt).",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PLUGIN_ROOT}\" && python3 -m um.hooks.memory_guard clear"
+          },
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PLUGIN_ROOT}\" && UM_PROMPT_HOOK_DEFAULT=off python3 -m um.hooks.profile_context"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PLUGIN_ROOT}\" && python3 -m um.hooks.memory_guard taint"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^(Write|Edit|MultiEdit|NotebookEdit|Bash|mcp__memory__.*)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PLUGIN_ROOT}\" && python3 -m um.hooks.memory_guard guard"
+          }
+        ]
+      }
+    ]
+  }
+}

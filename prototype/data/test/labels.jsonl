@@ -1,0 +1,21 @@
+{"a": "x-s01", "b": "x-m01", "label": "conflict", "current": "x-m01"}
+{"a": "x-s01", "b": "x-t08", "label": "conflict", "current": "x-t08"}
+{"a": "x-s03", "b": "x-m06", "label": "conflict", "current": "x-m06"}
+{"a": "x-s07", "b": "x-m08", "label": "conflict", "current": "x-m08"}
+{"a": "x-s07", "b": "x-t02", "label": "conflict", "current": "x-t02"}
+{"a": "x-t03", "b": "x-s09", "label": "conflict", "current": "x-t03"}
+{"a": "x-t04", "b": "x-m15", "label": "conflict", "current": "x-t04"}
+{"a": "x-t07", "b": "x-m11", "label": "conflict", "current": "x-t07"}
+{"a": "x-c01", "b": "x-m02", "label": "conflict", "current": "x-c01"}
+{"a": "x-c01", "b": "x-s04", "label": "conflict", "current": "x-c01"}
+{"a": "x-c02", "b": "x-m03", "label": "conflict", "current": "x-c02"}
+{"a": "x-a01", "b": "x-m10", "label": "conflict", "current": "x-a01"}
+{"a": "x-m19", "b": "x-m14", "label": "conflict", "current": "x-m19"}
+{"a": "x-s04", "b": "x-m02", "label": "duplicate"}
+{"a": "x-s05", "b": "x-m16", "label": "duplicate"}
+{"a": "x-t02", "b": "x-m08", "label": "duplicate"}
+{"a": "x-t06", "b": "x-m12", "label": "duplicate"}
+{"a": "x-t08", "b": "x-m01", "label": "duplicate"}
+{"a": "x-c03", "b": "x-m04", "label": "duplicate"}
+{"a": "x-a02", "b": "x-m09", "label": "duplicate"}
+{"a": "x-m17", "b": "x-a04", "label": "duplicate"}

@@ -1,0 +1,324 @@
+{
+ "prefeval": {
+  "items": 20,
+  "conditions": {
+   "full-history": {
+    "n": 20,
+    "correct": 20,
+    "ungraded": 0,
+    "accuracy": 1.0,
+    "mean_input_tokens": 5837,
+    "mean_context_chars": 14529,
+    "outcomes": {
+     "ok": 14,
+     "max_tokens": 6
+    },
+    "prefeval": {
+     "acknowledgement": 20,
+     "violation": 0,
+     "error_unhelpful": 0,
+     "error_inconsistent": 0,
+     "hallucination_of_preference_violation": 0,
+     "preference_unaware_violation": 0
+    }
+   },
+   "none": {
+    "n": 20,
+    "correct": 2,
+    "ungraded": 0,
+    "accuracy": 0.1,
+    "mean_input_tokens": 54,
+    "mean_context_chars": 0,
+    "outcomes": {
+     "ok": 18,
+     "max_tokens": 2
+    },
+    "prefeval": {
+     "acknowledgement": 1,
+     "violation": 18,
+     "error_unhelpful": 0,
+     "error_inconsistent": 0,
+     "hallucination_of_preference_violation": 1,
+     "preference_unaware_violation": 17
+    }
+   },
+   "profile-full": {
+    "n": 20,
+    "correct": 19,
+    "ungraded": 0,
+    "accuracy": 0.95,
+    "mean_input_tokens": 114,
+    "mean_context_chars": 159,
+    "outcomes": {
+     "ok": 13,
+     "max_tokens": 7
+    },
+    "prefeval": {
+     "acknowledgement": 16,
+     "violation": 1,
+     "error_unhelpful": 0,
+     "error_inconsistent": 0,
+     "hallucination_of_preference_violation": 0,
+     "preference_unaware_violation": 1
+    }
+   },
+   "profile-hook": {
+    "n": 20,
+    "correct": 6,
+    "ungraded": 0,
+    "accuracy": 0.3,
+    "mean_input_tokens": 54,
+    "mean_context_chars": 0,
+    "outcomes": {
+     "ok": 20
+    },
+    "prefeval": {
+     "acknowledgement": 0,
+     "violation": 14,
+     "error_unhelpful": 0,
+     "error_inconsistent": 0,
+     "hallucination_of_preference_violation": 0,
+     "preference_unaware_violation": 14
+    }
+   },
+   "raw-retrieval": {
+    "n": 20,
+    "correct": 13,
+    "ungraded": 0,
+    "accuracy": 0.65,
+    "mean_input_tokens": 628,
+    "mean_context_chars": 1600,
+    "outcomes": {
+     "ok": 13,
+     "max_tokens": 7
+    },
+    "prefeval": {
+     "acknowledgement": 13,
+     "violation": 7,
+     "error_unhelpful": 0,
+     "error_inconsistent": 0,
+     "hallucination_of_preference_violation": 1,
+     "preference_unaware_violation": 6
+    }
+   }
+  },
+  "compile": {
+   "profiles": 20,
+   "passes": 20,
+   "outcomes": {
+    "ok": 20
+   },
+   "input_tokens": 153902,
+   "output_tokens": 6189,
+   "proposed": 18,
+   "applied": 18,
+   "decisions": {
+    "apply": 18
+   },
+   "held_by_cap": 0,
+   "over_deployed_cap": 0,
+   "profile_lines": [
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0
+   ]
+  },
+  "errors": 0
+ },
+ "longmemeval": {
+  "items": 10,
+  "conditions": {
+   "full-history": {
+    "n": 10,
+    "correct": 8,
+    "ungraded": 0,
+    "accuracy": 0.8,
+    "mean_input_tokens": 167758,
+    "mean_context_chars": 496325,
+    "outcomes": {
+     "ok": 10
+    }
+   },
+   "none": {
+    "n": 10,
+    "correct": 0,
+    "ungraded": 0,
+    "accuracy": 0.0,
+    "mean_input_tokens": 214,
+    "mean_context_chars": 0,
+    "outcomes": {
+     "ok": 10
+    }
+   },
+   "profile-full": {
+    "n": 10,
+    "correct": 2,
+    "ungraded": 0,
+    "accuracy": 0.2,
+    "mean_input_tokens": 971,
+    "mean_context_chars": 1884,
+    "outcomes": {
+     "ok": 10
+    }
+   },
+   "profile-hook": {
+    "n": 10,
+    "correct": 2,
+    "ungraded": 0,
+    "accuracy": 0.2,
+    "mean_input_tokens": 253,
+    "mean_context_chars": 110,
+    "outcomes": {
+     "ok": 10
+    }
+   },
+   "raw-retrieval": {
+    "n": 10,
+    "correct": 9,
+    "ungraded": 0,
+    "accuracy": 0.9,
+    "mean_input_tokens": 1619,
+    "mean_context_chars": 4079,
+    "outcomes": {
+     "ok": 10
+    }
+   }
+  },
+  "compile": {
+   "profiles": 10,
+   "passes": 50,
+   "outcomes": {
+    "ok": 50
+   },
+   "input_tokens": 1792908,
+   "output_tokens": 59812,
+   "proposed": 210,
+   "applied": 159,
+   "decisions": {
+    "apply": 159,
+    "reject": 51
+   },
+   "held_by_cap": 0,
+   "over_deployed_cap": 9,
+   "profile_lines": [
+    11,
+    24,
+    16,
+    14,
+    13,
+    22,
+    7,
+    19,
+    18,
+    15
+   ]
+  },
+  "errors": 0
+ },
+ "mab": {
+  "items": 10,
+  "conditions": {
+   "full-history": {
+    "n": 10,
+    "correct": 9,
+    "ungraded": 0,
+    "accuracy": 0.9,
+    "mean_input_tokens": 10311,
+    "mean_context_chars": 26219,
+    "outcomes": {
+     "ok": 10
+    }
+   },
+   "last-write": {
+    "n": 10,
+    "correct": 9,
+    "ungraded": 0,
+    "accuracy": 0.9,
+    "mean_input_tokens": 317,
+    "mean_context_chars": 58,
+    "outcomes": {
+     "ok": 10
+    }
+   },
+   "none": {
+    "n": 10,
+    "correct": 0,
+    "ungraded": 0,
+    "accuracy": 0.0,
+    "mean_input_tokens": 295,
+    "mean_context_chars": 0,
+    "outcomes": {
+     "ok": 10
+    }
+   },
+   "profile-full": {
+    "n": 10,
+    "correct": 0,
+    "ungraded": 0,
+    "accuracy": 0.0,
+    "mean_input_tokens": 295,
+    "mean_context_chars": 0,
+    "outcomes": {
+     "ok": 10
+    }
+   },
+   "profile-hook": {
+    "n": 10,
+    "correct": 0,
+    "ungraded": 0,
+    "accuracy": 0.0,
+    "mean_input_tokens": 295,
+    "mean_context_chars": 0,
+    "outcomes": {
+     "ok": 10
+    }
+   },
+   "raw-retrieval": {
+    "n": 10,
+    "correct": 10,
+    "ungraded": 0,
+    "accuracy": 1.0,
+    "mean_input_tokens": 1307,
+    "mean_context_chars": 2568,
+    "outcomes": {
+     "ok": 10
+    }
+   }
+  },
+  "compile": {
+   "profiles": 1,
+   "passes": 10,
+   "outcomes": {
+    "ok": 10
+   },
+   "input_tokens": 29952,
+   "output_tokens": 303,
+   "proposed": 0,
+   "applied": 0,
+   "decisions": {},
+   "held_by_cap": 0,
+   "over_deployed_cap": 0,
+   "profile_lines": [
+    0
+   ]
+  },
+  "errors": 0
+ }
+}

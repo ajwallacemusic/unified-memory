@@ -1,0 +1,47 @@
+{"id": "x-m01", "store": "memory", "source": "areas/kilnbook", "subject": "kilnbook", "as_of": "2026-05-02", "text": "Kilnbook's API is hosted on Fly.io in the Chicago region."}
+{"id": "x-m02", "store": "memory", "source": "areas/kilnbook", "subject": "kilnbook", "as_of": "2026-05-02", "text": "Kilnbook uses Postgres 15 as its primary database."}
+{"id": "x-m03", "store": "memory", "source": "areas/kilnbook", "subject": "kilnbook", "as_of": "2026-05-10", "text": "Kilnbook has no mobile app; it is web only."}
+{"id": "x-m04", "store": "memory", "source": "areas/kilnbook", "subject": "kilnbook", "as_of": "2026-05-10", "text": "Payments in Kilnbook go through Stripe Checkout."}
+{"id": "x-m05", "store": "memory", "source": "preferences", "subject": "dev", "as_of": "2026-04-20", "text": "Sam prefers pull requests under 300 lines."}
+{"id": "x-m06", "store": "memory", "source": "areas/kilnbook", "subject": "kilnbook", "as_of": "2026-06-01", "text": "Staging deploys must always be approved manually; never deploy to staging automatically."}
+{"id": "x-m07", "store": "memory", "source": "areas/newsletter", "subject": "newsletter", "as_of": "2026-03-15", "text": "The studio newsletter goes out every Tuesday morning."}
+{"id": "x-m08", "store": "memory", "source": "areas/newsletter", "subject": "newsletter", "as_of": "2026-03-15", "text": "The newsletter is sent with Buttondown."}
+{"id": "x-m09", "store": "memory", "source": "topics/running", "subject": "running", "as_of": "2026-04-01", "text": "Sam is training for the Chicago Marathon in October 2026."}
+{"id": "x-m10", "store": "memory", "source": "topics/running", "subject": "running", "as_of": "2026-04-01", "text": "Sam's long runs are on Sundays."}
+{"id": "x-m11", "store": "memory", "source": "topics/homelab", "subject": "homelab", "as_of": "2026-02-10", "text": "The home lab runs Proxmox on two Intel NUCs."}
+{"id": "x-m12", "store": "memory", "source": "topics/homelab", "subject": "homelab", "as_of": "2026-02-10", "text": "Home lab backups go to the Synology NAS every night."}
+{"id": "x-m13", "store": "memory", "source": "areas/kilnbook", "subject": "kilnbook", "as_of": "2026-03-01", "text": "Kilnbook's support address is support@kilnbook.example."}
+{"id": "x-m14", "store": "memory", "source": "profile", "subject": "kilnbook", "as_of": "2026-01-15", "text": "Sam works alone on Kilnbook; nobody else works on it."}
+{"id": "x-m15", "store": "memory", "source": "areas/kilnbook", "subject": "kilnbook", "as_of": "2026-03-01", "text": "Kilnbook pricing is $29 per studio per month."}
+{"id": "x-m16", "store": "memory", "source": "profile", "subject": "dev", "as_of": "2026-01-15", "text": "Sam writes Kilnbook's backend in Go."}
+{"id": "x-m17", "store": "memory", "source": "topics/running", "subject": "running", "as_of": "2026-04-01", "text": "Sam's tempo runs are on Wednesdays."}
+{"id": "x-m18", "store": "memory", "source": "areas/kilnbook", "subject": "kilnbook", "as_of": "2026-05-10", "text": "Kilnbook sends booking confirmations by email and SMS."}
+{"id": "x-m19", "store": "memory", "source": "areas/kilnbook", "subject": "kilnbook", "as_of": "2026-07-01", "text": "A part-time contractor now handles Kilnbook support alongside Sam."}
+{"id": "x-m20", "store": "memory", "source": "preferences", "subject": "dev", "as_of": "2026-04-20", "text": "Sam prefers tabs over spaces in Go code."}
+{"id": "x-m21", "store": "memory", "source": "areas/kilnbook", "subject": "kilnbook", "as_of": "2026-05-10", "text": "Studio owners can export their bookings as CSV."}
+{"id": "x-m22", "store": "memory", "source": "topics/homelab", "subject": "homelab", "as_of": "2026-02-10", "text": "The home lab NAS is a Synology DS920+."}
+{"id": "x-s01", "store": "skill", "source": "deploy-kilnbook", "subject": "kilnbook", "as_of": "2026-02-01", "text": "Kilnbook's API is hosted on Heroku; deploy it with git push heroku main."}
+{"id": "x-s02", "store": "skill", "source": "deploy-kilnbook", "subject": "kilnbook", "as_of": "2026-02-01", "text": "Run database migrations with goose before every deploy."}
+{"id": "x-s03", "store": "skill", "source": "deploy-kilnbook", "subject": "kilnbook", "as_of": "2026-02-01", "text": "Staging deploys run automatically on every merge to main."}
+{"id": "x-s04", "store": "skill", "source": "deploy-kilnbook", "subject": "kilnbook", "as_of": "2026-02-01", "text": "Kilnbook's primary database is Postgres 15."}
+{"id": "x-s05", "store": "skill", "source": "deploy-kilnbook", "subject": "dev", "as_of": "2026-02-01", "text": "The Kilnbook backend is written in Go."}
+{"id": "x-s06", "store": "skill", "source": "deploy-kilnbook", "subject": "kilnbook", "as_of": "2026-02-01", "text": "Smoke-test the booking flow after each deploy."}
+{"id": "x-s07", "store": "skill", "source": "newsletter-writer", "subject": "newsletter", "as_of": "2026-03-20", "text": "The newsletter is sent with Mailchimp."}
+{"id": "x-s08", "store": "skill", "source": "newsletter-writer", "subject": "newsletter", "as_of": "2026-03-20", "text": "Each issue has three sections: a studio tip, a member spotlight and upcoming classes."}
+{"id": "x-s09", "store": "skill", "source": "newsletter-writer", "subject": "newsletter", "as_of": "2026-03-20", "text": "Keep each newsletter issue under 500 words."}
+{"id": "x-t01", "store": "task_prompt", "source": "Weekly newsletter draft", "subject": "newsletter", "as_of": "2026-09-01", "text": "Draft the newsletter every Monday so it is ready to go out on Tuesday morning."}
+{"id": "x-t02", "store": "task_prompt", "source": "Weekly newsletter draft", "subject": "newsletter", "as_of": "2026-09-01", "text": "The newsletter is sent with Buttondown, so create the draft there."}
+{"id": "x-t03", "store": "task_prompt", "source": "Weekly newsletter draft", "subject": "newsletter", "as_of": "2026-09-01", "text": "Keep each newsletter issue under 400 words."}
+{"id": "x-t04", "store": "task_prompt", "source": "Weekly newsletter draft", "subject": "newsletter", "as_of": "2026-09-01", "text": "Kilnbook pricing is $35 per studio per month; mention it in the footer."}
+{"id": "x-t05", "store": "task_prompt", "source": "Weekly newsletter draft", "subject": "newsletter", "as_of": "2026-09-01", "text": "Skip the member spotlight when no member has opted in."}
+{"id": "x-t06", "store": "task_prompt", "source": "Nightly ops check", "subject": "homelab", "as_of": "2026-08-15", "text": "Home lab backups run nightly to the Synology NAS."}
+{"id": "x-t07", "store": "task_prompt", "source": "Nightly ops check", "subject": "homelab", "as_of": "2026-08-15", "text": "The home lab runs Proxmox on three Intel NUCs."}
+{"id": "x-t08", "store": "task_prompt", "source": "Nightly ops check", "subject": "kilnbook", "as_of": "2026-08-15", "text": "Kilnbook's API is hosted on Fly.io in the Chicago region."}
+{"id": "x-t09", "store": "task_prompt", "source": "Nightly ops check", "subject": "kilnbook", "as_of": "2026-08-15", "text": "Alert Sam if API p95 latency exceeds 800 ms."}
+{"id": "x-c01", "store": "connector", "source": "Kilnbook admin connector", "subject": "kilnbook", "as_of": "2026-11-01", "text": "Kilnbook's primary database is Postgres 16."}
+{"id": "x-c02", "store": "connector", "source": "Kilnbook admin connector", "subject": "kilnbook", "as_of": "2026-11-01", "text": "The Kilnbook iOS app is live on the App Store."}
+{"id": "x-c03", "store": "connector", "source": "Kilnbook admin connector", "subject": "kilnbook", "as_of": "2026-11-01", "text": "Kilnbook payments go through Stripe Checkout."}
+{"id": "x-a01", "store": "artifact", "source": "Marathon training plan", "subject": "running", "as_of": "2026-09-10", "text": "Sam's long runs are on Saturdays."}
+{"id": "x-a02", "store": "artifact", "source": "Marathon training plan", "subject": "running", "as_of": "2026-09-10", "text": "Sam's goal race is the Chicago Marathon in October 2026."}
+{"id": "x-a03", "store": "artifact", "source": "Marathon training plan", "subject": "running", "as_of": "2026-09-10", "text": "Weekly mileage peaks at 50 miles three weeks before the race."}
+{"id": "x-a04", "store": "artifact", "source": "Marathon training plan", "subject": "running", "as_of": "2026-09-10", "text": "Tempo runs are on Wednesdays."}

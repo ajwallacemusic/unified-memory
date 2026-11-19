@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "um"
+version = "0.1.0"
+description = "Unified Memory: evaluation harness and memory pipeline"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+dependencies = ["anthropic", "huggingface_hub", "git-filter-repo"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+include = ["um*"]
+
+[tool.setuptools.package-data]
+um = ["prompts/*.md", "prompts/judge/*.md", "hooks/*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
