@@ -17,14 +17,31 @@ from pathlib import Path
 
 ALLOW = ["um/", "tests/", "bench/", "plugin_src/", "plugin/", "marketplace/", "scripts/build_plugin.py", "scripts/export_public.py", "scripts/make_charts.py",
          "bridge/task-prompt.md", "results/synth/", "results/longmemeval/", "results/recall-bench/",
-         "results/public-bench/", "prototype/data/test/", "experiments/blind-trial/findings_test.json", "docs/public/", "pyproject.toml", ".gitignore", "LICENSE"]
+         "results/public-bench/", "results/search-gate/", "prototype/data/test/", "experiments/blind-trial/findings_test.json", "docs/public/", "pyproject.toml", ".gitignore", "LICENSE"]
 NEVER = ("data/", "docs/research/", ".um/", ".superpowers/", "um/realdata.py", "um/private_check.py",
          "plugin/um/realdata.py", "plugin/um/private_check.py",
          "tests/test_realdata.py", "tests/test_private_check.py")
 
 
+NEVER_NAMES = ("errors.jsonl",)  # bench error rows hold tracebacks with local paths
+
+
 class ExportError(Exception):
     pass
+
+
+SQLITE_SUFFIXES = (".sqlite", ".sqlite-wal", ".sqlite-shm", ".db")
+SQLITE_HEADER = b"SQLite format 3\x00"
+
+
+def _is_sqlite(path: Path) -> bool:
+    if path.name.lower().endswith(SQLITE_SUFFIXES):
+        return True
+    try:
+        with open(path, "rb") as f:
+            return f.read(16) == SQLITE_HEADER
+    except OSError:
+        return False
 
 
 def _unescape(line: str) -> str:
@@ -53,8 +70,13 @@ def export(src: Path, dst: Path, allow: list[str] = ALLOW, deny_terms: list[str]
     tracked = subprocess.run(["git", "-C", str(src), "ls-files"], capture_output=True, text=True, check=True).stdout.split()
     ignored = set(subprocess.run(["git", "-C", str(src), "ls-files", "-ci", "--exclude-standard"],  # a fresh repo would drop these
                                  capture_output=True, text=True, check=True).stdout.split())
-    chosen = [r for r in tracked if r not in ignored and any(r == a or (a.endswith("/") and r.startswith(a)) for a in allow)
-              and not any(r == x or (x.endswith("/") and r.startswith(x)) for x in NEVER)]
+    allowed = [r for r in tracked if any(r == a or (a.endswith("/") and r.startswith(a)) for a in allow)
+               and not any(r == x or (x.endswith("/") and r.startswith(x)) for x in NEVER)
+               and Path(r).name not in NEVER_NAMES]
+    dbs = [r for r in allowed if _is_sqlite(src / r)]  # checked before the ignore filter: a force-added index still refuses
+    if dbs:
+        raise ExportError(f"{len(dbs)} SQLite file(s) tracked; a search index never leaves the machine:\n" + "\n".join(dbs))
+    chosen = [r for r in allowed if r not in ignored]
     problems = []
     for rel in chosen:
         text = (src / rel).read_bytes().decode("utf-8", errors="replace")

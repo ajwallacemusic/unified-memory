@@ -11,6 +11,8 @@ from __future__ import annotations
 
 import argparse
 import json
+
+from um.bench.meta import public_invocation
 import sys
 import threading
 import time
@@ -174,7 +176,9 @@ def run(bench: Bench, out: Path, llm, *, answer_model: str, compile_model: str, 
 
 # ---------------------------------------------------------------- the three benchmarks
 
-def prefeval_bench(root: Path, n: int, seed: int, n_inter: int, answer_model: str) -> Bench:
+def prefeval_bench(root: Path, n: int, seed: int, n_inter: int, answer_model: str,
+                   answer_max_tokens: int | None = None) -> Bench:
+    """`answer_max_tokens` (default `ANSWER_MAX_TOKENS`) is the output budget of every condition's answer call."""
     from um.bench.public import prefeval as pe
     items = pe.sample(pe.load(root), n, seed)
     inter = pe.inter_turns(root, n_inter)
@@ -196,7 +200,8 @@ def prefeval_bench(root: Path, n: int, seed: int, n_inter: int, answer_model: st
 
     return Bench("prefeval", items, key=lambda it: it.id.replace(":", "-"), sessions=sessions,
                  question=pe.question_text, query=lambda it: it.question,
-                 instructions=lambda it, c: pe.SYSTEM_PROMPT, grade=grade, max_tokens=pe.ANSWER_MAX_TOKENS)
+                 instructions=lambda it, c: pe.SYSTEM_PROMPT, grade=grade,
+                 max_tokens=answer_max_tokens or pe.ANSWER_MAX_TOKENS)
 
 
 def lme_bench(path: Path, n: int, seed: int) -> Bench:
@@ -251,6 +256,8 @@ def main(argv: list[str] | None = None) -> None:
     ap.add_argument("--usage-file", type=Path, default=Path.home() / ".claude/usage-now.json")
     ap.add_argument("--prefeval-root", type=Path, default=Path("data/public/prefeval"))
     ap.add_argument("--inter-turns", type=int, default=10)
+    ap.add_argument("--answer-max-tokens", type=int, default=None,
+                    help="PrefEval: output budget of the answer call, the same for every condition")
     ap.add_argument("--lme-data", type=Path, default=Path("data/public/longmemeval/longmemeval_s_cleaned.json"))
     ap.add_argument("--mab-data", type=Path, default=Path("data/public/memoryagentbench/conflict_resolution.json"))
     ap.add_argument("--mab-source", default="factconsolidation_sh_6k")
@@ -261,7 +268,7 @@ def main(argv: list[str] | None = None) -> None:
     gate = UsageGate(a.sub_ceiling, 900, a.usage_file)
     llm = Router(AnthropicLLM(budget), ClaudeCodeLLM(), gate)
     if a.bench == "prefeval":
-        bench = prefeval_bench(a.prefeval_root, a.n, a.seed, a.inter_turns, a.answer_model)
+        bench = prefeval_bench(a.prefeval_root, a.n, a.seed, a.inter_turns, a.answer_model, a.answer_max_tokens)
     elif a.bench == "longmemeval":
         bench = lme_bench(a.lme_data, a.n, a.seed)
     else:
@@ -273,14 +280,14 @@ def main(argv: list[str] | None = None) -> None:
         conditions=conditions, workers=a.workers, cap_floor=a.cap_floor)
     meta_path = a.out / "run_meta.json"
     meta = json.loads(meta_path.read_text()) if meta_path.exists() else {"invocations": []}
-    meta["invocations"].append({
+    meta["invocations"].append(public_invocation({
         "argv": sys.argv[1:] if argv is None else argv, "started": started,
         "finished": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "items": [bench.ident(it) for it in bench.items],
         "conditions": list(conditions), "answer_model": a.answer_model, "judge_model": a.judge_model,
-        "compile_model": a.compile_model, "cap_floor": a.cap_floor, "api_usd_ledger_before": spent_before,
-        "api_usd_ledger_after": budget.spent(), "usage_after": gate.latest()})
+        "compile_model": a.compile_model, "cap_floor": a.cap_floor, "answer_max_tokens": bench.max_tokens,
+        **({"inter_turns": a.inter_turns} if a.bench == "prefeval" else {})}, spent_before, budget.spent()))
     meta_path.write_text(json.dumps(meta, indent=1))
-    print(f"API ledger ${budget.spent():.4f} (was ${spent_before:.4f}); cap ${a.api_cap:.2f}")
+    print(f"API cost of this run ${budget.spent() - spent_before:.4f}")
 
 
 if __name__ == "__main__":

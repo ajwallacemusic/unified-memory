@@ -65,8 +65,12 @@ def make_workdir(condition: str, profile: Path, root: Path, project_md: Path | N
         f = w / "CLAUDE.md"
         f.write_text((f.read_text() + "\n\n" if f.exists() else "") + Path(project_md).read_text())
     if condition == "hook":
-        cmd = (f"cd {shlex.quote(str(REPO))} && UM_PROFILE={shlex.quote(str(copy))} "
-               f"{shlex.quote(sys.executable)} -m um.hooks.profile_context")
+        # The session can read its own settings, so they name only a script beside the workdir (outside what the
+        # session may read); the script holds the repo and interpreter paths.
+        script = Path(root) / "hook.sh"
+        script.write_text(f"#!/bin/sh\ncd {shlex.quote(str(REPO))} && UM_PROFILE={shlex.quote(str(copy))} "
+                          f"exec {shlex.quote(sys.executable)} -m um.hooks.profile_context\n")
+        cmd = f"sh {shlex.quote(str(script))}"
         (w / ".claude").mkdir()
         (w / ".claude" / "settings.json").write_text(json.dumps(
             {"hooks": {"UserPromptSubmit": [{"hooks": [{"type": "command", "command": cmd, "timeout": 10}]}]}}, indent=1))

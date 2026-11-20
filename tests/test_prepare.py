@@ -376,3 +376,12 @@ def test_a_deletion_that_conflicted_is_not_recorded(tmp_path):
     (p / "inbox" / "conflicts" / "areas-nyc-md.json").write_text("{}")
     record_done_deletions(p, state={"/areas/nyc.md": {"version": "v1"}})
     assert deleted_paths(p) == set()
+
+
+def test_prepare_never_copies_a_sqlite_file(tmp_path):
+    p, cats = profile(tmp_path)
+    for f in (p / "search.sqlite", p / "areas" / "search.sqlite"):
+        f.write_bytes(b"SQLite format 3\x00" + b"\x00" * 64)
+    build_outbox(p, p / "outbox", DEFAULT_POLICY, cats, {}, "live")
+    assert not list((p / "outbox").rglob("*.sqlite"))
+    assert "sqlite" not in (p / "outbox" / "manifest.json").read_text()

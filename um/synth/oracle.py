@@ -1,7 +1,7 @@
 """Stands in for the person when Arm B asks a question.
 
 Modes:
-  always  answers at once with the value true that day (Plan 2's oracle)
+  always  answers at once with the value true that day (the replay oracle)
   never   never answers
   late    answers `delay_days` later, with the value true on the day the answer arrives
   flaky   answers at once with probability `p`, decided by a coin derived from the question, so reruns agree

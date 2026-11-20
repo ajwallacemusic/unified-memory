@@ -95,7 +95,7 @@ def test_change_cap_holds_the_overflow(env):
 
 
 def test_a_tool_output_add_restating_a_labelled_line_elsewhere_is_an_override(env):
-    # Plan 3 seed-2 hole: the add went to another file, beside a line with the same label and another value.
+    # Stress-test seed-2 hole: the add went to another file, beside a line with the same label and another value.
     root, lineage, evidence = env
     evidence["t2"] = Evidence("t2", "tool-output", "2026-01-06", "tool: the user's room changed from Sablecrest to Tamarwick",
                               root / "t2.md")

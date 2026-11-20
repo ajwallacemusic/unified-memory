@@ -1,4 +1,4 @@
-"""Stress-test report for Plan 3: rules R1 to R4, written down before the runs, evaluated here by code.
+"""Stress-test report: rules R1 to R4, written down before the runs, evaluated here by code.
 
     python -m um.synth.stress_report --runs results/synth/stress/runs.json --out results/synth/stress/report.md
 
@@ -131,7 +131,7 @@ def verdicts(runs: dict) -> dict[str, str]:
 
 
 def build_stress_report(runs: dict) -> str:
-    out = ["# Stress test of Arm B (Plan 3)", "",
+    out = ["# Stress test of Arm B", "",
            "Rules R1 to R4 were written in the plan before any run; the verdicts below are computed by "
            "`um.synth.stress_report`, not chosen after reading the numbers. Differences are paired on (user, week, probe), "
            "with 95% bootstrap intervals.", "", "## Runs", "",

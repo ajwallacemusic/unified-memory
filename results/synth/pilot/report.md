@@ -57,5 +57,5 @@ Arm B change decisions:
 
 - Users, stores and conversations are templated by a generator, so every arm's absolute scores are flattered; only differences between arms mean anything.
 - Labels are the generator's own truth; the scorer is a fixed string rule (spot-checked below if a check was recorded).
-- The echo check, category policy, pinned facts, probes, promotion by demand and an erase test (Plan 3).
+- The echo check, category policy, pinned facts, probes, promotion by demand and an erase test (later work).
 - A judge or labeller from a different model family; real multi-store histories; more than one seed.

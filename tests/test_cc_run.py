@@ -1,10 +1,13 @@
 import json
 import os
 import stat
+from pathlib import Path
 
 import pytest
 
-from um.bench.cc_run import CONDITIONS, make_workdir, run_probe
+import sys
+
+from um.bench.cc_run import CONDITIONS, REPO, make_workdir, run_probe
 
 
 @pytest.fixture
@@ -40,7 +43,11 @@ def test_hook_is_the_index_plus_a_prompt_hook_on_the_copied_profile(profile, tmp
     assert "KESTREL" not in (w / "CLAUDE.md").read_text()
     hooks = json.loads((w / ".claude" / "settings.json").read_text())["hooks"]["UserPromptSubmit"]
     cmd = hooks[0]["hooks"][0]["command"]
-    assert "um.hooks.profile_context" in cmd and "UM_PROFILE=" in cmd and str(profile) not in cmd
+    script = Path(cmd.split()[-1])
+    assert script.parent == tmp_path / "runs" and not script.is_relative_to(w)  # outside what the session can read
+    body = script.read_text()
+    assert "um.hooks.profile_context" in body and "UM_PROFILE=" in body and str(profile) not in body
+    assert str(REPO) not in cmd and sys.executable not in cmd  # the session's own settings name no home paths
 
 
 def test_workdirs_are_not_git_repos_and_conditions_are_known(profile, tmp_path):

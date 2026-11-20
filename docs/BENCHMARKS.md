@@ -50,8 +50,8 @@ Re-running a benchmark also needs some of the following. Each section says which
   hand-written file like this one; no full benchmark run was repeated that way.
 
 Model ids used: `claude-haiku-5-5` and `claude-sonnet-5-5`. The recall bench passes Claude Code's `sonnet`
-alias for the answering model instead, and its result rows do not record the exact model id or the Claude
-Code version.
+or `haiku` alias for the answering model instead, and its result rows do not record the exact model id or the
+Claude Code version.
 
 ## 2. Recompute from the published rows
 
@@ -70,6 +70,45 @@ Standard library only. It reads
 writes `docs/prefeval.svg` and `docs/recall-bench.svg`, and prints every number it draws: counts, Wilson
 intervals, mean input tokens, cut-off and empty answers, and the PrefEval paired differences (bootstrap,
 10,000 resamples, seed 0). Use `--out DIR` to write the SVGs somewhere else.
+
+The charts draw the 10 inter-turn PrefEval run and the Sonnet recall-bench runs. The Haiku recall-bench
+numbers are in `results/recall-bench/2026-11-19-e2e-haiku-summary.json` and
+`2026-11-19-implicit-haiku-summary.json`, computed by the runner in the same way as the Sonnet summaries.
+
+### PrefEval at 300 inter-turns
+
+`make_charts.py --prefeval` expects all five conditions and stops on this run, which has four. This prints
+the two tables of RESULTS.md section 1.1 with the script's own functions (Wilson intervals; paired bootstrap,
+10,000 resamples, seed 0):
+
+```sh
+python3 - <<'EOF'
+import json, sys
+sys.path.insert(0, "scripts")
+from make_charts import paired_diff, wilson
+
+by = {}
+for line in open("results/public-bench/2026-11-19-prefeval-100-t300/results.jsonl"):
+    r = json.loads(line)
+    by.setdefault(r["condition"], {})[r["item"]] = r
+items = sorted(by["none"])
+for cond, rows in by.items():
+    k = sum(r["correct"] for r in rows.values())
+    lo, hi = wilson(k, len(rows))
+    print(f"{cond:14} {k}/{len(rows)} [{100 * lo:.0f} to {100 * hi:.0f}]",
+          f"mean input tokens {sum(r['input_tokens'] for r in rows.values()) / len(rows):,.0f},",
+          f"no context {sum(r['context_chars'] == 0 for r in rows.values())},",
+          f"cut off {sum(r['outcome'] == 'max_tokens' for r in rows.values())}")
+for a, b in (("profile-full", "full-history"), ("profile-full", "raw-retrieval"), ("full-history", "raw-retrieval")):
+    d, lo, hi = paired_diff([by[a][i]["correct"] for i in items], [by[b][i]["correct"] for i in items])
+    print(f"{a} minus {b}: {100 * d:+.0f} [{100 * lo:+.0f} to {100 * hi:+.0f}]")
+print(f"API dollars: {sum(r['usd'] + r['judge_usd'] for rows in by.values() for r in rows.values()):.2f}")
+EOF
+```
+
+For the "at 10 inter-turns" column and the drop per condition, load
+`results/public-bench/2026-11-19-prefeval-100/results.jsonl` the same way and pass `paired_diff` the two runs'
+`correct` values for one condition, in the order of `items`. Both runs hold the same 100 items.
 
 ### Recall bench
 
@@ -141,6 +180,29 @@ cp -R results/public-bench/2026-11-19-pilot/prefeval results/public-bench/2026-1
 Writes `summary.json` with the same per-condition counts as the published one. The `compile` blocks will be
 empty: they are read from the runs' working folders, which are not published.
 
+### Conversation-search gate
+
+```sh
+mkdir -p /tmp/um-check/gate
+cp -R results/search-gate/2026-11-lme results/search-gate/2026-11-prefeval /tmp/um-check/gate/
+.venv/bin/python -m um.bench.search_gate --bench report --out /tmp/um-check/gate/2026-11-lme
+.venv/bin/python -m um.bench.search_gate --bench report --out /tmp/um-check/gate/2026-11-prefeval
+```
+
+Each command rebuilds `report.md` from `results.jsonl` (and `recall.jsonl` for LongMemEval) and prints it: the
+condition tables, the paired differences, the three verdicts, answer-session recall and the two counts the
+embeddings rule uses. It writes into the folder it reads, so it runs on a copy. The published LongMemEval
+report ends with a "Judge check by hand" section that was written by hand and is not regenerated; the rest is
+identical.
+
+Not in the reports, and computed directly from the rows for RESULTS.md section 6: the per-type table
+(`qtype`, `correct`), the tool-call counts (`tool_calls`), the cut-off answers (`outcome`), the cost (`usd`,
+with `reused` marking the 20 rows carried over), and the comparison with the November 10 arms, which pairs
+these rows with `results/longmemeval/2026-11-10/results.jsonl` by question id.
+
+The tuning table is `results/search-gate/2026-11-tune/tune.json`: one entry per combination with its
+recall@5 and recall@10 on the 400 development questions.
+
 ## 3. Re-run PrefEval
 
 Needs: the PrefEval repository, an API key (answers and judging), the `claude` CLI (compiles), a usage file.
@@ -166,8 +228,30 @@ that matter: `--seed 20261119`, `--inter-turns 10`, `--answer-model claude-haiku
 `--judge-model claude-haiku-5-5`, `--compile-model claude-sonnet-5-5`, and `--cap-floor 100000`, which lifts
 the compile's per-pass change cap (the plugin's default is 5).
 
-The run writes `results.jsonl` (one row per item and condition), `run_meta.json`, and a git-ignored `stores/`
-folder with each item's evidence, compile record and profile. Then:
+The 300 inter-turn run (RESULTS.md section 1.1) was three invocations, as recorded in its `run_meta.json`.
+The first ran the baselines. The second ran the profile condition and stopped at the plan-usage ceiling after
+29 items. The third was the second command again, and finished it:
+
+```sh
+.venv/bin/python -m um.bench.public.run --bench prefeval --n 100 \
+  --out results/public-bench/2026-11-19-prefeval-100-t300 --workers 4 --inter-turns 300 \
+  --answer-max-tokens 4000 --conditions none,raw-retrieval,full-history \
+  --prefeval-root data/public/prefeval --api-cap CAP
+
+.venv/bin/python -m um.bench.public.run --bench prefeval --n 100 \
+  --out results/public-bench/2026-11-19-prefeval-100-t300 --workers 2 --inter-turns 300 \
+  --answer-max-tokens 4000 --conditions profile-full \
+  --prefeval-root data/public/prefeval --api-cap CAP
+```
+
+`--api-cap` is required and `run_meta.json` does not record it, so `CAP` stands for a value that is not
+published. The four conditions can also go in one command. This run cost $8.75 through the API, $8.39 of it
+for the full-history condition, whose prompts are about 162,000 tokens each. Each compile is one Sonnet call
+of about the same size on the subscription; the plan-usage ceiling stopped the published run once. The
+baselines took 11 minutes and the profile condition 15 minutes over its two sittings.
+
+Either run writes `results.jsonl` (one row per item and condition), `run_meta.json`, and a git-ignored `stores/`
+folder with each item's evidence, compile record and profile. Then, for a run with all five conditions:
 
 ```sh
 python3 scripts/make_charts.py --prefeval results/public-bench/YOUR-RUN/results.jsonl --out /tmp/um-check
@@ -207,17 +291,21 @@ On the published run this prints 4 profiles with 0 lines, 23 one-line standing p
 Needs: the `claude` CLI, logged in. No API key. Every call goes through `claude -p`, including the
 implicit-task judge.
 
-The runner does not record its command line. These are the commands for the two published runs, as given by
+The runner does not record its command line. These are the commands for the four published runs, as given by
 the runner's flags and the published output files:
 
 ```sh
 # RESULTS.md 2.1: questions, plus off-topic prompts under the index and hook setups
 .venv/bin/python -m um.bench.recall_run --split test --model sonnet \
   --out results/recall-bench/2026-11-19-e2e
+.venv/bin/python -m um.bench.recall_run --split test --model haiku \
+  --out results/recall-bench/2026-11-19-e2e-haiku
 
 # RESULTS.md 2.2: implicit tasks, judged by Claude Haiku 5.5
 .venv/bin/python -m um.bench.recall_run --set implicit --split test --model sonnet \
   --out results/recall-bench/2026-11-19-implicit
+.venv/bin/python -m um.bench.recall_run --set implicit --split test --model haiku \
+  --out results/recall-bench/2026-11-19-implicit-haiku
 ```
 
 To run it yourself, change `--out` to a new name. A rerun with the same `--out` resumes and retries only
@@ -252,9 +340,13 @@ Things to know:
 - **Check the floor first.** Run `--conditions none` before reading anything else. If "no profile" scores
   above zero on questions, isolation has failed on your machine. A zero does not prove isolation. Also ask
   one session to read a file in the parent of its scratch folder and confirm that the read is denied.
-- **Variants with no published result.** The runner also accepts `--model haiku`, `--batch N` (several
-  questions per session) and `--project-md FILE` (sessions inside a project). Runs with those flags were made
-  before the isolation fix, withdrawn, and not rerun.
+- **Variants with no published result.** The runner also accepts `--batch N` (several questions per session)
+  and `--project-md FILE` (sessions inside a project). Runs with those flags were made before the isolation
+  fix, withdrawn, and not rerun.
+- **A path in the hook setup's settings.** When the published runs were made, a hook-setup session's own
+  settings file named the repository's folder on the runner's machine. Three Haiku off-topic answers quoted
+  it, and it is replaced by `<repo>` in those published rows. The runner now writes the hook command to a
+  script outside the session's folder, so a re-run's sessions do not see the path.
 
 ## 5. Re-run the replay
 
@@ -346,16 +438,70 @@ print(hits, "of", len(ctx.items))
 EOF
 ```
 
+### Conversation-search gate (RESULTS.md section 6)
+
+Needs: the LongMemEval file above, the PrefEval clone of section 3, an API key (answers, tool loops and
+judging), the `claude` CLI (compiles) and a usage file.
+
+```sh
+# 1. tuning on the 400 development questions; no model, no cost
+.venv/bin/python -m um.bench.search_gate --bench tune --out results/search-gate/MY-tune
+
+# 2. LongMemEval-S, five conditions, 100 questions
+.venv/bin/python -m um.bench.search_gate --bench lme --n 100 --out results/search-gate/MY-lme \
+  --params results/search-gate/2026-11-tune/params.json --api-cap 15 --usage-file /tmp/um-usage.json
+
+# 3. PrefEval, two conditions, 100 items
+.venv/bin/python -m um.bench.search_gate --bench prefeval --n 100 --out results/search-gate/MY-prefeval \
+  --params results/search-gate/2026-11-tune/params.json --api-cap 15 --usage-file /tmp/um-usage.json
+
+# 4. reports
+.venv/bin/python -m um.bench.search_gate --bench report --out results/search-gate/MY-lme
+.venv/bin/python -m um.bench.search_gate --bench report --out results/search-gate/MY-prefeval
+```
+
+The published runs used these commands with `--out results/search-gate/2026-11-lme` and
+`2026-11-prefeval`; `run_meta.json` in each folder records every invocation, its parameters and its API cost.
+`--api-cap` is a hard cap in dollars across the whole ledger, so set it to what the ledger already holds plus
+what you are willing to spend. Things to know:
+
+- **Tuning writes lead 0, and the published file says 300.** `--bench tune` writes `tune.json` and
+  `params.json`. Lead 0 and lead 300 tie at the best setting and the tuner keeps the first, so a re-run writes
+  `"lead_chars": 0`. The published `params.json` was edited by hand to 300, the starting value. To repeat the
+  published runs, pass the published file as above.
+- **Compiles go to the subscription only.** The LongMemEval profile conditions took 498 Sonnet compile passes
+  for 100 questions. When the usage file says plan usage is at the ceiling (`--sub-ceiling`, 70 by default),
+  or the file is missing or stale, the runner stops; the same command resumes and never reruns a finished
+  row. The published LongMemEval run took two sittings for this reason. Section 1 shows how to write a usage
+  file by hand.
+- **Cost.** The published runs cost $7.26 through the API: $7.00 for LongMemEval, of which $6.75 is the 80
+  new full-context answers, and $0.26 for PrefEval. A run that reuses nothing pays about $1.69 more.
+- **Reused rows.** A full-context answer is reused from
+  `results/longmemeval/2026-11-10-full-api-check/results.jsonl` when its prompt, model and effort match (20 rows
+  in the published run, marked `reused`). PrefEval profiles and first replies are reused from the working folder
+  of the section 3 run (`--reuse-stores`), which is not published; without it the runner generates the replies
+  and compiles the profiles itself.
+- **Each item has its own scratch index** under `OUT/stores/`, which git ignores. No benchmark reads a real
+  search index.
+- **`--n 10` is the pilot.** It takes the first 10 questions by id, and a later `--n 100` run reuses its
+  rows.
+
 ## 7. What cannot be reproduced from this repository
 
 - The recall across surfaces on a real account. It is not published.
-- Any run on real stores.
+- Any run on real stores, and the counts and timings of the real search index, before and after it was re-cut
+  (RESULTS.md section 6.5).
+- The live check that Claude Code loads the search server. It was done by hand, once.
+- The hand check of 20 judge verdicts in the conversation-search gate.
 - The per-item working folders (`stores/`) of the published public-benchmark runs, and so the compile
-  figures in RESULTS.md section 1 and the `compile` blocks of the pilot summary. A re-run produces its own.
+  figures in RESULTS.md section 1, the `compile` blocks of the pilot summary and the count of compile passes
+  in section 6. A re-run produces its own.
 - The week-by-week stores of the replay runs. The row files are published; the stores are not.
 - The hook as it was before expansion words and background weighting ("before" in the retrieval table).
-- The withdrawn recall-bench runs: the first runs, and the Claude Haiku, batched and in-project variants.
-  Their rows are not published.
+- The withdrawn recall-bench runs: the first runs, the first Claude Haiku runs, and the batched and
+  in-project variants. Their rows are not published.
+- The conversation-search numbers with the code as it now is. The published runs were made before the review
+  fixes of RESULTS.md section 6.6, one of which changes ranking, so a re-run does not use the code they used.
 - The "Passes" section of the replay reports (see section 2).
 - Exact answers. Every re-run samples new model outputs, and no run here fixed a temperature or a model
   snapshot beyond the ids named above.

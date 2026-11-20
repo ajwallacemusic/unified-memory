@@ -30,12 +30,12 @@ Arm z was not run, so there is nothing to compare against.
 
 Judge calls by backend: api 20.
 
-Invocation 1: arms full; API ledger $8.53 to $10.22 (cap $10.60); plan usage before {'fh': 53.0, 'sd': 28.0, 'age_s': 5.433909177780151}, after {'fh': 53.0, 'sd': 28.0, 'age_s': 22.268439054489136}.
+Invocation 1: arms full; API cost $1.69.
 
 ## Not run
 
-- Arm B and every Arm C component (Plan 2 onwards).
-- The custom multi-store benchmark with planted claims (Plan 2).
+- Arm B and every Arm C component (later work).
+- The custom multi-store benchmark with planted claims (later work).
 - STALE, Bemula, Memora, MemoryAgentBench and store-level checks.
 - A second labeller or a judge from a different model family.
 - Sonnet 5.5 or any model other than the one named above.

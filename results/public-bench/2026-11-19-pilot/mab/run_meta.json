@@ -8,8 +8,6 @@
     "10",
     "--out",
     "results/public-bench/2026-11-19-pilot/mab",
-    "--api-cap",
-    "30.2",
     "--workers",
     "4"
    ],
@@ -39,13 +37,7 @@
    "judge_model": "claude-haiku-5-5",
    "compile_model": "claude-sonnet-5-5",
    "cap_floor": 100000,
-   "api_usd_ledger_before": 28.256610819999942,
-   "api_usd_ledger_after": 28.273361319999932,
-   "usage_after": {
-    "fh": 51.0,
-    "sd": 26.0,
-    "age_s": 144.90845894813538
-   }
+   "api_usd_this_run": 0.0168
   }
  ]
 }

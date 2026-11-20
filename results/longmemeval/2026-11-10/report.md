@@ -56,19 +56,17 @@ Shared memory writer (once per question, used by z, a0 and a): 83,477,100 input 
 ## Notes on this run
 
 - Two invocations wrote into this folder: z, a0, a and files on the API (2026-11-10 17:19 to 18:26 CST, $7.40), and full through the subscription route (non-interactive Claude Code, Haiku 5.5, no tools; $0 API).
-- The plan-usage readings above bracket the full-context invocation only; this interactive session was also drawing on the plan at the time.
-- Total API spend for Plan 1 so far is $8.53, including two pilots ($1.13).
 - A0 appends a two-sentence harness note to the shipped skill text, saying where the memory folder is and today's date.
 - Sessions were fed to the writer in batches of about 20,000 tokens; 22 of roughly 700 writer batches ended without a clean finish and their stores were used as left.
 - The full-context rows here were produced through the subscription route before effort was pinned there, so the effort they ran at is not known. As a check, the first 20 of those questions were rerun on the API at medium effort (results/longmemeval/2026-11-10-full-api-check, $1.69): 17 correct on each backend, and the two agreed on all 20.
 - Rows in this folder predate the judge_backend field. Judge calls for z, a0, a and files went to the API (the usage gate was closed); judge calls for full went through the subscription.
-- Arm A's prompt says that questions may ask what was true before. That is a hint A0 does not get; it stays as run for these results and is to be reworded before the arms are rerun in Plan 2.
+- Arm A's prompt says that questions may ask what was true before. That is a hint A0 does not get; it stays as run for these results and is to be reworded before the arms are rerun.
 - No judge verdict in this folder was anything other than yes or no.
 
 ## Not run
 
-- Arm B and every Arm C component (Plan 2 onwards).
-- The custom multi-store benchmark with planted claims (Plan 2).
+- Arm B and every Arm C component (later work).
+- The custom multi-store benchmark with planted claims (later work).
 - STALE, Bemula, Memora, MemoryAgentBench and store-level checks.
 - A second labeller or a judge from a different model family.
 - Sonnet 5.5 or any model other than the one named above.

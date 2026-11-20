@@ -1,0 +1,361 @@
+{
+ "items": 400,
+ "grid": {
+  "chunk_chars": [
+   1000,
+   2000,
+   4000
+  ],
+  "lead_chars": [
+   0,
+   300
+  ],
+  "per_session": [
+   1,
+   2,
+   3
+  ],
+  "half_life_days": [
+   null,
+   90
+  ]
+ },
+ "settings": [
+  {
+   "chunk_chars": 1000,
+   "lead_chars": 0,
+   "per_session": 1,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.925,
+   "recall@10": 0.9625
+  },
+  {
+   "chunk_chars": 1000,
+   "lead_chars": 0,
+   "per_session": 1,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.9275,
+   "recall@10": 0.9625
+  },
+  {
+   "chunk_chars": 1000,
+   "lead_chars": 0,
+   "per_session": 2,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.925,
+   "recall@10": 0.955
+  },
+  {
+   "chunk_chars": 1000,
+   "lead_chars": 0,
+   "per_session": 2,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.9275,
+   "recall@10": 0.96
+  },
+  {
+   "chunk_chars": 1000,
+   "lead_chars": 0,
+   "per_session": 3,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.9225,
+   "recall@10": 0.955
+  },
+  {
+   "chunk_chars": 1000,
+   "lead_chars": 0,
+   "per_session": 3,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.925,
+   "recall@10": 0.955
+  },
+  {
+   "chunk_chars": 1000,
+   "lead_chars": 300,
+   "per_session": 1,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.94,
+   "recall@10": 0.97
+  },
+  {
+   "chunk_chars": 1000,
+   "lead_chars": 300,
+   "per_session": 1,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.945,
+   "recall@10": 0.9775
+  },
+  {
+   "chunk_chars": 1000,
+   "lead_chars": 300,
+   "per_session": 2,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.9275,
+   "recall@10": 0.9575
+  },
+  {
+   "chunk_chars": 1000,
+   "lead_chars": 300,
+   "per_session": 2,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.9275,
+   "recall@10": 0.9575
+  },
+  {
+   "chunk_chars": 1000,
+   "lead_chars": 300,
+   "per_session": 3,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.925,
+   "recall@10": 0.9475
+  },
+  {
+   "chunk_chars": 1000,
+   "lead_chars": 300,
+   "per_session": 3,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.925,
+   "recall@10": 0.9525
+  },
+  {
+   "chunk_chars": 2000,
+   "lead_chars": 0,
+   "per_session": 1,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.935,
+   "recall@10": 0.9675
+  },
+  {
+   "chunk_chars": 2000,
+   "lead_chars": 0,
+   "per_session": 1,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.9375,
+   "recall@10": 0.9675
+  },
+  {
+   "chunk_chars": 2000,
+   "lead_chars": 0,
+   "per_session": 2,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.9325,
+   "recall@10": 0.9625
+  },
+  {
+   "chunk_chars": 2000,
+   "lead_chars": 0,
+   "per_session": 2,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.93,
+   "recall@10": 0.965
+  },
+  {
+   "chunk_chars": 2000,
+   "lead_chars": 0,
+   "per_session": 3,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.93,
+   "recall@10": 0.96
+  },
+  {
+   "chunk_chars": 2000,
+   "lead_chars": 0,
+   "per_session": 3,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.9275,
+   "recall@10": 0.96
+  },
+  {
+   "chunk_chars": 2000,
+   "lead_chars": 300,
+   "per_session": 1,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.9375,
+   "recall@10": 0.975
+  },
+  {
+   "chunk_chars": 2000,
+   "lead_chars": 300,
+   "per_session": 1,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.945,
+   "recall@10": 0.975
+  },
+  {
+   "chunk_chars": 2000,
+   "lead_chars": 300,
+   "per_session": 2,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.935,
+   "recall@10": 0.9525
+  },
+  {
+   "chunk_chars": 2000,
+   "lead_chars": 300,
+   "per_session": 2,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.935,
+   "recall@10": 0.955
+  },
+  {
+   "chunk_chars": 2000,
+   "lead_chars": 300,
+   "per_session": 3,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.93,
+   "recall@10": 0.95
+  },
+  {
+   "chunk_chars": 2000,
+   "lead_chars": 300,
+   "per_session": 3,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.9325,
+   "recall@10": 0.9525
+  },
+  {
+   "chunk_chars": 4000,
+   "lead_chars": 0,
+   "per_session": 1,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.9475,
+   "recall@10": 0.9725
+  },
+  {
+   "chunk_chars": 4000,
+   "lead_chars": 0,
+   "per_session": 1,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.95,
+   "recall@10": 0.9775
+  },
+  {
+   "chunk_chars": 4000,
+   "lead_chars": 0,
+   "per_session": 2,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.94,
+   "recall@10": 0.965
+  },
+  {
+   "chunk_chars": 4000,
+   "lead_chars": 0,
+   "per_session": 2,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.9425,
+   "recall@10": 0.9675
+  },
+  {
+   "chunk_chars": 4000,
+   "lead_chars": 0,
+   "per_session": 3,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.9375,
+   "recall@10": 0.965
+  },
+  {
+   "chunk_chars": 4000,
+   "lead_chars": 0,
+   "per_session": 3,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.94,
+   "recall@10": 0.965
+  },
+  {
+   "chunk_chars": 4000,
+   "lead_chars": 300,
+   "per_session": 1,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.9475,
+   "recall@10": 0.9725
+  },
+  {
+   "chunk_chars": 4000,
+   "lead_chars": 300,
+   "per_session": 1,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.95,
+   "recall@10": 0.9775
+  },
+  {
+   "chunk_chars": 4000,
+   "lead_chars": 300,
+   "per_session": 2,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.94,
+   "recall@10": 0.965
+  },
+  {
+   "chunk_chars": 4000,
+   "lead_chars": 300,
+   "per_session": 2,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.9425,
+   "recall@10": 0.9675
+  },
+  {
+   "chunk_chars": 4000,
+   "lead_chars": 300,
+   "per_session": 3,
+   "half_life_days": null,
+   "n": 400,
+   "recall@5": 0.9375,
+   "recall@10": 0.965
+  },
+  {
+   "chunk_chars": 4000,
+   "lead_chars": 300,
+   "per_session": 3,
+   "half_life_days": 90,
+   "n": 400,
+   "recall@5": 0.94,
+   "recall@10": 0.965
+  }
+ ],
+ "default": {
+  "chunk_chars": 2000,
+  "lead_chars": 300,
+  "per_session": 2,
+  "half_life_days": null
+ },
+ "chosen": {
+  "chunk_chars": 4000,
+  "lead_chars": 0,
+  "per_session": 1,
+  "half_life_days": 90
+ }
+}

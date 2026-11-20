@@ -12,21 +12,7 @@
  "model": "claude-haiku-5-5",
  "judge_model": "claude-haiku-5-5",
  "started": "2026-11-10T23:12:47Z",
- "cap_usd": 1.6,
- "sub_ceiling_pct": 70.0,
- "usage_before": {
-  "fh": 49.0,
-  "sd": 16.0,
-  "age_s": 7574.683570146561
- },
- "gate_open_at_start": false,
  "effort": "medium",
- "usage_after": {
-  "fh": 49.0,
-  "sd": 16.0,
-  "age_s": 7823.953382015228
- },
  "api_usd_this_run": 0.13864059500000037,
- "api_usd_total": 1.1307221950000013,
  "finished": "2026-11-10T23:16:54Z"
 }

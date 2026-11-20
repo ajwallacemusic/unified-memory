@@ -13,32 +13,16 @@
  "model": "claude-haiku-5-5",
  "judge_model": "claude-haiku-5-5",
  "started": "2026-11-10T23:55:20Z",
- "cap_usd": 12.0,
- "sub_ceiling_pct": 70.0,
- "usage_before": {
-  "fh": 12.0,
-  "sd": 24.0,
-  "age_s": 0.6513988971710205
- },
- "gate_open_at_start": true,
  "effort": "medium",
- "usage_after": {
-  "fh": 45.0,
-  "sd": 27.0,
-  "age_s": 228.50202298164368
- },
  "api_usd_this_run": 7.399307465000011,
- "api_usd_total": 8.530029660000013,
  "finished": "2026-11-11T00:12:36Z",
  "notes": [
   "Two invocations wrote into this folder: z, a0, a and files on the API (2026-11-10 17:19 to 18:26 CST, $7.40), and full through the subscription route (non-interactive Claude Code, Haiku 5.5, no tools; $0 API).",
-  "The plan-usage readings above bracket the full-context invocation only; this interactive session was also drawing on the plan at the time.",
-  "Total API spend for Plan 1 so far is $8.53, including two pilots ($1.13).",
   "A0 appends a two-sentence harness note to the shipped skill text, saying where the memory folder is and today's date.",
   "Sessions were fed to the writer in batches of about 20,000 tokens; 22 of roughly 700 writer batches ended without a clean finish and their stores were used as left.",
   "The full-context rows here were produced through the subscription route before effort was pinned there, so the effort they ran at is not known. As a check, the first 20 of those questions were rerun on the API at medium effort (results/longmemeval/2026-11-10-full-api-check, $1.69): 17 correct on each backend, and the two agreed on all 20.",
   "Rows in this folder predate the judge_backend field. Judge calls for z, a0, a and files went to the API (the usage gate was closed); judge calls for full went through the subscription.",
-  "Arm A's prompt says that questions may ask what was true before. That is a hint A0 does not get; it stays as run for these results and is to be reworded before the arms are rerun in Plan 2.",
+  "Arm A's prompt says that questions may ask what was true before. That is a hint A0 does not get; it stays as run for these results and is to be reworded before the arms are rerun.",
   "No judge verdict in this folder was anything other than yes or no."
  ]
 }

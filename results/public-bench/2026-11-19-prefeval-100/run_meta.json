@@ -8,8 +8,6 @@
     "100",
     "--out",
     "results/public-bench/2026-11-19-prefeval-100",
-    "--api-cap",
-    "35",
     "--workers",
     "4"
    ],
@@ -128,13 +126,7 @@
    "judge_model": "claude-haiku-5-5",
    "compile_model": "claude-sonnet-5-5",
    "cap_floor": 100000,
-   "api_usd_ledger_before": 28.273361319999932,
-   "api_usd_ledger_after": 28.93658002000005,
-   "usage_after": {
-    "fh": 42.0,
-    "sd": 34.0,
-    "age_s": 88.95965003967285
-   }
+   "api_usd_this_run": 0.6632
   }
  ]
 }

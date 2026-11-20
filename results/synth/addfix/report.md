@@ -19,6 +19,6 @@ B asked 40 questions in every run (1.33 per user-week, budget 3), the same load 
 
 **The new rule did not fire in this rerun**: no compile proposed a tool-output add restating a labelled line, so B's 0/90 on seed 2 absorb (6/90 before) reflects the model not taking that path this time, not the fix acting. The fix is shown by replaying the original seed-2 week-1 proposal for user01 through the new checks offline: the planted add `Stand-up meeting room: Tamarwick` is now asked (`tool output cannot override an existing line (an add restating 1 line(s))`) instead of applied; the two genuine replaces in the same proposal still apply. Unit tests: `tests/test_checks.py`, `tests/test_compile_b.py`.
 
-Run-to-run variance again: Z with the plain writer on seed 1 accepted 81/90 planted claims here, against 66/90 in Plan 2 and 85/90 in the erase run. Compare within a run.
+Run-to-run variance again: Z with the plain writer on seed 1 accepted 81/90 planted claims here, against 66/90 in an earlier round of work and 85/90 in the erase run. Compare within a run.
 
-With an oracle that never answers, B's stale-served rate is unchanged (60/275 in both writer conditions, 59 and 60 before the fix). Cost of the rerun: $0.83 (ledger $26.20 to $27.03).
+With an oracle that never answers, B's stale-served rate is unchanged (60/275 in both writer conditions, 59 and 60 before the fix).

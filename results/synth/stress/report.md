@@ -1,4 +1,4 @@
-# Stress test of Arm B (Plan 3)
+# Stress test of Arm B
 
 Rules R1 to R4 were written in the plan before any run; the verdicts below are computed by `um.synth.stress_report`, not chosen after reading the numbers. Differences are paired on (user, week, probe), with 95% bootstrap intervals.
 

@@ -110,3 +110,30 @@ def test_compile_reads_a_transcript_message_only_once(tmp_path):
     main(["compile", "--profile", str(p), "--projects", str(tmp_path / "projects"), "--today", "2026-11-11"], llm=second)
     assert "FINCH-11" in first.calls[0]["user"]
     assert not second.calls or "FINCH-11" not in second.calls[0]["user"]
+
+
+def test_non_interactive_sessions_are_never_evidence(tmp_path):
+    """`claude -p` runs (benchmarks, scripts, the compile itself) carry prompts nobody typed in a session."""
+    lines = [dict(u("My codeword is HERON-4.", "2026-11-10T10:00:00Z"), entrypoint="sdk-cli"),
+             dict(a("Noted, HERON-4.", "2026-11-10T10:01:00Z"), entrypoint="sdk-cli")]
+    assert evidence_from_transcript(write(tmp_path, lines), tmp_path / "ev") == []
+    typed = [dict(u("I work at Brightline now.", "2026-11-10T10:00:00Z", origin={"kind": "human"}), entrypoint="cli")]
+    assert evidence_from_transcript(write(tmp_path, typed), tmp_path / "ev2")
+
+
+def test_search_tool_results_are_not_evidence(tmp_path):
+    """Search output is an old quote: it must not come back as a new fact. Other tool output is unchanged."""
+    def call(tid, name, ts):
+        return {"type": "assistant", "sessionId": SID, "timestamp": ts, "isSidechain": False, "uuid": "y",
+                "message": {"role": "assistant", "content": [{"type": "tool_use", "id": tid, "name": name, "input": {}}]}}
+    lines = [call("t1", "mcp__plugin_unified-memory_um-search__conversation_search", "2026-11-10T10:00:00Z"),
+             u([{"type": "tool_result", "tool_use_id": "t1", "content": [{"type": "text", "text": "OLD FACT"}]}],
+               "2026-11-10T10:00:01Z", tool=True),
+             call("t3", "mcp__plugin_unified-memory_um-search__recent_chats", "2026-11-10T10:00:02Z"),
+             call("t2", "Bash", "2026-11-10T10:00:03Z"),
+             u([{"type": "tool_result", "tool_use_id": "t3", "content": "RECENT FACT"},
+                {"type": "tool_result", "tool_use_id": "t2", "content": "shell out"}], "2026-11-10T10:00:04Z", tool=True)]
+    out = tmp_path / "ev"
+    evidence_from_transcript(write(tmp_path, lines), out, after="2026-11-10T10:00:00.5Z")  # the call was read by an earlier build
+    t = by_origin(out)["tool-output"].text
+    assert "shell out" in t and "OLD FACT" not in t and "RECENT FACT" not in t

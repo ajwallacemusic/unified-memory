@@ -47,16 +47,15 @@
 
 Shared memory writer (once per question, used by z, a0 and a): 4,320,965 input tokens, 188,020 output tokens, $0.53; 1 writer batches did not finish cleanly.
 
-Plan usage reading before: {'fh': 49.0, 'sd': 16.0, 'age_s': 7207.011509895325}; after: {'fh': 49.0, 'sd': 16.0, 'age_s': 7492.94030714035}.
 
-API spend for the most recent invocation: $0.99; ledger total $0.99 against a $1.00 cap.
+API spend for this run: $0.99.
 
 Errors logged during the run: 1 (see errors.jsonl).
 
 ## Not run
 
-- Arm B and every Arm C component (Plan 2 onwards).
-- The custom multi-store benchmark with planted claims (Plan 2).
+- Arm B and every Arm C component (later work).
+- The custom multi-store benchmark with planted claims (later work).
 - STALE, Bemula, Memora, MemoryAgentBench and store-level checks.
 - A second labeller or a judge from a different model family.
 - Sonnet 5.5 or any model other than the one named above.

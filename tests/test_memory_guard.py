@@ -172,3 +172,13 @@ def test_a_shell_command_naming_a_protected_path_or_answer_is_held_in_a_tainted_
         assert denied(run("guard", ev("PreToolUse", tool_name="Bash", tool_input={"command": cmd})))
     run("clear", ev("UserPromptSubmit", prompt="hi"))
     assert run("guard", ev("PreToolUse", tool_name="Bash", tool_input={"command": f"cat {prot}/MEMORY.md"}))[0] == 0
+
+
+def test_guard_taints_on_plugin_search_tool(env):
+    prot, prof, _ = env
+    run("clear", ev("UserPromptSubmit", prompt="what did we decide last month?"))
+    run("taint", taint("mcp__plugin_unified-memory_um-search__conversation_search"))
+    code, out, _ = run("guard", write(prot / "work.md"))
+    d = json.loads(out)["hookSpecificOutput"]
+    assert code == 0 and d["permissionDecision"] == "deny"
+    assert len(list((prof / "inbox" / "held").glob("*.md"))) == 1

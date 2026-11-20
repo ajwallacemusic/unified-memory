@@ -33,6 +33,12 @@ PRICES: dict[str, Price] = {
     "claude-haiku-5-5": Price(Rates(0.10, 0.50, 0.125, 0.01), long_prompt_threshold=100_000,
                               long=Rates(0.50, 2.50, 0.625, 0.05)),
     "claude-sonnet-5-5": Price(Rates(2.00, 10.00, 2.50, 0.10)),
+    # OpenAI, standard tier, prompts up to 272K tokens: https://developers.openai.com/api/docs/pricing (read
+    # 2026-11-19). OpenAI has no cache-write charge; reasoning tokens are billed as output.
+    # OPENAI_JUDGE_PRICE="input,cached,output" overrides the judge model's row (see um/llm_openai.py).
+    "gpt-6.2-astra": Price(Rates(8.00, 40.00, 8.00, 0.40)),
+    "gpt-6.2-sol": Price(Rates(2.00, 10.00, 2.00, 0.10)),
+    "gpt-6-luna": Price(Rates(0.10, 0.50, 0.10, 0.01)),
 }
 
 

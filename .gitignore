@@ -11,3 +11,9 @@ data/public/
 .pytest_cache/
 results/**/stores/
 results/synth/**/week-*/
+# the conversation-search index never leaves the machine
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+*.db
+results/search-gate/**/stores/

@@ -2,7 +2,7 @@
   "name": "unified-memory",
   "displayName": "Unified Memory",
   "version": "0.1.0",
-  "description": "One checked profile of you across Claude Code, chat and scheduled tasks: compile with cited, code-checked changes; a write-time guard on memory; receipts, undo and erase.",
+  "description": "One checked profile of you across Claude Code, chat and scheduled tasks: compile with cited, code-checked changes; a write-time guard on memory; receipts, undo and erase; local search over past conversations (conversation_search, recent_chats).",
   "author": {"name": "AJ Wallace"},
   "license": "MIT"
 }

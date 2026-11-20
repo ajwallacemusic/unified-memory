@@ -93,3 +93,9 @@ def test_pref_generation_is_the_answer_models_reply_to_the_preference(root):
     r = pe.pref_generation(item, llm, "m")
     assert r.text == "Understood." and llm.calls[0]["user"] == item.preference
     assert llm.calls[0]["system"] == pe.SYSTEM_PROMPT
+
+
+def test_answer_budget_is_one_setting_for_every_condition(root):
+    from um.bench.public.run import prefeval_bench
+    assert prefeval_bench(root, 3, 1, 2, "m").max_tokens == pe.ANSWER_MAX_TOKENS
+    assert prefeval_bench(root, 3, 1, 2, "m", answer_max_tokens=4_000).max_tokens == 4_000

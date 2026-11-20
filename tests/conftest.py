@@ -53,3 +53,5 @@ def _no_real_config(tmp_path_factory, monkeypatch):
     """No test reads the user's real ~/.config/unified-memory, profile or model route."""
     monkeypatch.setenv("UM_CONFIG", str(tmp_path_factory.mktemp("cfg") / "config.json"))
     monkeypatch.delenv("UM_LLM", raising=False)
+    # `um.cli erase` reaches the search index when it exists: never the real one.
+    monkeypatch.setenv("UM_SEARCH_INDEX", str(tmp_path_factory.mktemp("search") / "search.sqlite"))

@@ -366,6 +366,248 @@ def bootstrap(src: Path, p: Path, evidence: Path | None, model: str, today: str,
     return f"imported; clean-up changed {files} files; receipt digest/{today}-bootstrap.md"
 
 
+DESKTOP_SESSIONS = "~/Library/Application Support/Claude/local-agent-mode-sessions"
+
+
+def _search_roots(a) -> tuple[Path, Path | None]:
+    """Claude Code projects and desktop session folders to catch up from. `--desktop` defaults to the desktop
+    app's local-agent sessions when that folder exists."""
+    projects = Path(a.projects or "~/.claude/projects").expanduser()
+    if a.desktop is not None:
+        return projects, Path(a.desktop).expanduser()
+    d = Path(DESKTOP_SESSIONS).expanduser()
+    return projects, (d if d.is_dir() else None)
+
+
+def _catch_up(index, a, force: bool) -> dict:
+    import time
+    from um.config import search_include_sdk
+    from um.search.ingest import catch_up
+    projects, desktop = _search_roots(a)
+    return catch_up(index, projects=projects, desktop=desktop, now=time.time(),
+                    include_sdk=search_include_sdk(), force=force)
+
+
+def _export_age(web: str) -> str:
+    day = web[:10]
+    try:
+        age = (datetime.now(timezone.utc).date() - date.fromisoformat(day)).days
+    except ValueError:
+        return f"web export {day}"
+    return f"web export {day} ({age} day{'' if age == 1 else 's'} old)"
+
+
+def _search_status_line() -> str:
+    """One line for `um.cli status`. Never creates the index."""
+    from um.config import search_index_path
+    from um.search.index import Index
+    path = search_index_path()
+    if not path.exists():
+        return "search: no index"
+    try:
+        index = Index(path)
+    except ValueError as e:
+        return f"search: {e}"
+    try:
+        n = sum(index.stats()["sessions"].values())
+        web = index.get_meta("web_export_date")
+    finally:
+        index.close()
+    if not web:
+        return f"search: {n} sessions, no web export"
+    try:
+        age = (datetime.now(timezone.utc).date() - date.fromisoformat(web[:10])).days
+        return f"search: {n} sessions, web export {age} days old"
+    except ValueError:
+        return f"search: {n} sessions, web export {web[:10]}"
+
+
+def _erase_index(a) -> str | None:
+    """After the profile erase: catch up, then erase the values from the search index. With no index yet, create
+    it holding only the erase guard (no catch-up), so a later build drops the values too. Returns the exception
+    name on failure (the caller exits non-zero), None otherwise."""
+    from um.config import profile_path, search_index_path
+    path = search_index_path()
+    try:
+        from um.search import forget
+        from um.search.index import Index, check_index_path
+        existed = path.exists()
+        if not existed:
+            check_index_path(path, profile_path())
+        index = Index(path)
+        try:
+            if existed:
+                _catch_up(index, a, force=True)
+            r = forget.erase_from_index(index, a.value)
+        finally:
+            index.close()
+    except Exception as e:  # never silent: reported here and by the exit status
+        print(f"search index NOT erased: {type(e).__name__}")
+        return type(e).__name__
+    if existed:
+        print(f"search index: removed {r['chunks']} chunks in {r['sessions']} sessions")
+    else:
+        print("search index: none yet; created it holding the erase, so a later build drops the value")
+    return None
+
+
+def _chunk_fmt(params) -> str:
+    return "unrecorded" if params is None else f"{params[0]}/{params[1]}"
+
+
+def _search(a) -> None:
+    import os
+    from um.config import profile_path, search_index_path
+    from um.search.index import Index, check_index_path
+    path = search_index_path()
+    try:
+        check_index_path(path, profile_path())
+    except ValueError as e:
+        raise SystemExit(str(e))
+    if a.scmd == "forget":
+        if not a.yes:
+            raise SystemExit("refusing to forget without --yes: it cannot be undone")
+        if a.all:
+            if not path.exists():
+                print("no search index to empty")
+                return
+            index = Index(path)
+            try:
+                n = index.forget_all()
+            finally:
+                index.close()
+            print(f"search index emptied ({n} chunks removed); erase records kept, so erased values stay out "
+                  "when it is rebuilt")
+            return
+    from um.config import SEARCH_OFF, search_enabled
+    if a.scmd in ("index", "query", "recent") and not search_enabled():
+        if getattr(a, "if_enabled", False):
+            return                                    # the SessionStart hook: a quiet no-op
+        raise SystemExit(SEARCH_OFF)
+    try:
+        index = Index(path)
+    except ValueError as e:
+        raise SystemExit(str(e))
+    try:
+        if a.scmd in ("index", "query", "recent", "rebuild"):
+            import sys
+            r = index.rechunk() if a.scmd == "rebuild" else index.ensure_chunk_params()
+            if r is not None:
+                frm = "unrecorded" if r["from"] is None else f"{r['from'][0]}/{r['from'][1]}"
+                msg = (f"re-chunked {r['sessions']} sessions ({r['turns']} turns) from {frm} to "
+                       f"{index.get_meta('chunk_chars')}/{index.get_meta('lead_chars')}"
+                       + (f"; {r['turns_skipped']} turns with erased parts left as they were"
+                          if r["turns_skipped"] else ""))
+                # query/recent output must start with the search notice, so the note goes to stderr there
+                print(msg, file=sys.stderr if a.scmd in ("query", "recent") else sys.stdout)
+        if a.scmd == "index":
+            r = _catch_up(index, a, force=a.force)
+            print("catch-up skipped (ran under 10 seconds ago)" if r["skipped"] else
+                  f"{r['files_read']} files read, {r['chunks_written']} chunks written, as of {r['as_of']}"
+                  + (f"; {r['files_failed']} file{'' if r['files_failed'] == 1 else 's'} failed (retried next time)"
+                     if r.get("files_failed") else ""))
+        elif a.scmd == "import-export":
+            import zipfile
+            from um.search.ingest import import_export
+            for src in a.paths:
+                try:
+                    r = import_export(index, src, keep_deleted=a.keep_deleted, force=a.force)
+                except FileNotFoundError:
+                    raise SystemExit(f"{src}: no such file or folder")
+                except zipfile.BadZipFile as e:
+                    raise SystemExit(f"{src}: not a readable zip ({e})")
+                except (ValueError, OSError) as e:
+                    raise SystemExit(f"{src}: {' '.join(str(e).split())}")
+                print(f"{src}: {r['added']} added, {r['replaced']} replaced, {r['unchanged']} unchanged, "
+                      f"{r['removed']} removed; export dated {r['export_date'] or 'unknown'}"
+                      + ("" if r["complete"] else " (partial export: nothing removed)"))
+        elif a.scmd in ("query", "recent"):
+            from um.search.tools import ToolArgError, call_tool
+            if a.scmd == "query":
+                name = "conversation_search"
+                args = {"query": " ".join(a.text), "max_results": a.max_results, "after": a.after,
+                        "before": a.before, "sort": a.sort, "surface": a.surface, "project": a.project,
+                        "within_session_id": a.within}
+            else:
+                name = "recent_chats"
+                args = {"n": a.n, "after": a.after, "before": a.before, "sort_order": a.order}
+            args = {k: v for k, v in args.items() if v is not None}
+            try:
+                r = call_tool(index, name, args, env=os.environ, before_query=lambda: _catch_up(index, a, False))
+            except ToolArgError as e:
+                raise SystemExit(f"search {a.scmd}: {e}")
+            print(r["text"])
+        elif a.scmd == "status":
+            st = index.stats()
+            print(f"search index {path}")
+            for surface in ("code", "desktop", "web"):
+                print(f"{surface}: {st['sessions'].get(surface, 0)} sessions, {st['chunks'].get(surface, 0)} chunks")
+            code = index.get_meta("code_as_of")
+            print(f"code and desktop as of {code}" if code else "code and desktop not indexed yet")
+            web = index.get_meta("web_export_date")
+            print(_export_age(web) if web else "no web export imported")
+            print(f"source gone: {st['source_gone']}")
+            from um.config import search_enabled
+            if not search_enabled():
+                print('search is off ("search": false in the config)')
+            mm = index.chunk_params_mismatch()
+            if mm is None:
+                print(f"chunking {_chunk_fmt(index.stored_chunk_params())} (current)")
+            else:
+                print(f"chunking {_chunk_fmt(mm['stored'])}, current is {_chunk_fmt(mm['current'])}: run "
+                      "python -m um.cli search rebuild (index, query and the tools also re-chunk on first use)")
+            failed = index.get_meta("catch_up_files_failed")
+            if failed and failed != "0":
+                print(f"files failed at the last catch-up: {failed}")
+        elif a.scmd == "forget":
+            from um.search.forget import forget_session
+            n = forget_session(index, a.session)
+            print(f"removed {n} chunks" if n else f"no session {a.session!r} in the index")
+    finally:
+        index.close()
+
+
+def _add_search_parser(sub) -> None:
+    s = sub.add_parser("search")
+    ss = s.add_subparsers(dest="scmd", required=True)
+
+    def roots(p):
+        p.add_argument("--projects", type=Path, default=None)
+        p.add_argument("--desktop", type=Path, default=None)
+
+    p = ss.add_parser("index")
+    roots(p)
+    p.add_argument("--force", action="store_true")
+    p.add_argument("--if-enabled", action="store_true", help="do nothing, quietly, when search is off (the hook)")
+    ss.add_parser("rebuild", help="re-chunk the stored conversations with the current chunk parameters")
+    p = ss.add_parser("import-export")
+    p.add_argument("paths", type=Path, nargs="+")
+    p.add_argument("--keep-deleted", action="store_true")
+    p.add_argument("--force", action="store_true")
+    p = ss.add_parser("query")
+    p.add_argument("text", nargs="+")
+    p.add_argument("--max-results", type=int)
+    p.add_argument("--after")
+    p.add_argument("--before")
+    p.add_argument("--sort", choices=("relevance", "newest", "oldest"))
+    p.add_argument("--surface", nargs="+")
+    p.add_argument("--project")
+    p.add_argument("--within")
+    roots(p)
+    p = ss.add_parser("recent")
+    p.add_argument("--n", type=int)
+    p.add_argument("--after")
+    p.add_argument("--before")
+    p.add_argument("--order", choices=("desc", "asc"))
+    roots(p)
+    ss.add_parser("status")
+    p = ss.add_parser("forget")
+    g = p.add_mutually_exclusive_group(required=True)
+    g.add_argument("--session")
+    g.add_argument("--all", action="store_true")
+    p.add_argument("--yes", action="store_true")
+
+
 def main(argv: list[str] | None = None, llm=None) -> None:
     ap = argparse.ArgumentParser(prog="um.cli")
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -384,6 +626,9 @@ def main(argv: list[str] | None = None, llm=None) -> None:
             s.add_argument("--raw-root", type=Path, action="append", default=[])
             s.add_argument("--yes", action="store_true")
             s.add_argument("--purge-history", action="store_true")
+            s.add_argument("--projects", type=Path, default=None)   # search-index catch-up before the erase
+            s.add_argument("--desktop", type=Path, default=None)
+    _add_search_parser(sub)
     s = sub.add_parser("bootstrap")
     s.add_argument("--from", dest="src", type=Path, required=True)
     s.add_argument("--evidence", type=Path)
@@ -398,6 +643,9 @@ def main(argv: list[str] | None = None, llm=None) -> None:
     s.add_argument("--profile", type=Path, default=None)
     s.add_argument("--rejected", type=int, default=0)
     a = ap.parse_args(argv)
+    if a.cmd == "search":
+        _search(a)
+        return
     from um.config import profile_path
     p = profile_path(a.profile)
 
@@ -459,6 +707,7 @@ def main(argv: list[str] | None = None, llm=None) -> None:
         if holders:
             print("account memory still holds it until the next live push: " + ", ".join(sorted(holders)))
         print("transcript messages before now will not be read again; run compile before erase to keep them")
+        index_failed = _erase_index(a)
         roots = a.raw_root or [Path("~/.claude/projects").expanduser()]
         for v, files in raw_copies(a.value, roots).items():
             print(f"raw copies outside the profile ({len(files)}), delete them in their own apps:")
@@ -469,6 +718,8 @@ def main(argv: list[str] | None = None, llm=None) -> None:
             print("git history rewritten")
         else:
             print("the profile's git history still holds the value; rerun with --purge-history to rewrite it")
+        if index_failed:
+            raise SystemExit(f"search index NOT erased: {index_failed}")
     elif a.cmd == "status":
         build = _read_json(p / ".um" / "build.json")
         held = len(list((p / "inbox" / "held").glob("*.md"))) if (p / "inbox" / "held").is_dir() else 0
@@ -480,6 +731,7 @@ def main(argv: list[str] | None = None, llm=None) -> None:
               + (f", next question: {pend[0]}" if pend else ""))
         for x in needs:
             print(f"  - {x}")
+        print(_search_status_line())
 
 
 if __name__ == "__main__":

@@ -1,0 +1,6 @@
+{
+ "chunk_chars": 4000,
+ "lead_chars": 300,
+ "per_session": 1,
+ "half_life_days": 90
+}

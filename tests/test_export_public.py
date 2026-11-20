@@ -87,3 +87,35 @@ def test_the_plugin_copy_of_the_private_data_reader_is_never_exported(src, tmp_p
     (src / "plugin" / "um" / "realdata.py").write_text("x\n")
     subprocess.run(["git", "-C", str(src), "add", "-A", "-f"], check=True)
     assert "plugin/um/realdata.py" not in export(src, tmp_path / "out", allow=ALLOW + ["plugin/"], deny_terms=[])
+
+
+def test_export_refuses_sqlite(src, tmp_path):
+    (src / "um" / "x.sqlite").write_bytes(b"anything")
+    subprocess.run(["git", "-C", str(src), "add", "-A", "-f"], check=True)
+    with pytest.raises(ExportError, match="x.sqlite"):
+        export(src, tmp_path / "out", allow=ALLOW, deny_terms=[])
+    subprocess.run(["git", "-C", str(src), "rm", "-q", "-f", "um/x.sqlite"], check=True)
+    (src / "um" / "notes.bin").write_bytes(b"SQLite format 3\x00" + b"\x00" * 64)
+    subprocess.run(["git", "-C", str(src), "add", "-A", "-f"], check=True)
+    with pytest.raises(ExportError, match="notes.bin"):
+        export(src, tmp_path / "out", allow=ALLOW, deny_terms=[])
+    assert not (tmp_path / "out").exists()
+
+
+@pytest.mark.parametrize("name", ["a.sqlite-wal", "a.sqlite-shm", "a.db"])
+def test_export_refuses_sqlite_side_files_even_when_ignored(src, tmp_path, name):
+    (src / ".gitignore").write_text("*.sqlite\n*.sqlite-wal\n*.sqlite-shm\n*.db\n")
+    (src / "um" / name).write_bytes(b"x")
+    subprocess.run(["git", "-C", str(src), "add", "-A", "-f"], check=True)
+    with pytest.raises(ExportError, match=name):
+        export(src, tmp_path / "out", allow=ALLOW, deny_terms=[])
+
+
+def test_gate_rows_ship_but_their_error_tracebacks_never_do(src, tmp_path):
+    for rel in ("results/search-gate/2026-11-lme/results.jsonl", "results/search-gate/2026-11-lme/errors.jsonl"):
+        (src / rel).parent.mkdir(parents=True, exist_ok=True)
+        (src / rel).write_text("{}\n")
+    subprocess.run(["git", "-C", str(src), "add", "-A", "-f"], check=True)
+    files = export(src, tmp_path / "out", deny_terms=[])
+    assert "results/search-gate/2026-11-lme/results.jsonl" in files
+    assert "results/search-gate/2026-11-lme/errors.jsonl" not in files

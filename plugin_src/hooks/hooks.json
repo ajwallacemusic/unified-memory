@@ -1,6 +1,17 @@
 {
-  "description": "Memory guard (a turn that read tool output may not write memory directly) and profile context (profile lines that match each prompt).",
+  "description": "Memory guard (a turn that read tool output may not write memory directly), profile context (profile lines that match each prompt) and a background catch-up of the conversation-search index at session start.",
   "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"${CLAUDE_PLUGIN_ROOT}\" && python3 -m um.cli search index --if-enabled >/dev/null 2>&1",
+            "async": true
+          }
+        ]
+      }
+    ],
     "UserPromptSubmit": [
       {
         "hooks": [

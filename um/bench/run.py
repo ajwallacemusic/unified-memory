@@ -10,6 +10,8 @@ from __future__ import annotations
 
 import argparse
 import json
+
+from um.bench.meta import public_invocation
 import shutil
 import sys
 import threading
@@ -225,16 +227,15 @@ def main(argv: list[str] | None = None) -> None:
     gate = UsageGate(a.sub_ceiling, a.sub_max_age, a.usage_file) if a.usage_file else UsageGate(a.sub_ceiling, a.sub_max_age)
     llm = HybridLLM(AnthropicLLM(budget), ClaudeCodeLLM(), gate)
     spent_before = budget.spent()
-    meta = {"cap_usd": a.cap, "sub_ceiling_pct": a.sub_ceiling, "usage_before": gate.latest(),
-            "gate_open_at_start": gate.is_open(), "effort": EFFORT}
+    meta = {"effort": EFFORT}
     run(a.data, a.out, a.arms.split(","), a.n, llm, a.model, a.workers, meta, a.limit)
     meta_path = a.out / "run_meta.json"
     m = json.loads(meta_path.read_text())
     this = m["invocations"][-1]
-    this.update(usage_after=gate.latest(), api_usd_ledger_before=spent_before, api_usd_ledger_after=budget.spent(),
-                finished=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
+    this.update(finished=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()))
+    m["invocations"][-1] = public_invocation(this, spent_before, budget.spent())
     meta_path.write_text(json.dumps(m, indent=1))
-    print(f"API ledger total ${budget.spent():.4f} of ${a.cap:.2f} cap (was ${spent_before:.4f} when this run started)")
+    print(f"API cost of this run ${budget.spent() - spent_before:.4f}")
 
 
 if __name__ == "__main__":

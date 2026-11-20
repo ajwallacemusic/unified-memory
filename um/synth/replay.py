@@ -74,7 +74,7 @@ def answer_probes(probes: list[Probe], root: Path, llm: LLM, model: str, today: 
 
 
 def oracle(scn: Scenario, day: date):
-    """Plan 2's oracle: answers at once with the value true on `day`."""
+    """The replay oracle: answers at once with the value true on `day`."""
     o = Oracle(scn, "always")
     return lambda question: o.ask(question, day)
 

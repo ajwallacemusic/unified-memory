@@ -65,5 +65,5 @@ Arm B change decisions:
 - Labels are the generator's own truth; the scorer is a fixed string rule (spot-checked below if a check was recorded).
 - Arm B's questions are answered by an oracle that states the generator's true value at once, every time. Without it, every change B holds back (all system changes and all planted claims) would stay as it was.
 - The write-time hook that keeps tool output away from B's writer reads each conversation's generated origin header; in real use that origin must come from transcript structure.
-- The echo check, category policy, pinned facts, probes, promotion by demand and an erase test (Plan 3).
+- The echo check, category policy, pinned facts, probes, promotion by demand and an erase test (later work).
 - A judge or labeller from a different model family; real multi-store histories; more than one seed.

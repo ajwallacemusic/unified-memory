@@ -41,6 +41,7 @@ class Item:
     question_date: str
     sessions: tuple[Session, ...]
     is_abstention: bool
+    answer_session_ids: tuple[str, ...] = ()
 
 
 def parse_date(text: str) -> datetime:
@@ -67,6 +68,7 @@ def load(path: Path) -> list[Item]:
             question_date=row["question_date"],
             sessions=tuple(sessions),
             is_abstention=is_abstention,
+            answer_session_ids=tuple(str(x) for x in row.get("answer_session_ids") or ()),
         ))
     return items
 

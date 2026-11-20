@@ -20,8 +20,8 @@ ARM_LABELS = {
 }
 ALL_ARMS = ["z", "a0", "a", "full", "files"]
 NOT_RUN = [
-    "Arm B and every Arm C component (Plan 2 onwards).",
-    "The custom multi-store benchmark with planted claims (Plan 2).",
+    "Arm B and every Arm C component (later work).",
+    "The custom multi-store benchmark with planted claims (later work).",
     "STALE, Bemula, Memora, MemoryAgentBench and store-level checks.",
     "A second labeller or a judge from a different model family.",
     "Sonnet 5.5 or any model other than the one named above.",
@@ -126,11 +126,8 @@ def build_report(run_dir: Path) -> str:
         out.append("\nJudge calls by backend: " + ", ".join(f"{b} {n}" for b, n in sorted(jb.items())) + ".")
     for n, inv in enumerate(meta.get("invocations", []), 1):
         parts = [f"arms {','.join(inv.get('arms', []))}"]
-        if "api_usd_ledger_after" in inv:
-            parts.append(f"API ledger ${inv['api_usd_ledger_before']:.2f} to ${inv['api_usd_ledger_after']:.2f} "
-                         f"(cap ${inv.get('cap_usd', 0):.2f})")
-        if inv.get("usage_before") or inv.get("usage_after"):
-            parts.append(f"plan usage before {inv.get('usage_before')}, after {inv.get('usage_after')}")
+        if "api_usd_this_run" in inv:
+            parts.append(f"API cost ${inv['api_usd_this_run']:.2f}")
         out.append(f"\nInvocation {n}: " + "; ".join(parts) + ".")
     errors_path = run_dir / "errors.jsonl"
     if errors_path.exists():

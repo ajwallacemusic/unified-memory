@@ -18,6 +18,9 @@ SOURCES = {
     "raw-retrieval": "excerpts from your past conversations with them, found by a search on the question and given below",
     "profile-full": "the profile you keep about them, given below",
     "profile-hook": "the lines of the profile you keep about them that matched this question, given below",
+    "search": "a search tool over your past conversations with them",
+    "profile+search": ("the profile you keep about them, given below, and a search tool over your past conversations "
+                       "with them"),
 }
 
 

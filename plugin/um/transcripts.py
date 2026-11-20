@@ -5,7 +5,11 @@
   unless it starts with a tag such as <command-name> or <local-command-stdout>.
 - `tool-output`: every tool_result block (user messages carrying `toolUseResult`).
 - `assistant`: text blocks the assistant wrote (thinking and tool calls are dropped).
-Everything else is dropped: meta messages, task notifications, subagent reports, sidechains.
+Everything else is dropped: meta messages, task notifications, subagent reports, sidechains, and whole
+non-interactive (`claude -p`, entrypoint "sdk-cli") sessions, whose prompts come from scripts and benchmarks.
+Results of this plugin's own search tools (SEARCH_TOOLS) are dropped too: an old quote is not a new fact. They are
+recognised by tool name on any server named for this project, and by the search notice their text starts with
+(which also catches `um.cli search query` run through a shell).
 """
 from __future__ import annotations
 
@@ -15,6 +19,31 @@ from datetime import date, datetime
 from pathlib import Path
 
 _SLUG = {"user-said": "user", "assistant": "assistant", "tool-output": "tool"}
+SEARCH_TOOLS = ("conversation_search", "recent_chats")
+_SERVER_MARKS = ("um-search", "unified-memory")
+
+
+def _is_search_tool(name) -> bool:
+    """`mcp__<server>__<tool>` where the tool is one of ours and the server name names this project, however the
+    server was registered (as the plugin, or by hand as `um-search`)."""
+    if not isinstance(name, str) or not name.startswith("mcp__"):
+        return False
+    server, sep, tool = name[len("mcp__"):].rpartition("__")
+    return bool(sep) and tool in SEARCH_TOOLS and any(m in server for m in _SERVER_MARKS)
+
+
+def _search_call_ids(content) -> set[str]:
+    return {b.get("id") for b in content if isinstance(b, dict) and b.get("type") == "tool_use"
+            and _is_search_tool(b.get("name"))} if isinstance(content, list) else set()
+
+
+def _is_search_output(block) -> bool:
+    """A tool_result whose text starts with the search notice: the search tools' output by any route, including
+    `um.cli search query` run through Bash."""
+    from um.search.tools import NOTICE
+    c = block.get("content")
+    texts = [c] if isinstance(c, str) else [x.get("text", "") for x in c or [] if isinstance(x, dict)]
+    return any(isinstance(t, str) and t.lstrip().startswith(NOTICE) for t in texts)
 
 
 def _texts(content, kind: str = "text") -> list[str]:
@@ -59,13 +88,20 @@ def evidence_from_transcript(jsonl: Path, out_dir: Path, since: date | None = No
     parts: dict[str, list[str]] = {o: [] for o in _SLUG}
     last: dict[str, str] = {}
     session = None
+    search_ids: set[str] = set()
     for line in Path(jsonl).read_text().splitlines():
         try:
             d = json.loads(line)
         except ValueError:
             continue
+        if not isinstance(d, dict):
+            continue
+        if d.get("entrypoint") == "sdk-cli":  # a `claude -p` run: a script or benchmark typed this, not the person
+            return []
         if d.get("type") not in ("user", "assistant") or d.get("isSidechain") or not isinstance(d.get("message"), dict):
             continue
+        if d["type"] == "assistant":  # before the date filters: the call may predate the cutoff, its result not
+            search_ids |= _search_call_ids(d["message"].get("content"))
         day = (d.get("timestamp") or "")[:10]
         if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", day) or (since and day < since.isoformat()):
             continue
@@ -76,6 +112,9 @@ def evidence_from_transcript(jsonl: Path, out_dir: Path, since: date | None = No
         if d["type"] == "assistant":
             found = {"assistant": _texts(content)}
         elif "toolUseResult" in d:
+            if isinstance(content, list):
+                content = [b for b in content if not (isinstance(b, dict) and (
+                    b.get("tool_use_id") in search_ids or _is_search_output(b)))]
             found = {"tool-output": _texts(content, "tool_result")}
         elif _typed(d):
             found = {"user-said": _texts(content)}
