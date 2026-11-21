@@ -1,0 +1,66 @@
+{
+ "invocations": [
+  {
+   "argv": [
+    "--bench",
+    "lme",
+    "--split",
+    "dev",
+    "--n",
+    "20",
+    "--out",
+    "results/search-gate/2026-11-lme-readchat/dev/legacy-1",
+    "--params",
+    "results/search-gate/2026-11-tune/params.json",
+    "--conditions",
+    "profile+search",
+    "--legacy-tools",
+    "--lme-data",
+    "<home>/develop/unified-memory/data/public/longmemeval/longmemeval_s_cleaned.json"
+   ],
+   "started": "2026-11-20T22:50:17Z",
+   "finished": "2026-11-20T22:54:35Z",
+   "bench": "lme",
+   "items": [
+    "031748ae_abs",
+    "0862e8bf_abs",
+    "0ddfec37_abs",
+    "15745da0_abs",
+    "3a704032",
+    "60472f9c",
+    "6aeb4375_abs",
+    "72e3ee87",
+    "9d25d4e0",
+    "a346bb18",
+    "a96c20ee_abs",
+    "b46e15ed",
+    "c8090214_abs",
+    "d3ab962e",
+    "ed4ddc30",
+    "f685340e_abs",
+    "gpt4_372c3eed_abs",
+    "gpt4_4929293a",
+    "gpt4_4cd9eba1",
+    "gpt4_fe651585_abs"
+   ],
+   "conditions": [
+    "profile+search"
+   ],
+   "params": {
+    "chunk_chars": 4000,
+    "lead_chars": 300,
+    "per_session": 1,
+    "half_life_days": 90
+   },
+   "answer_model": "claude-haiku-5-5",
+   "judge_model": "claude-haiku-5-5",
+   "compile_model": "claude-sonnet-5-5",
+   "effort": "medium",
+   "cap_floor": 100000,
+   "max_tool_turns": 8,
+   "legacy_tools": true,
+   "split": "dev",
+   "api_usd_this_run": 0.0176
+  }
+ ]
+}

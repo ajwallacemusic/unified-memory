@@ -203,6 +203,43 @@ these rows with `results/longmemeval/2026-11-10/results.jsonl` by question id.
 The tuning table is `results/search-gate/2026-11-tune/tune.json`: one entry per combination with its
 recall@5 and recall@10 on the 400 development questions.
 
+### `read_chat` and the repeat runs (RESULTS.md sections 6.8 and 6.9)
+
+The rows are published and the code that produced them is not (section 7), so these numbers can be recounted
+and not re-run. This prints, for each arm, the four totals, the abstention counts and how many answers differ
+between any two runs:
+
+```sh
+.venv/bin/python - <<'EOF'
+import itertools, json
+from pathlib import Path
+
+G = Path("results/search-gate")
+R = G / "2026-11-lme-readchat"
+
+def load(folder):
+    rows = map(json.loads, open(folder / "results.jsonl"))
+    return {r["qid"]: r for r in rows if r["condition"] == "profile+search"}
+
+arms = {
+    "without": [load(G / "2026-11-lme")] + [load(R / f"reruns/without-{i}") for i in (2, 3, 4)],
+    "with, round 1": [load(R)] + [load(R / f"reruns/with-{i}") for i in (2, 3, 4)],
+    "with, round 2": [load(R / f"round2/with-{i}") for i in (1, 2, 3, 4)],
+}
+for name, runs in arms.items():
+    correct = [sum(r["correct"] for r in run.values()) for run in runs]
+    abstain = [sum(r["correct"] for r in run.values() if r["qtype"] == "abstention") for run in runs]
+    flips = [sum(a[q]["correct"] != b[q]["correct"] for q in a) for a, b in itertools.combinations(runs, 2)]
+    print(f"{name}: correct {correct} mean {sum(correct) / 4}; abstention {abstain} mean {sum(abstain) / 4}; "
+          f"answers that differ between two runs {min(flips)} to {max(flips)}")
+EOF
+```
+
+The `read_chat` call counts are in each row's `tool_calls_by_name`, and the development runs are under
+`dev/` in the same shape. `comparison.md` in that folder holds the rules as written and the per-run tables. Its
+two intervals are a bootstrap over questions of the per-question mean difference; the script for them is not
+in this repository.
+
 ## 3. Re-run PrefEval
 
 Needs: the PrefEval repository, an API key (answers and judging), the `claude` CLI (compiles), a usage file.
@@ -492,6 +529,12 @@ what you are willing to spend. Things to know:
 - Any run on real stores, and the counts and timings of the real search index, before and after it was re-cut
   (RESULTS.md section 6.5).
 - The live check that Claude Code loads the search server. It was done by hand, once.
+- The live test in four Claude Code sessions (RESULTS.md section 6.7). It ran on a real index and its
+  transcripts are not published.
+- The `read_chat` runs and the three repeat runs of profile + search (RESULTS.md sections 6.8 and 6.9). The
+  tool, and the bench options that produced those rows (`--legacy-tools`, `--split dev`), are on an unmerged
+  branch that is not in this repository. Each run's `run_meta.json` records its command. The rows can be
+  recounted (section 2).
 - The hand check of 20 judge verdicts in the conversation-search gate.
 - The per-item working folders (`stores/`) of the published public-benchmark runs, and so the compile
   figures in RESULTS.md section 1, the `compile` blocks of the pilot summary and the count of compile passes

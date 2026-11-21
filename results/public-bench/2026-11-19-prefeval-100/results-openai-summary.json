@@ -1,0 +1,122 @@
+{
+ "source": "results/public-bench/2026-11-19-prefeval-100",
+ "judge_model": "gpt-6-luna",
+ "reference_judge": "claude-haiku-5-5",
+ "min_output_tokens": 1000,
+ "n_rows": 500,
+ "unjudged_empty_answers": 3,
+ "overall": {
+  "n": 500,
+  "openai": 365,
+  "haiku": 376,
+  "openai_rate": 0.73,
+  "haiku_rate": 0.752,
+  "agree": 477,
+  "agreement": 0.954,
+  "kappa": 0.8802332847323473,
+  "judge_not_ok": 0
+ },
+ "conditions": {
+  "full-history": {
+   "n": 100,
+   "openai": 93,
+   "haiku": 99,
+   "openai_rate": 0.93,
+   "haiku_rate": 0.99,
+   "agree": 94,
+   "agreement": 0.94,
+   "kappa": 0.2366412213740441,
+   "judge_not_ok": 0
+  },
+  "none": {
+   "n": 100,
+   "openai": 17,
+   "haiku": 13,
+   "openai_rate": 0.17,
+   "haiku_rate": 0.13,
+   "agree": 94,
+   "agreement": 0.94,
+   "kappa": 0.7654417513682563,
+   "judge_not_ok": 0
+  },
+  "profile-full": {
+   "n": 100,
+   "openai": 92,
+   "haiku": 96,
+   "openai_rate": 0.92,
+   "haiku_rate": 0.96,
+   "agree": 96,
+   "agreement": 0.96,
+   "kappa": 0.6478873239436618,
+   "judge_not_ok": 0
+  },
+  "profile-hook": {
+   "n": 100,
+   "openai": 92,
+   "haiku": 93,
+   "openai_rate": 0.92,
+   "haiku_rate": 0.93,
+   "agree": 97,
+   "agreement": 0.97,
+   "kappa": 0.7838616714697405,
+   "judge_not_ok": 0
+  },
+  "raw-retrieval": {
+   "n": 100,
+   "openai": 71,
+   "haiku": 75,
+   "openai_rate": 0.71,
+   "haiku_rate": 0.75,
+   "agree": 96,
+   "agreement": 0.96,
+   "kappa": 0.8987341772151898,
+   "judge_not_ok": 0
+  }
+ },
+ "checks": {
+  "acknowledgement": {
+   "n": 497,
+   "openai": 275,
+   "haiku": 274,
+   "openai_rate": 0.5533199195171026,
+   "haiku_rate": 0.5513078470824949,
+   "agree": 440,
+   "agreement": 0.8853118712273642,
+   "kappa": 0.768085925028448,
+   "judge_not_ok": 0
+  },
+  "violation": {
+   "n": 497,
+   "openai": 131,
+   "haiku": 120,
+   "openai_rate": 0.2635814889336016,
+   "haiku_rate": 0.2414486921529175,
+   "agree": 476,
+   "agreement": 0.9577464788732394,
+   "kappa": 0.8881434404707041,
+   "judge_not_ok": 0
+  },
+  "hallucination": {
+   "n": 497,
+   "openai": 79,
+   "haiku": 50,
+   "openai_rate": 0.158953722334004,
+   "haiku_rate": 0.1006036217303823,
+   "agree": 434,
+   "agreement": 0.8732394366197183,
+   "kappa": 0.44299361357693046,
+   "judge_not_ok": 0
+  },
+  "error_unhelpful": {
+   "n": 497,
+   "openai": 1,
+   "haiku": 2,
+   "openai_rate": 0.002012072434607646,
+   "haiku_rate": 0.004024144869215292,
+   "agree": 494,
+   "agreement": 0.993963782696177,
+   "kappa": -0.0026899798251653756,
+   "judge_not_ok": 0
+  }
+ }
+}

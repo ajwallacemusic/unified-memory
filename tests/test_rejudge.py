@@ -136,3 +136,54 @@ def test_dry_run_counts_and_costs_without_calling(tmp_path, capsys):
     assert est["items"] == 2 and est["calls"] == 2
     assert est["usd"] > 0 and est["worst_case_usd"] >= est["usd"]
     assert not (tmp_path / "x-implicit-openai.jsonl").exists()
+
+
+# --- LongMemEval search gate --------------------------------------------------------------------------
+
+
+def lme_fixture(tmp_path, monkeypatch):
+    from um.bench.public import lme
+    src = tmp_path / "gate"
+    src.mkdir()
+    rows = [{"qid": "q1", "qtype": "knowledge-update", "condition": "profile", "correct": False, "outcome": "ok",
+             "answer": "no idea"},
+            {"qid": "q1", "qtype": "knowledge-update", "condition": "search", "correct": True, "outcome": "ok",
+             "answer": "under the bed"},
+            {"qid": "q2", "qtype": "abstention", "condition": "search", "correct": None, "outcome": "judge_failed",
+             "answer": "x"},
+            {"qid": "q2", "qtype": "abstention", "condition": "full", "correct": False, "outcome": "empty",
+             "answer": ""}]
+    (src / "results.jsonl").write_text("".join(json.dumps(r) + "\n" for r in rows))
+
+    class It:
+        def __init__(self, qid):
+            self.qid, self.qtype, self.question, self.answer = qid, "knowledge-update", "Where?", "under the bed"
+            self.question_date = "2023/01/01"
+    monkeypatch.setattr(rj, "_lme_items", lambda path: {q: It(q) for q in ("q1", "q2")})
+    return src, lme
+
+
+def test_lme_rejudge_uses_the_gate_judge_prompt_and_skips_unjudged_rows(tmp_path, monkeypatch):
+    src, lme = lme_fixture(tmp_path, monkeypatch)
+    llm = FakeLLM([ok("no"), ok("yes")])
+    out = rj.run_lme(src, tmp_path / "lme.json", llm, "gpt-x", workers=1)
+    assert out == src / "results-openai.jsonl"
+    users = sorted(c["user"] for c in llm.calls)
+    it = rj._lme_items(None)["q1"]
+    assert users == sorted([lme.judge_prompt(it, "no idea"), lme.judge_prompt(it, "under the bed")])
+    rows = {(r["qid"], r["condition"]): r for r in map(json.loads, out.read_text().splitlines())}
+    assert set(rows) == {("q1", "profile"), ("q1", "search"), ("q2", "full")}   # judge_failed left out
+    assert rows[("q2", "full")] == {"qid": "q2", "condition": "full", "haiku": False, "openai": False,
+                                    "judge_outcome": "empty_answer"}
+    s = json.loads((src / "results-openai-summary.json").read_text())
+    assert s["overall"]["n"] == 3
+
+
+def test_lme_source_is_detected_by_its_rows(tmp_path, monkeypatch):
+    src, _ = lme_fixture(tmp_path, monkeypatch)
+    assert rj._kind(src) == "lme"
+    pe_dir = tmp_path / "pe"
+    pe_dir.mkdir()
+    (pe_dir / "results.jsonl").write_text(json.dumps({"item": "a", "condition": "c"}) + "\n")
+    assert rj._kind(pe_dir) == "prefeval"
+    assert rj._kind(tmp_path / "x-implicit.jsonl") == "implicit"

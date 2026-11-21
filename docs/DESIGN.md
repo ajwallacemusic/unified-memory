@@ -339,10 +339,10 @@ searched cannot write memory directly (section 7).
 
 **How it was decided.** The rule was written before any run: search ships only if adding it to the profile
 improves LongMemEval-S with an interval above zero, costs at most one abstention question, and leaves PrefEval
-within two points with an interval that includes zero. All three held (RESULTS.md section 6): 74 of 100 against
-42 for the profile alone (+32 points [+22 to +42]), abstention 19 of 20 against 20, PrefEval 93 against 94 (-1
-[-6 to +4]). Chunk size, lead, results per session and the recency decay were chosen on 400 separate questions
-with no model.
+within two points with an interval that includes zero. All three held (RESULTS.md section 6): 74 of 100 (75.75
+as the mean of four runs, three of them made later) against 42 for the profile alone (+32 points [+22 to
++42]), abstention 19 of 20 against 20, PrefEval 93 against 94 (-1 [-6 to +4]). Chunk size, lead, results per
+session and the recency decay were chosen on 400 separate questions with no model.
 
 **Review after the tests.** A code review by Claude (Fable 5.2) after those runs rated no finding critical and
 11 important. All 11 were fixed with tests before the merge, and the behaviour described in this section is the
@@ -362,10 +362,14 @@ built, and the plugin stays on the standard library.
 - Search is well behind reading the whole history, and behind an earlier arm that gave the model raw session
   files to read (85 of 100 on the same questions, in a different run). In 19 of its 21 losses to full context
   the model had the right session in its results and still answered wrong. Snippets are 500 characters and
-  there is no tool to read a whole past session. Whether that is the cause was not tested.
+  there is no tool to read a whole past session. One was built and tested, `read_chat`. Over four runs per arm
+  it showed no measurable gain, and one abstention question was lost in every run with the tool, so it did
+  not ship (RESULTS.md section 6.8).
 - The PrefEval test passed without the model calling search once, so it says nothing about search results
   distracting from a stated preference.
-- How often a real Claude Code session calls the tools, rightly or wrongly, has not been measured.
+- How often a real Claude Code session calls the tools, rightly or wrongly, has not been measured. In four
+  live sessions on one real index Claude called search for all four questions (RESULTS.md section 6.7). That
+  is not a rate.
 - The notice and the server instructions are the only thing between a quoted instruction in an old
   conversation and the model. The compile and the memory guard stop a quote from changing the profile or
   memory. Nothing in code stops the model from acting on one in the current turn.
@@ -408,6 +412,8 @@ Tried and not needed, by the rule that the simpler design wins a tie:
 
 - A0 and A as the recurring pass.
 - The prompt hook and the standing list as defaults (section 9).
+- `read_chat`, a third search tool that reads a whole past session. It failed a rule fixed in advance, in two
+  rounds of four runs per arm, and stays on an unmerged branch (RESULTS.md section 6.8).
 
 Conversation search was the next rung and had its own tests, fixed before the runs (section 11). It passed
 them and ships on.
@@ -427,8 +433,8 @@ These were in the larger design and are neither built nor measured:
 Retrieval over chat history was on this list and is now built (section 11). For it, these are not built:
 
 - **Embeddings or reranking.** The rule for building them was not met.
-- **Reading more than a snippet:** a tool to fetch a whole past session, or longer snippets. The gap to full
-  context points here; nothing was tried.
+- **Reading more than a snippet.** A tool to fetch a whole past session was tried and not shipped (section
+  13). Longer snippets were not tried.
 - **Search from the desktop app's chats.** The search server is registered with Claude Code only. The desktop
   app's configuration is not touched.
 - **Live claude.ai conversations.** They enter the index only through an export the person imports.
@@ -451,4 +457,5 @@ Retrieval over chat history was on this list and is now built (section 11). For 
   whether search results in context change how well a stated preference is followed. Neither was measured.
 - Whether a conversation deleted on claude.ai should leave the index at the next export (the current
   default) or stay until the person removes it.
-- Whether any of this holds under a judge or labeller from another model family, or under human evaluation.
+- Whether any of this holds under human evaluation. A second judge from another model family (OpenAI) agreed with
+  Haiku on 91 to 96% of 1,100 saved answers and changed no ranking (RESULTS section 8.1).

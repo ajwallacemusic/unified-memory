@@ -21,7 +21,7 @@ Conventions:
 | 3 | Replay (ours, synthetic) | 490 probes per arm and run | do nothing (Z), two clean-up passes (A0, A), checked compile (B) | Combined error Z 90/490, A0 122/490, A 101/490, B 0/490 on seed 1. B beats Z on a second seed too. |
 | 4 | LongMemEval-S (public) | 100 questions | Z, A0, A, full context, raw files with search | Z 82%, A 82%, A0 76%, full context 91%, files 85%. B was not part of this run; row 6 has it. |
 | 5 | MemoryAgentBench FactConsolidation (public) | 10 questions (pilot) | same as 1 | Out of scope. The profile stored nothing. |
-| 6 | Conversation search: LongMemEval-S and PrefEval (public) | 100 questions, 100 items | profile, search, profile + search, full context | LongMemEval-S: profile 42%, search 74%, profile + search 74%, full context 91%. Search beats the profile alone (+32 [+22, +42]) and trails full context (-17 [-27, -8]). PrefEval: 93% with the search tools offered against 94% without (-1 [-6, +4]); the tools were never called. |
+| 6 | Conversation search: LongMemEval-S and PrefEval (public) | 100 questions, 100 items | profile, search, profile + search, full context | LongMemEval-S: profile 42%, search 74%, profile + search 74%, full context 91%. Search beats the profile alone (+32 [+22, +42]) and trails full context (-17 [-27, -8]). Four runs of profile + search scored 74, 77, 77 and 75 (mean 75.75). PrefEval: 93% with the search tools offered against 94% without (-1 [-6, +4]); the tools were never called. A third tool, `read_chat`, was tested over four runs per arm and not shipped (6.8). |
 
 ## 1. PrefEval
 
@@ -440,10 +440,14 @@ over a local word-matching (BM25) index of past conversations. [DESIGN.md](DESIG
 Before it could ship it had to pass three tests that were written down before any run. It passed all three and
 ships on by default.
 
+Sections 6.7 to 6.9 were added on November 20, after the feature shipped: a live test in Claude Code sessions,
+a third tool that was tried and not shipped, and what repeat runs of one condition showed about noise.
+
 Sources: `results/search-gate/2026-11-lme/` (`results.jsonl`, 500 rows; `recall.jsonl`; `report.md`;
 `run_meta.json`), `results/search-gate/2026-11-prefeval/` (`results.jsonl`, 200 rows; `report.md`) and
 `results/search-gate/2026-11-tune/` (`tune.json`, `params.json`). The per-type table, the tool-call counts and
-the comparison with section 4 below were computed from those rows and are not in the report files.
+the comparison with section 4 below were computed from those rows and are not in the report files. Sections
+6.8 and 6.9 use `results/search-gate/2026-11-lme-readchat/`.
 
 ### 6.1 LongMemEval-S
 
@@ -461,6 +465,9 @@ could make up to 8 rounds of tool calls.
 | Profile + search | both | 74/100 | 65 to 82 | 7,311 | 1.78 |
 | Full context | the whole history in the prompt | 91/100 | 84 to 95 | 167,168 | 0 |
 | One search (diagnostic) | the top 5 results for the question used as the query, in one call | 48/100 | 38 to 58 | 1,270 | 1 |
+
+Each row is one run. Profile + search was later run three more times on the same inputs and scored 77, 77 and
+75, so its mean over four runs is 75.75 (section 6.9). The other four conditions have no repeat runs.
 
 | Comparison | Difference | 95% interval | Reading |
 | --- | --- | --- | --- |
@@ -493,7 +500,8 @@ By question type:
   November 10 run: profile + search minus that arm is -11 [-21 to -1]. That comparison is across two runs made
   on different days, so it is context and not a test. The two full-context runs both scored 91 and agreed on 90 of
   the 100 questions, which shows how much single answers move between runs. The files arm gives the model whole
-  session files. Search returns snippets of at most 500 characters. That difference was not isolated.
+  session files. Search returns snippets of at most 500 characters. That difference was not isolated. A tool
+  that reads a whole session was tested later and did not close the gap (section 6.8).
 - **The misses are mostly not retrieval misses.** Full context was right and profile + search wrong on 21
   questions. In 19 of them an answer session was among the results the model retrieved. In the other 2 the model
   never searched. Offline, the top 5 results for the raw question include an answer session for 98 of the 100
@@ -589,7 +597,7 @@ latencies and the erase check were measured at the old chunk size and were not r
 measured on this index.
 
 In one live check, Claude Code 2.1.326 loaded the plugin's search server, listed both tools, and a search
-returned a hit from a test fixture.
+returned a hit from a test fixture. Section 6.7 reports a later test in four sessions on this index.
 
 Answers and judging for this section cost $7.26 through the API (the sum of the `usd` fields in the two results
 files, less $1.69 for the 20 reused rows). Full context is $6.75 of that.
@@ -614,11 +622,161 @@ and 11 important. All 11 were fixed, each with tests, before the feature was mer
 
 About 16 smaller findings from the same review are not fixed.
 
-The model-graded numbers in 6.1 to 6.4 were measured before these fixes and were not measured again. The
-no-model retrieval check was: on the 400-item development split, the shipped setting gives recall@5 0.950 and
-recall@10 0.978 after the fixes, the same as before (`results/search-gate/2026-11-tune-after-review/`). The
-ranking fix can still change which results a search returns on longer sessions than LongMemEval's. The other fixes
-are covered by unit tests, not by a benchmark.
+The model-graded numbers in 6.1 to 6.4 were measured before these fixes. The gate was not run again; the one
+exception is three later runs of profile + search on a branch that includes the fixes, which scored 77, 77 and
+75 against 74 before (section 6.9). The no-model retrieval check was rerun: on the 400-item development split,
+the shipped setting gives recall@5 0.950 and recall@10 0.978 after the fixes, the same as before
+(`results/search-gate/2026-11-tune-after-review/`). The ranking fix can still change which results a search
+returns on longer sessions than LongMemEval's. The other fixes are covered by unit tests, not by a benchmark.
+
+### 6.7 A live test in Claude Code sessions
+
+On November 20 the plugin was loaded in four headless Claude Code sessions (Sonnet) on the author's own
+machine and real index, first from a local folder (`--plugin-dir`) and then installed from the public GitHub
+marketplace. Between them the sessions were asked four questions that needed a past conversation. What was
+seen:
+
+- The search server connected.
+- The session-start catch-up ran: the index's last-update time advanced. Until then that hook had only been
+  run in tests.
+- The prompt hook added profile lines. It is off by default and is switched on in the author's configuration.
+- The memory guard let an ordinary write through.
+- Claude called `conversation_search` without being told to on four of the four questions, two to four calls
+  each. The answers were correct when checked against the chats.
+- In two of the first three sessions the model said it could see only 500-character snippets. That remark led
+  to the experiment in 6.8.
+
+**This is not a measurement.** It is four sessions on one person's index. Claude read the transcripts and
+checked the answers; no person did. The transcripts hold real conversations and are not published, so none of
+this can be checked from this repository. Four of four is not a call rate. The record covers questions that
+needed search and says nothing about prompts where search should be left alone.
+
+### 6.8 `read_chat`: tried, not shipped
+
+Two things pointed at the 500-character snippets: the live sessions above, and the finding in 6.1 that in 19 of
+21 losses the right session had been retrieved. So a third tool was built on a branch. `read_chat` returns a
+whole past session, a page at a time. It was tested against a rule fixed in advance, failed it in two rounds,
+and was not merged. The plugin ships two tools.
+
+Source: `results/search-gate/2026-11-lme-readchat/`. `comparison.md` holds the rules as they were written, the
+per-run tables and the diagnosis; the rows are in `results.jsonl`, `reruns/`, `round2/` and `dev/`. The counts
+below were recomputed from the rows.
+
+**Set-up.** The profile + search condition of 6.1, with everything held fixed: the same 100 questions, copies
+of the same per-question indexes and compiled profiles, the same settings, Haiku answering and judging. Two
+arms of four runs each, run one at a time. "Without" offers the two shipped tools with their shipped
+descriptions. "With" adds `read_chat`. One thing was not held fixed: run 1 without the tool predates the
+review fixes of 6.6 and the other runs do not (section 6.9).
+
+**Rule.** Ship `read_chat` only if both hold: (a) mean correct with the tool is at least mean correct without
+it, and (b) the mean number of abstention questions answered correctly with the tool is at least 19.0 of 20.
+The rule was written after run 1 of each arm had been seen and before runs 2 to 4. Run 1 without the tool is
+the run in 6.1.
+
+**Round 1, the tool as first written.**
+
+| Run | Without: correct | Without: abstention | With: correct | With: abstention | `read_chat` calls (questions) |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 74 | 19 | 79 | 18 | 12 (7) |
+| 2 | 77 | 20 | 80 | 18 | 18 (11) |
+| 3 | 77 | 20 | 78 | 19 | 14 (10) |
+| 4 | 75 | 19 | 79 | 19 | 19 (12) |
+| Mean | 75.75 | 19.5 | 79.0 | 18.5 | 15.75 (10) |
+
+With minus without is +3.25 points [-1.0 to +7.75] (the mean per-question difference, bootstrapped over
+questions), a tie. Part (a) passes, 79.0 against 75.75. Part (b) fails, 18.5 against 19.0.
+
+One abstention question, `09ba9854_abs`, was lost in all four runs with the tool, each time after a `read_chat`
+call. It asks how much the person would save by taking a bus and not a taxi, and the person never said what
+the bus costs. The bus fares in the history are the assistant's own general travel advice. With the whole
+session in view, the model worked out a saving from those figures as if the person had stated them. This
+reading comes from the answers and the question's history; the bench does not log tool output. A second
+question, `gpt4_70e84552_abs`, was lost in runs 1 and 2. One of those two answers made no `read_chat` call, and
+`comparison.md` puts that question down to the judge.
+
+**Round 2, the wording changed.** The tool's description was given two sentences: only what the person said
+is a fact about them, and if a conversation does not state the thing asked, say there is no record. The
+wording was tried on 20 development questions, 10 abstention and 10 of other types, none of them among the 100.
+Three runs per arm:
+
+| Development arm | Abstention correct, of 10 | Others correct, of 10 | `read_chat` calls |
+| --- | --- | --- | --- |
+| Two shipped tools | 10, 10, 8 | 7, 7, 8 | 0 |
+| With `read_chat`, round-1 wording | 9, 10, 10 | 7, 6, 7 | 3, 2, 1 |
+| With `read_chat`, new wording | 10, 9, 10 | 7, 7, 6 | 2, 3, 2 |
+
+The development questions did not reproduce the loss, so they showed only that the new wording did no harm
+there. The wording was frozen after one iteration. The same rule was then applied to four new runs with the
+tool on the 100 test questions, against the same four runs without it.
+
+| Run | Without: correct | Without: abstention | With, new wording: correct | With: abstention | `read_chat` calls (questions) |
+| --- | --- | --- | --- | --- | --- |
+| 1 | 74 | 19 | 76 | 19 | 12 (9) |
+| 2 | 77 | 20 | 76 | 19 | 14 (10) |
+| 3 | 77 | 20 | 77 | 18 | 12 (8) |
+| 4 | 75 | 19 | 73 | 19 | 19 (13) |
+| Mean | 75.75 | 19.5 | 75.5 | 18.75 | 14.25 (10) |
+
+With minus without is -0.25 points [-4.5 to +4.0]. Part (a) fails, 75.5 against 75.75. Part (b) fails, 18.75
+against 19.0. `09ba9854_abs` was lost in all four runs again, each after a `read_chat` call, so the new wording
+did not change the behaviour it was written for. Run 3 also lost `eeda8a6d_abs`, with no `read_chat` call.
+
+**What this shows.**
+
+- No measurable gain in accuracy at n = 100. The same tool with two wordings gave +3.25 and then -0.25, and
+  both intervals include zero.
+- A small, repeatable cost. One abstention question failed in 8 of 8 runs with the tool and in 1 of 4 without.
+- More tokens: about 8,000 to 9,000 mean input tokens per answer with the tool, against about 7,300 to 7,450.
+  The model called `read_chat` on 7 to 13 of the 100 questions in a run.
+
+**What it does not show.**
+
+- That reading a whole session cannot help. This is one tool design, on one benchmark of short two-speaker
+  chats, with one answer model.
+- Anything about real conversations. The remark that prompted the tool came from live Claude Code sessions,
+  which this benchmark does not resemble.
+- No verdict in these runs was read by hand. Haiku judged its own answers.
+- The round-2 wording reached the model through the tool description only. The bench does not pass the search
+  server's instructions.
+
+The `read_chat` code is on an unmerged branch and is not in this repository, so these rows can be recounted
+but not re-run from here ([BENCHMARKS.md](BENCHMARKS.md) sections 2 and 7). The published rows cost $0.99
+through the API (the sum of their `usd` fields). A first attempt at the round-1 reruns cost about $0.41 more
+and was thrown away, because two runs had been started at once and shared a profile folder.
+
+### 6.9 Run-to-run noise
+
+The four runs without `read_chat` in 6.8 are four runs of the shipped profile + search condition on the same
+inputs: the same questions, indexes, profiles, settings and tool text. They are the only repeat runs in
+section 6.
+
+| Run | Correct | Knowledge-update (40) | Temporal-reasoning (30) | Abstention (20) | Multi-session (10) |
+| --- | --- | --- | --- | --- | --- |
+| 1, the run in 6.1 | 74 | 32 | 18 | 19 | 5 |
+| 2 | 77 | 31 | 20 | 20 | 6 |
+| 3 | 77 | 34 | 19 | 20 | 4 |
+| 4 | 75 | 34 | 17 | 19 | 5 |
+| Mean | 75.75 | 32.75 | 18.5 | 19.5 | 5.0 |
+
+- **Single answers move a lot.** Any two of the four runs disagree on 11 to 14 of the 100 questions (mean
+  agreement 87.5%). 23 of the 100 questions were not judged the same way in all four runs.
+- **Totals move less,** from 74 to 77.
+- **The 74 in 6.1 is better stated as about 76.** The mean of the four runs is 75.75.
+- **A difference of a few points between two single runs on this set should not be read as an effect.**
+  Round 1 of 6.8 is an example: +3.25 that did not repeat. The differences the three tests rest on (+32 and
+  -17) are far outside this range.
+
+**What this does not show.**
+
+- Where the noise comes from. The answer model and the judge are both sampled, and the two were not separated.
+- Anything about the other conditions. Profile (42), search (74), full context (91) and one search (48) are
+  still single runs. The two full-context runs in 6.1 agreed on 90 of 100 questions, which is the same kind of
+  movement.
+- **Runs 2 to 4 are not a rerun of the gate.** Run 1 predates the review fixes of 6.6. Runs 2 to 4 were made on
+  the `read_chat` branch, which includes those fixes, with a bench option that restores the two shipped tools
+  and their descriptions. So 77, 77 and 75 are also the only model-graded runs of the two shipped tools after
+  the fixes, for one condition, on code that is not in this repository. Pairs among runs 2 to 4 differ on 12 to 14 questions
+  and run 1 differs from the others on 11 to 13, so the fixes do not show up as a separate source of change.
 
 ## 7. Recall across surfaces on a real account
 
@@ -640,10 +798,38 @@ before and after the bridge. It is not published, because it runs against person
 | Judging: PrefEval checks, LongMemEval grading, implicit-task checks | Claude Haiku 5.5 | 20 LongMemEval verdicts read by Claude, not by a person |
 | Conversation search (section 6): questions, answer keys and checks | the benchmarks' authors (LongMemEval, PrefEval) | n/a |
 | Conversation search: judging | Claude Haiku 5.5 | 20 verdicts from the two search conditions read by Claude (Opus 5.5), not by a person; all 20 agreed, one of them a lenient pass |
+| `read_chat` runs and the repeat runs (6.8, 6.9): judging | Claude Haiku 5.5 | no |
+| Live test (6.7): the reading of the transcripts and the check of the four answers | Claude | no |
 
 Answering models: Haiku 5.5 for PrefEval, LongMemEval, MemoryAgentBench, the replay probes and section 6. Claude
 Sonnet and Claude Haiku for the recall bench; its runs record the Claude Code model alias (`sonnet`, `haiku`),
 not an exact model id.
+
+### 8.1 A second judge from another model family (Nov 20)
+
+Saved answers were re-scored by an OpenAI model with the same judge prompts the runs used, unchanged
+(`um/bench/rejudge.py`). The OpenAI judge's output limit is raised to 1,000 tokens because its hidden reasoning
+counts against it. PrefEval was judged by the smaller `gpt-6-luna` to stay inside the author's OpenAI budget; the
+other two by `gpt-6.2-sol`. Cost $0.60.
+
+| Benchmark (n answers) | OpenAI judge | Agreement with Haiku | Cohen's kappa | Scores, Haiku → OpenAI |
+| --- | --- | --- | --- | --- |
+| LongMemEval-S gate (500: 5 conditions × 100) | gpt-6.2-sol | 96% | 0.91 | profile 42 → 44; one search 48 → 50; search 74 → 76; profile+search 74 → 78; full 91 → 93 |
+| Recall bench, implicit set (100: 5 × 20) | gpt-6.2-sol | 91% | 0.77 | none 2 → 1; index 17 → 17; hook 19 → 18; standing 19 → 18; full 19 → 17 |
+| PrefEval, 10 inter-turns (500: 5 × 100) | gpt-6-luna | 95% | 0.88 | none 13 → 17; BM25 75 → 71; profile-hook 93 → 92; profile-full 96 → 92; full history 99 → 93 |
+
+- No ranking changes under the second judge. On LongMemEval it is slightly more lenient than Haiku in every
+  condition (+2 to +4), so profile+search minus profile is +34 under OpenAI against +32 under Haiku.
+- On PrefEval the OpenAI judge is stricter on the high-scoring conditions: the profile is 92 against full history
+  93 (Haiku: 96 against 99). The profile still ties full history at about a thousandth of the tokens.
+- Kappa is low where nearly every answer is scored the same way (full history on PrefEval 0.24, full on
+  LongMemEval 0.46, two implicit conditions near 0): with almost no disagreements to explain, kappa is unstable.
+  Raw agreement is the better read there.
+- The judge still is a model, and the labels were still not checked by a person beyond the 20 LongMemEval verdicts
+  read by Claude (section 6.1). The author's 30-item label check is pending.
+- Sources: `results/search-gate/2026-11-lme/results-openai*.json*`,
+  `results/recall-bench/2026-11-19-implicit-openai*.json*`,
+  `results/public-bench/2026-11-19-prefeval-100/results-openai*.json*`.
 
 ## 9. What was not run
 
@@ -657,16 +843,20 @@ not an exact model id.
   isolation fix, withdrawn, and not rerun (section 2.3).
 - Off-topic prompts under the standing setup alone, so the hook's own token cost is not isolated.
 - A third replay seed, the full-size replay the plan called for, or the replay with real histories.
-- Any judge or labeller from another model family. A script for a second, OpenAI judge exists
-  (`um/bench/rejudge.py`) and has had a dry run only. Any human evaluation.
-- Conversation search in real Claude Code sessions: how often the tools are called when they should be, and
-  when they should not. The session-start hook that keeps the index current has tests and was not run live.
-- The model-graded section 6 benchmarks after the review fixes (section 6.6); only the no-model retrieval check was rerun.
-- Conversation search on real conversations, beyond counts and timings on one index (section 6.5).
+- A second-family judge on the PrefEval 300 inter-turn run, the 45-question recall bench, the `read_chat` runs
+  and the replay (section 8.1 covers three result sets). Any human evaluation.
+- A measured call rate for conversation search in real Claude Code sessions: how often the tools are called
+  when they should be, and when they should not. Four live sessions were read (section 6.7); that is all.
+- The section 6 gate after the review fixes (section 6.6). The no-model retrieval check was rerun, and one
+  condition was run three more times on a branch (section 6.9).
+- Answer quality on real conversations, beyond the four live sessions and the counts and timings on one index
+  (sections 6.5 and 6.7).
 - A preference test in which the search tools are actually called (section 6.2).
-- Embeddings, reranking, longer snippets or a whole-session fetch for conversation search.
-- Conversation search from the desktop app's chats or from claude.ai. More than one run per condition in
-  section 6.
+- Embeddings, reranking or longer snippets for conversation search. A whole-session reader was tried and not
+  shipped (section 6.8).
+- Conversation search from the desktop app's chats or from claude.ai. Repeat runs of any section 6 condition
+  other than profile + search.
+- A hand check of any verdict in the `read_chat` runs or the repeat runs.
 - The scheduled-task surface: nothing was stated on it or probed from it.
 - Design components beyond B: pinned facts, probes, promotion by demand, typed transitions, dependency
   links, facts by reference in skills. None was built.
@@ -679,7 +869,10 @@ not an exact model id.
   profile is messier.
 - **Model-written labels, model judges, one model family.** See sections 8 and 9.
 - **Single runs.** Each published recall-bench setup is one run per answering model, made after the isolation
-  fix. Each PrefEval length is one run. The replay shows large run-to-run variance.
+  fix. Each PrefEval length is one run. The replay shows large run-to-run variance. The one LongMemEval
+  condition that was run four times moved between 74 and 77, with 11 to 14 of 100 answers changing between any
+  two runs (section 6.9). A gap of a few points between single runs elsewhere in this document deserves the
+  same caution.
 - **String-match scoring** on recall questions counts a correct answer in other words as a miss, and a
   two-file hit does not prove both files were used.
 - **The checked compile has not been shown to improve a real person's stores.** In the only runs on real
@@ -689,7 +882,8 @@ not an exact model id.
 - **Conversation search is measured on benchmark chats only.** It beat the profile alone and trailed full
   context and the earlier raw-files arm (section 6.1). The test for harm to preference-following never
   exercised a search call (section 6.2). Its four settings rest on a gain of 6 questions in 400. Its code
-  changed after the measurements (section 6.6).
+  changed after the measurements (section 6.6). On real conversations there is only the live test of four
+  sessions, which is not a measurement (section 6.7).
 - **The bridge** depends on a claude.ai scheduled task, the desktop app being open, and behaviour observed on
   one account. It is not covered by any benchmark here.
 - **Isolation of benchmark sessions failed once.** The first recall-bench runs let a session read any file

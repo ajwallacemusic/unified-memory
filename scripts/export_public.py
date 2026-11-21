@@ -17,7 +17,7 @@ from pathlib import Path
 
 ALLOW = ["um/", "tests/", "bench/", "plugin_src/", "plugin/", "marketplace/", "scripts/build_plugin.py", "scripts/export_public.py", "scripts/make_charts.py",
          "bridge/task-prompt.md", "results/synth/", "results/longmemeval/", "results/recall-bench/",
-         "results/public-bench/", "results/search-gate/", "prototype/data/test/", "experiments/blind-trial/findings_test.json", "docs/public/", "pyproject.toml", ".gitignore", "LICENSE"]
+         "results/public-bench/", "results/search-gate/", "results/demo/", "prototype/data/test/", "experiments/blind-trial/findings_test.json", "docs/public/", "pyproject.toml", ".gitignore", "LICENSE"]
 NEVER = ("data/", "docs/research/", ".um/", ".superpowers/", "um/realdata.py", "um/private_check.py",
          "plugin/um/realdata.py", "plugin/um/private_check.py",
          "tests/test_realdata.py", "tests/test_private_check.py")

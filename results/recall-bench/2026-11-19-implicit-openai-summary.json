@@ -1,0 +1,76 @@
+{
+ "source": "results/recall-bench/2026-11-19-implicit.jsonl",
+ "judge_model": "gpt-6.2-sol",
+ "reference_judge": "claude-haiku-5-5",
+ "min_output_tokens": 1000,
+ "n_rows": 100,
+ "unjudged_empty_answers": 0,
+ "overall": {
+  "n": 100,
+  "openai": 71,
+  "haiku": 76,
+  "openai_rate": 0.71,
+  "haiku_rate": 0.76,
+  "agree": 91,
+  "agreement": 0.91,
+  "kappa": 0.7697031729785058,
+  "judge_not_ok": 0
+ },
+ "conditions": {
+  "full": {
+   "n": 20,
+   "openai": 17,
+   "haiku": 19,
+   "openai_rate": 0.85,
+   "haiku_rate": 0.95,
+   "agree": 16,
+   "agreement": 0.8,
+   "kappa": -0.08108108108108118,
+   "judge_not_ok": 0
+  },
+  "hook": {
+   "n": 20,
+   "openai": 18,
+   "haiku": 19,
+   "openai_rate": 0.9,
+   "haiku_rate": 0.95,
+   "agree": 17,
+   "agreement": 0.85,
+   "kappa": -0.07142857142857148,
+   "judge_not_ok": 0
+  },
+  "index": {
+   "n": 20,
+   "openai": 17,
+   "haiku": 17,
+   "openai_rate": 0.85,
+   "haiku_rate": 0.85,
+   "agree": 20,
+   "agreement": 1.0,
+   "kappa": 1.0,
+   "judge_not_ok": 0
+  },
+  "none": {
+   "n": 20,
+   "openai": 1,
+   "haiku": 2,
+   "openai_rate": 0.05,
+   "haiku_rate": 0.1,
+   "agree": 19,
+   "agreement": 0.95,
+   "kappa": 0.6428571428571426,
+   "judge_not_ok": 0
+  },
+  "standing": {
+   "n": 20,
+   "openai": 18,
+   "haiku": 19,
+   "openai_rate": 0.9,
+   "haiku_rate": 0.95,
+   "agree": 19,
+   "agreement": 0.95,
+   "kappa": 0.6428571428571426,
+   "judge_not_ok": 0
+  }
+ }
+}

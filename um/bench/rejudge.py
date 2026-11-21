@@ -2,8 +2,8 @@
 
     .venv/bin/python -m um.bench.rejudge SOURCE [SOURCE ...] --api-cap 80 [--model gpt-6.2-sol] [--dry-run]
 
-SOURCE is either a public-bench run directory holding results.jsonl (PrefEval) or a recall-bench implicit
-.jsonl. The judge prompts are the ones the published runs used, unchanged: PrefEval's four checks
+SOURCE is a public-bench run directory holding results.jsonl (PrefEval), a search-gate run directory
+(LongMemEval, rows keyed by qid), or a recall-bench implicit .jsonl. The judge prompts are the ones the published runs used, unchanged: PrefEval's four checks
 (um/bench/public/prefeval.py `judge`, prompt files read from --prefeval-root) and the recall bench's implicit
 judge (um/bench/recall_run.py `judge`). Writes `<name>-openai.jsonl` beside the source (one row per answer; a
 rerun resumes and retries judgements that did not finish) and `<name>-openai-summary.json`: per-condition scores
@@ -25,6 +25,7 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+from um.bench.judge import JUDGE_MAX_TOKENS as LME_JUDGE_MAX_TOKENS, judge_prompt as lme_judge_prompt, verdict_of
 from um.bench.public import prefeval as pe
 from um.bench.recall_run import JUDGE, judge as implicit_judge
 from um.budget import cost_usd
@@ -214,6 +215,58 @@ def estimate_prefeval(src: Path, root: Path, model: str, est_output_tokens: int 
                      max(pe.JUDGE_MAX_TOKENS, min_output_tokens))
 
 
+# --- LongMemEval search gate ---------------------------------------------------------------------------------
+
+
+def _lme_items(path: Path) -> dict:
+    from um.bench import longmemeval as lm
+    return {i.qid: i for i in lm.load(path)}
+
+
+def _lme_todo(src: Path, data: Path):
+    rows = [r for r in _latest(_read(src / "results.jsonl"), lambda r: (r["qid"], r["condition"])).values()
+            if r.get("outcome") != "judge_failed"]   # never graded by Haiku either
+    out, _ = _paths(src)
+    done = {(r["qid"], r["condition"]) for r in _read(out) if r["judge_outcome"] in JUDGED}
+    return _lme_items(data), [r for r in rows if (r["qid"], r["condition"]) not in done]
+
+
+def run_lme(src: Path, data: Path, llm, model: str, workers: int = 4, min_output_tokens: int = 1000) -> Path:
+    """The gate's own judge prompt (um/bench/judge.py, as used by um/bench/public/lme.py `grade`)."""
+    src = Path(src)
+    out, summary_path = _paths(src)
+    items, todo = _lme_todo(src, data)
+
+    def one(r):
+        base = {"qid": r["qid"], "condition": r["condition"], "haiku": bool(r.get("correct"))}
+        answer = r.get("answer") or ""
+        if not answer.strip():   # the gate scored these without judging
+            return {**base, "openai": False, "judge_outcome": "empty_answer"}
+        rec = _Recorder(llm, model, min_output_tokens)
+        reply = rec.complete(model=model, system="", user=lme_judge_prompt(items[r["qid"]], answer),
+                             max_tokens=LME_JUDGE_MAX_TOKENS, label="judge:longmemeval")
+        return {**base, "openai": verdict_of(reply.text), "judge_outcome": rec.outcomes[-1]}
+
+    _execute(todo, one, out, workers)
+    return _finish(src, out, summary_path, lambda r: (r["qid"], r["condition"]), model, min_output_tokens)
+
+
+def estimate_lme(src: Path, data: Path, model: str, est_output_tokens: int = 400, min_output_tokens: int = 1000) -> dict:
+    items, todo = _lme_todo(Path(src), data)
+    judged = [r for r in todo if (r.get("answer") or "").strip()]
+    tin = sum(_tokens(lme_judge_prompt(items[r["qid"]], r["answer"])) for r in judged)
+    return _estimate(model, len(todo), len(judged), tin, est_output_tokens,
+                     max(LME_JUDGE_MAX_TOKENS, min_output_tokens))
+
+
+def _kind(src: Path) -> str:
+    src = Path(src)
+    if not src.is_dir():
+        return "implicit"
+    first = next(iter(_read(src / "results.jsonl")), {})
+    return "lme" if "qid" in first else "prefeval"
+
+
 # --- estimates and CLI --------------------------------------------------------------------------------------
 
 
@@ -233,6 +286,7 @@ def main(argv=None) -> None:
     ap.add_argument("sources", nargs="+", type=Path)
     ap.add_argument("--model", default=None, help="default: $OPENAI_JUDGE_MODEL, else um.llm_openai.DEFAULT_MODEL")
     ap.add_argument("--prefeval-root", type=Path, default=Path("data/public/prefeval"))
+    ap.add_argument("--lme-data", type=Path, default=Path("data/public/longmemeval/longmemeval_s_cleaned.json"))
     ap.add_argument("--implicit-bench", type=Path, default=Path("bench/recall/implicit.jsonl"))
     ap.add_argument("--workers", type=int, default=4)
     ap.add_argument("--min-output-tokens", type=int, default=1000)
@@ -247,8 +301,10 @@ def main(argv=None) -> None:
     register_prices(_env_prices())
     if a.dry_run:
         for s in a.sources:
-            est = (estimate_prefeval(s, a.prefeval_root, model, a.est_output_tokens, a.min_output_tokens)
-                   if s.is_dir() else
+            k = _kind(s)
+            est = (estimate_lme(s, a.lme_data, model, a.est_output_tokens, a.min_output_tokens) if k == "lme" else
+                   estimate_prefeval(s, a.prefeval_root, model, a.est_output_tokens, a.min_output_tokens)
+                   if k == "prefeval" else
                    estimate_implicit(s, a.implicit_bench, model, a.est_output_tokens, a.min_output_tokens))
             print(json.dumps({"source": str(s), **est}))
         return
@@ -257,7 +313,9 @@ def main(argv=None) -> None:
     from um.budget import Budget
     llm = OpenAILLM(Budget(a.api_cap, a.ledger))
     for s in a.sources:
-        out = (run_prefeval(s, a.prefeval_root, llm, model, a.workers, a.min_output_tokens) if s.is_dir() else
+        k = _kind(s)
+        out = (run_lme(s, a.lme_data, llm, model, a.workers, a.min_output_tokens) if k == "lme" else
+               run_prefeval(s, a.prefeval_root, llm, model, a.workers, a.min_output_tokens) if k == "prefeval" else
                run_implicit(s, a.implicit_bench, llm, model, a.workers, a.min_output_tokens))
         print(_paths(s)[1].read_text())
         print(f"rows: {out}")

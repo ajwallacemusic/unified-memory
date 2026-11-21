@@ -1,0 +1,76 @@
+{
+ "source": "results/search-gate/2026-11-lme",
+ "judge_model": "gpt-6.2-sol",
+ "reference_judge": "claude-haiku-5-5",
+ "min_output_tokens": 1000,
+ "n_rows": 500,
+ "unjudged_empty_answers": 0,
+ "overall": {
+  "n": 500,
+  "openai": 341,
+  "haiku": 329,
+  "openai_rate": 0.682,
+  "haiku_rate": 0.658,
+  "agree": 480,
+  "agreement": 0.96,
+  "kappa": 0.9096020683046772,
+  "judge_not_ok": 0
+ },
+ "conditions": {
+  "full": {
+   "n": 100,
+   "openai": 93,
+   "haiku": 91,
+   "openai_rate": 0.93,
+   "haiku_rate": 0.91,
+   "agree": 92,
+   "agreement": 0.92,
+   "kappa": 0.45725915875169626,
+   "judge_not_ok": 0
+  },
+  "profile": {
+   "n": 100,
+   "openai": 44,
+   "haiku": 42,
+   "openai_rate": 0.44,
+   "haiku_rate": 0.42,
+   "agree": 98,
+   "agreement": 0.98,
+   "kappa": 0.9592169657422512,
+   "judge_not_ok": 0
+  },
+  "profile+search": {
+   "n": 100,
+   "openai": 78,
+   "haiku": 74,
+   "openai_rate": 0.78,
+   "haiku_rate": 0.74,
+   "agree": 94,
+   "agreement": 0.94,
+   "kappa": 0.8358862144420129,
+   "judge_not_ok": 0
+  },
+  "search": {
+   "n": 100,
+   "openai": 76,
+   "haiku": 74,
+   "openai_rate": 0.76,
+   "haiku_rate": 0.74,
+   "agree": 98,
+   "agreement": 0.98,
+   "kappa": 0.9466950959488273,
+   "judge_not_ok": 0
+  },
+  "search-1shot": {
+   "n": 100,
+   "openai": 50,
+   "haiku": 48,
+   "openai_rate": 0.5,
+   "haiku_rate": 0.48,
+   "agree": 98,
+   "agreement": 0.98,
+   "kappa": 0.96,
+   "judge_not_ok": 0
+  }
+ }
+}
