@@ -1,5 +1,8 @@
 # Label check
 
+**Result (2026-11-20):** AJ read all 30 items and agreed with every one (said in the session; boxes below
+not ticked one by one). 15 of 15 recall questions fair with the right answer terms; 15 of 15 Haiku verdicts matched.
+
 Labels were written by Claude models; implicit-task verdicts by a Haiku judge. Mark one box per item.
 Part A: is the question fair and are the answer terms right? Part B: does the verdict (hit = the answer acted on the stored fact) match your reading?
 

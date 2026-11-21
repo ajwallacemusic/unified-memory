@@ -787,8 +787,8 @@ before and after the bridge. It is not published, because it runs against person
 
 | Item | Written by | Checked by a person |
 | --- | --- | --- |
-| Recall bench: fictional user and profile, questions, answer terms, off-topic prompts | Claude (Fable 5.2) | no |
-| Recall bench: implicit tasks, the facts they target, and their yes/no checks | Claude (Fable 5.2) | no |
+| Recall bench: fictional user and profile, questions, answer terms, off-topic prompts | Claude (Fable 5.2) | 15 questions and their answer terms read by the author: all fair and right |
+| Recall bench: implicit tasks, the facts they target, and their yes/no checks | Claude (Fable 5.2) | 15 Haiku verdicts on these tasks read by the author: all agreed |
 | Recall bench: standing labels on profile lines (123 of 263 labelled standing) | Claude Sonnet, without seeing the tasks | no |
 | Recall bench: expansion words per profile line | a Claude model, without seeing the questions | no |
 | Hook: 667 background prompts used to discount common words | Claude, without seeing the benchmark | no |
@@ -826,7 +826,7 @@ other two by `gpt-6.2-sol`. Cost $0.60.
   LongMemEval 0.46, two implicit conditions near 0): with almost no disagreements to explain, kappa is unstable.
   Raw agreement is the better read there.
 - The judge still is a model, and the labels were still not checked by a person beyond the 20 LongMemEval verdicts
-  read by Claude (section 6.1). The author's 30-item label check is pending.
+  read by Claude (section 6.1). The author's 30-item label check found no disagreements (section 8).
 - Sources: `results/search-gate/2026-11-lme/results-openai*.json*`,
   `results/recall-bench/2026-11-19-implicit-openai*.json*`,
   `results/public-bench/2026-11-19-prefeval-100/results-openai*.json*`.
@@ -844,7 +844,7 @@ other two by `gpt-6.2-sol`. Cost $0.60.
 - Off-topic prompts under the standing setup alone, so the hook's own token cost is not isolated.
 - A third replay seed, the full-size replay the plan called for, or the replay with real histories.
 - A second-family judge on the PrefEval 300 inter-turn run, the 45-question recall bench, the `read_chat` runs
-  and the replay (section 8.1 covers three result sets). Any human evaluation.
+  and the replay (section 8.1 covers three result sets). Human evaluation beyond the author's 30-item check.
 - A measured call rate for conversation search in real Claude Code sessions: how often the tools are called
   when they should be, and when they should not. Four live sessions were read (section 6.7); that is all.
 - The section 6 gate after the review fixes (section 6.6). The no-model retrieval check was rerun, and one

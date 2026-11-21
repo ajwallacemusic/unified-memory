@@ -121,8 +121,8 @@ More: [docs/DESIGN.md](docs/DESIGN.md).
 - **Claude models built and ran everything; Claude Haiku 5.5 is the main judge.** A second judge from OpenAI
   re-scored 1,100 saved answers and agreed with Haiku on 91 to 96% of them; no ranking changed
   ([RESULTS.md section 8.1](docs/RESULTS.md)).
-- **No human evaluation.** Our own benches have model-written labels. The author's check of 30
-  (`bench/recall/label-check.md`) is not filled in yet.
+- **Little human evaluation.** Our own benches have model-written labels. The author read a sample of 30
+  (15 recall questions, 15 judge verdicts) and agreed with all of them; that is the only human check.
 - **Search is measured on benchmark chats.** On real conversations there are four live sessions on the
   author's index, read by Claude. Search was called in all four; that is not a measured call rate.
 - **The first search-test run predates 11 code-review fixes,** one of them to ranking. Three later runs of
